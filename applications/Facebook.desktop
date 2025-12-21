@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Facebook
+Comment=Facebook
+Exec=omarchy-launch-webapp https://www.facebook.com/
+Terminal=false
+Type=Application
+Icon=/home/pseudo/.local/share/applications/icons/Facebook.png
+StartupNotify=true

@@ -1,0 +1,102 @@
+{
+  "geometry-of-main_window_geometry": {
+    "frame_geometry": {
+      "height": 720,
+      "width": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "full_screened": true,
+    "geometry": {
+      "height": 720,
+      "width": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 680,
+      "width": 634,
+      "x": 0,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAJ5AAACpwAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 720,
+        "width": 1280,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "AU Optronics",
+      "model": "0x323D",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 720,
+        "width": 1280
+      },
+      "virtual_geometry": {
+        "height": 720,
+        "width": 1280,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "lookup_location": "Wordnik",
+  "main_window_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAEAAAAC0PwCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAAAAAC0AAAAIUA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAAD/////AAAAkQD///8AAAABAAABAAAAAtD8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsCAAAAAAAAAAAAAAUAAAAC0PsAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAAAAAC0AAAAOIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAD/////AAAAEQD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAA/////wAAAMwA////AAAFAAAAAtAAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAAAAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHICAAAAAP////8AAAAAAAAAAA=="
+  },
+  "old_prefs_migrated": true,
+  "session_data": {
+    "base_font_size": 31,
+    "columns_per_screen": {
+      "landscape": 2,
+      "portrait": 0
+    },
+    "controls_help_shown_count": 2,
+    "current_color_scheme": "*adnan",
+    "margin_bottom": 60,
+    "margin_left": 60,
+    "margin_right": 60,
+    "margin_top": 60,
+    "override_book_colors": "never",
+    "standalone_font_settings": {
+      "standard_font": "mono"
+    },
+    "standalone_misc_settings": {
+      "remember_last_read": true,
+      "remember_window_geometry": false,
+      "save_annotations_in_ebook": true,
+      "singleinstance": false
+    },
+    "standalone_recently_opened": [
+      {
+        "authors": [
+          "Translator: Johnchen & DoubleDD; Author: Wang Yu 忘语; Licensed From: Qidian"
+        ],
+        "key": "/home/pseudo/Calibre Library/Translator_ Johnchen/A Record of a Mortal's Journey to Immortality c1-2248 (3)/A Record of a Mortal's Journey to Immortal - Translator_ Johnchen.epub",
+        "pathtoebook": "/home/pseudo/Calibre Library/Translator_ Johnchen/A Record of a Mortal's Journey to Immortality c1-2248 (3)/A Record of a Mortal's Journey to Immortal - Translator_ Johnchen.epub",
+        "timestamp": "2025-12-21T12:40:58.437Z",
+        "title": "A Record of a Mortal’s Journey to Immortality c1-2248"
+      }
+    ],
+    "user_color_schemes": {
+      "*adnan": {
+        "background": "#000000",
+        "foreground": "#878787",
+        "link": "#86ee56",
+        "name": "adnan"
+      }
+    },
+    "user_stylesheet": "body{\nbackground-image:url('file:///path/to/background.jpg') !important;  /* adjust this line to point to where the background is stored */\nbackground-size:1600px 900px;  /* adjust this line to suit your screen resolution */\nbackground-repeat:no-repeat;\nbackground-attachment:fixed;\nbackground-position:center; \n}\n\np{\nmargin-bottom:0.5em !important; /* change this if you don't want a gap after each paragraph */"
+  }
+}

@@ -1,0 +1,253 @@
+@import "../omarchy/current/theme/waybar.css";
+
+/* =========================================================
+   BASE STYLE
+   ========================================================= */
+* {
+  background-color: @background;
+  color: @foreground;
+  border: none;
+  border-radius: 8px;
+  font-family: CaskaydiaMono Nerd Font, monospace;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+tooltip {
+ padding: 4px;
+ background: @background;
+ font-size: 10px;
+ border: 1px solid alpha(@foreground, 0.8);
+ border-radius: 8px;
+}
+tooltip label {
+    color: @foreground;
+    font-weight: normal;
+}
+
+window#waybar {
+  background-color: transparent;
+}
+
+#waybar > box {
+  margin: 0 0 2px 0;
+  border-radius: 0;
+  background-color: @background;
+  box-shadow: 0px 0px 0px 0px #101010;
+  transition: background-color 0.5s;
+}
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.modules-left  { border-radius: 4px; margin-left: 8px; }
+.modules-right { margin-right: 8px; }
+.modules-center {
+  border-radius: 4px;
+  margin-right: 8px;
+  border-left: 0 solid alpha(@foreground, 0.2);
+  border-right: 0 solid alpha(@foreground, 0.2);
+  padding: 0 9px;
+  color: #f9e2af;
+}
+
+/* =========================================================
+   WORKSPACES
+   ========================================================= */
+#workspaces button {
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 9px;
+}
+#workspaces button.empty { opacity: 0.5; }
+
+/* =========================================================
+   MODULE SPACING
+   ========================================================= */
+#backlight,
+#battery,
+#bluetooth,
+#cpu,
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-update,
+#custom-updatespacman,
+#idle_inhibitor,
+#memory,
+#mpris,
+#network,
+#tray {
+  min-width: 20px;
+  margin: 0 10.5px;
+}
+
+#custom-expand-icon { margin-right: 7px; }
+#clock, #idle_inhibitor { margin-left: 8.75px; }
+
+#custom-screenrecording-indicator {
+  min-width: 12px;
+  margin-left: 8.75px;
+  font-size: 10px;
+}
+#custom-screenrecording-indicator.active { color: #a55555; }
+
+#custom-update { font-size: 10px; padding-top: 2px; }
+#window { margin: 8.75px; }
+
+/* =========================================================
+   MODULE STYLES
+   ========================================================= */
+#battery,
+#bluetooth,
+#network,
+#pulseaudio,
+#custom-exit,
+#custom-updatespacman {
+  /*border: 1px solid #484a4a;
+  border-radius: 4px;
+  border-top: transparent;
+  border-bottom: transparent;*/
+  
+  padding: 0 4px;
+  transition: background 0.3s ease, border-radius 0.3s ease;
+  background-color: transparent;
+}
+
+/* Custom exit: red icon */
+#custom-exit { color: #ff3434; padding: 0 3px; }
+
+/* CPU & Memory: shared styling */
+#cpu, #memory {
+  border-left: 0 solid alpha(@foreground, 0.2);
+  border-right: 0 solid alpha(@foreground, 0.2);
+  border-radius: 4px;
+  padding: 0 5px;
+}
+
+/* Clock and Date */
+#clock {
+  border-left: 2px solid alpha(@foreground, 0.2);
+  border-right: 2px solid alpha(@foreground, 0.2);
+  border-radius: 3px;
+  padding: 0 10px;
+} 
+
+/* =========================================================
+   BATTERY STATES
+   ========================================================= */
+#battery { color: #e4d8cc; transition: color 0.3s ease; }
+#battery.charging { color: #3fc54c; }             /* green */
+#battery.warning,
+#battery.critical {
+  color: #f38ba8;                                 /* red */
+  animation: pulse-cava 0.5s infinite alternate;
+}
+
+/* =========================================================
+   BLUETOOTH STATES
+   ========================================================= */
+#bluetooth.connected { color: #60e7ff; transition: color 0.3s ease; }
+#bluetooth:not(.connected) { color: #6c7086; }
+
+/* =========================================================
+   NETWORK STATES
+   ========================================================= */
+#network.wifi { color: #a6e3a1; }                 /* green */
+#network.disconnected { color: #f38ba8; }         /* red */
+
+/* =========================================================
+   HIGH USAGE: CPU, RAM, TEMP
+   ========================================================= */
+#cpu.critical,
+#memory.critical,
+#temperature.critical {
+  color: #f38ba8;
+  animation: pulse-cava 0.5s infinite alternate;
+}
+
+/* =========================================================
+   MEDIA, TEMP & CUSTOM MODULES
+   ========================================================= */
+/* Main MPRIS container styling */
+#mpris {
+  padding: 0 5px;
+  background-color: @bg;
+  box-shadow: 1px 1px 3px 1px @ia1;
+  margin: 2px 4px 4px 4px;
+  color: @fg;
+  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+#mpris.paused {
+  opacity: 0.7; 
+  color: @fg;
+}
+#mpris.chromium,
+#mpris.chrome,
+#mpris.brave,
+#mpris.brave-browser,
+#mpris.default {
+  color: #d26e6e; 
+}
+
+#mpris.spotify {
+  color: #3fc54c;
+}
+#temperature {
+  color: #b1be5d;
+  transition: color 0.3s ease-in-out;
+}
+
+#custom-cava {
+  padding: 8px 20px 0px 20px;
+  border: 1px solid;
+  border-style: hidden;
+  border-radius: 4px;
+  /*color: #f6c177; */
+  /*font-family: bargraph;*/
+  font-size: 15px;
+  animation: pulse-cava 0.5s infinite alternate;
+}
+
+/* Screen recorder indicator */
+#custom-recorder {
+  padding: 0 10px;
+  border: 1px solid;
+  border-radius: 50px;
+}
+#custom-recorder.recording {
+  animation: blink 0.5s linear infinite alternate;
+}
+
+/* =========================================================
+   UPDATE INDICATORS
+   ========================================================= */
+#custom-updatespacman.has-updates {
+  color: #ff3434;
+  animation: pulse-update 0.8s infinite alternate;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes pulse-cava {
+  from { opacity: 1; }
+  to   { opacity: 0.7; }
+}
+
+@keyframes pulse-red {
+  from { opacity: 1; background-color: rgba(243, 139, 168, 0.15); }
+  to   { opacity: 0.8; background-color: rgba(243, 139, 168, 0.3); }
+}
+
+@keyframes pulse-update {
+  from { opacity: 1; }
+  to   { opacity: 0.6; }
+}
+
+@keyframes blink {
+  to {
+    background-color: #eb4034;
+    color: #484a4a;
+  }
+}
