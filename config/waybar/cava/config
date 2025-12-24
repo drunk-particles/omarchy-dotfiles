@@ -1,0 +1,15 @@
+
+[general]
+bars = 12
+framerate = 20
+sensitivity = 70
+
+[input]
+method = pipewire
+
+[output]
+method = raw
+raw_target = /dev/stdout
+data format = ascii
+ascii_max_range = 9
+
