@@ -1,0 +1,98 @@
+#!/bin/bash
+
+source "$HOME/.local/share/omarchy/bin/lib/helpers.sh"
+
+clear
+log_header "Media Downloader"
+
+url=$(gum input --prompt "Media URL: " --placeholder "YouTube, Reddit, Instagram...")
+
+if [[ -z "$url" ]]; then
+  log_info "Cancelled"
+  exit 0
+fi
+
+echo
+if ! spinner "Validating URL..." yt-dlp --dump-json --quiet --no-warnings "$url" > /dev/null 2>&1; then
+  log_error "URL not supported or invalid"
+  show_done
+  exit 1
+fi
+log_success "Site supported!"
+
+echo
+type=$(gum choose --header "Select download type" "Video" "Audio")
+
+if [[ -z "$type" ]]; then
+  log_info "Cancelled"
+  exit 0
+fi
+
+video_dir="$HOME/Videos/Downloaded Videos"
+audio_dir="$HOME/Music"
+mkdir -p "$video_dir" "$audio_dir"
+
+if [[ "$type" == "Video" ]]; then
+  echo
+  quality=$(gum choose --header "Select video quality" "Best Quality" "1080p" "720p" "480p" "360p")
+
+  if [[ -z "$quality" ]]; then
+    log_info "Cancelled"
+    exit 0
+  fi
+
+  case "$quality" in
+    "Best Quality")
+      format_spec="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
+      ;;
+    "1080p")
+      format_spec="bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080]"
+      ;;
+    "720p")
+      format_spec="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720]"
+      ;;
+    "480p")
+      format_spec="bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/best[height<=480]"
+      ;;
+    "360p")
+      format_spec="bestvideo[height<=360][ext=mp4]+bestaudio[ext=m4a]/best[height<=360]"
+      ;;
+  esac
+
+  echo
+  log_step "Downloading video ($quality)..."
+
+  yt-dlp -f "$format_spec" \
+         --no-warnings \
+         --no-playlist \
+         --progress-template "download: %(progress._percent_str)8s | %(progress._total_bytes_estimate_str)8s | %(progress._speed_str)10s | ETA %(progress._eta_str)8s" \
+         -o "$video_dir/%(title)s.%(ext)s" \
+         "$url" \
+         && log_success "Video saved to ~/Videos/Downloaded Videos" \
+         || { log_error "Download failed"; show_done; exit 1; }
+
+elif [[ "$type" == "Audio" ]]; then
+  echo
+  audio_format=$(gum choose --header "Select audio format" "MP3" "M4A" "Opus" "FLAC")
+
+  if [[ -z "$audio_format" ]]; then
+    log_info "Cancelled"
+    exit 0
+  fi
+
+  audio_format=$(echo "$audio_format" | tr '[:upper:]' '[:lower:]')
+
+  echo
+  log_step "Downloading audio ($audio_format)..."
+
+  yt-dlp -x --audio-format "$audio_format" \
+         --no-warnings \
+         --no-playlist \
+         --progress-template "download: %(progress._percent_str)8s | %(progress._total_bytes_estimate_str)8s | %(progress._speed_str)10s | ETA %(progress._eta_str)8s" \
+         -o "$audio_dir/%(title)s.%(ext)s" \
+         "$url" \
+         && log_success "Audio saved to ~/Music" \
+         || { log_error "Download failed"; show_done; exit 1; }
+fi
+
+show_done
