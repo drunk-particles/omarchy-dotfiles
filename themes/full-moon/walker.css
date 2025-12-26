@@ -1,0 +1,52 @@
+@define-color selected-text #806e3d;
+@define-color text #000000;
+@define-color base #e3dfd4;
+@define-color border #757575;
+@define-color foreground #000000;
+@define-color background #ee3dfd43dfd4;
+@define-color hover #e3dfd4y;
+@define-color selected-box #868686;
+
+
+
+/* Search */
+window .search-container,
+window .search {
+  background: alpha(@hover, 0.35);
+  color: @foreground;
+  border: 1px solid alpha(@border, 0.35);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-top: 1px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* Additional styles */
+.box-wrapper {
+  border-radius: 6px;
+  box-shadow:
+    0 0 0px rgba(113, 113, 122, 0.25),
+    0 0px 0px rgba(9, 9, 11, 0.5);
+}
+
+child:selected .item-box {
+  background: alpha(@selected-box, 0.35);
+  border: 1px solid @selected-box;
+  margin-left: 10px;
+  transition: all 0.3s ease-in;
+}
+
+child:selected .item-box label {
+  color: @selected-text;
+}
+
+child:hover .item-box {
+  background: alpha(@selected-box, 0.35);
+}
+
+
+.item-box {
+  border-radius: 4px;
+  transition: all 0.1s ease-in;
+}
