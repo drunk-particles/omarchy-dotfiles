@@ -17,10 +17,12 @@
     "custom/omarchy",
     "cpu",
     "memory",
+    "custom/screenrecording-indicator",
+    //"power-profiles-daemon",
     "mpris"
   ],
   "modules-center": [
-    "custom/cava",
+    //"custom/cava",
     "custom/weather",
     "clock",
     "custom/updatespacman"
@@ -45,17 +47,19 @@
 },
 
 "custom/omarchy": {
-    "format": "<span font='omarchy'>\ue900</span>",
+    "format": "",
     "on-click": "omarchy-menu",
     "on-click-right": "xdg-terminal-exec",
-    "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
+    "tooltip": false,
+    "tooltip-format": "Omarchy Menu"
   },
 
   "cpu": {
     "interval": 5,
     "format": "{usage}% 󰍛",
     "on-click": "timeout 20s omarchy-launch-floating-terminal-with-presentation btop",
-    "states": { "critical": 80 }
+    "states": { "critical": 80 },
+    "tooltip": false
   },
 
   "memory": {
@@ -67,7 +71,7 @@
   },
 
 "mpris": {
-    "format": "{player_icon} {title}",
+    "format": "{player_icon}  {title}",
     "format-paused": "{status_icon} {title}",
     "tooltip": false,
     "max-length": 35,
@@ -80,8 +84,9 @@
       "chromium-browser": "",
       "spotify": "",
       "firefox": "",
+      "Moosync": "",
       "mpv": "",
-      "default": ""
+      "default": ""
     },
     "status-icons": {
       "paused": "", 
@@ -98,6 +103,18 @@
     //"tooltip-format": "<b>{title}</b>\n<i>{artist}</i>\n{album}"
 },
 
+  "power-profiles-daemon": {
+    "format": " {icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": false,
+    "format-icons": {
+      "default": "󰓅",
+      "performance": "󰓅",
+      "balanced": "󰾅",
+      "power-saver": "󰾆"
+    }
+  },
+
 
   // ============================================================
   // MODULES — CENTER
@@ -105,9 +122,9 @@
 
   "custom/weather": {
     "format": "{}°",
-    "tooltip": true,
+    "tooltip": false,
     "interval": 60,
-    "exec": "wttrbar",
+    "exec": "wttrbar --nerd --location chittagong",
     "return-type": "json"
   },
 
@@ -152,7 +169,6 @@
       "idle_inhibitor",
       "temperature",
       "backlight"
-      //"custom/recorder"
     ]
   },
 
@@ -185,17 +201,18 @@
   },
 
     "idle_inhibitor": {
-    "format": "{icon}",
+    "format": "{icon} ",
+    "tooltip": false,
     "format-icons": {
-      "activated": "",
-      "deactivated": ""
+      "activated": "󰛊",
+      "deactivated": "󰾫"
     }
   },
 
-  "custom/recorder": {
-    "exec": "~/.config/waybar/scripts/record-status.sh",
-    "interval": 1,
-    "on-click": "~/.config/waybar/scripts/toggle-record.sh",
+  "custom/screenrecording-indicator": {
+    "on-click": "omarchy-cmd-screenrecord",
+    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
+    "signal": 8,
     "return-type": "json"
   },
 
@@ -225,7 +242,7 @@
 
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "on-click": "timeout 15s omarchy-launch-or-focus-tui wiremix",
+    "on-click": "timeout 15s omarchy-launch-audio",
     "on-click-right": "pamixer -t",
     "tooltip": false,
     "scroll-step": 5,
@@ -237,6 +254,7 @@
       "phone": "",
       "portable": "",
       "car": "",
+      "headphone": "",
       "default": ["", "", ""]
     }
   },
@@ -248,19 +266,21 @@
     "format-plugged": " {capacity}",
     "format-alt": "{time} {icon}",
     "format-icons": {
-      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "charging": ["⚡"], //"󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"
       "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "format-full": "󰂅",
     "tooltip-format-discharging": "empty in {time}",
     "tooltip-format-charging": "full charge in {time} {power:>1.0f}W ↑",
     "interval": 5,
+    "on-click": "omarchy-menu power",
     "states": { "warning": 30, "critical": 20 }
   },
 
   "custom/exit": {
     "format": "  ",
-    "tooltip-format": "System menu (Super + Esc)",
+    "tooltip": false,
+    "tooltip-format": "Power Menu",
     "on-click": "GSK_RENDERER=ngl omarchy-menu system"
   }
 
