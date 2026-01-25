@@ -28,6 +28,7 @@
     "custom/updatespacman"
   ],
   "modules-right": [
+    "custom/cpucat",
     "group/tray-expander",
     "network",
     "bluetooth",
@@ -157,6 +158,11 @@
   // ============================================================
   // MODULES — RIGHT
   // ============================================================
+    
+  "custom/cpucat": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/catloop.sh"
+}, 
 
   "group/tray-expander": {
     "orientation": "inherit",
@@ -254,7 +260,6 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "headphone": "",
       "default": ["", "", ""]
     }
   },

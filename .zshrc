@@ -116,3 +116,5 @@ source $ZSH/oh-my-zsh.sh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 fortune | cowsay -r
 
+
+export PATH=$PATH:/home/pseudo/.spicetify
