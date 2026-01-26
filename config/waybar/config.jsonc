@@ -22,7 +22,7 @@
     "mpris"
   ],
   "modules-center": [
-    //"custom/cava",
+    "custom/cava",
     "custom/weather",
     "clock",
     "custom/updatespacman"
@@ -44,11 +44,12 @@
 "custom/cava": {
     "format": "{}",
     "exec": "~/.config/waybar/scripts/cava.py",
-    "return-type": "json"
+    "return-type": "json",
+    "hide-empty-text": true
 },
 
 "custom/omarchy": {
-    "format": "",
+    "format": " ",
     "on-click": "omarchy-menu",
     "on-click-right": "xdg-terminal-exec",
     "tooltip": false,
@@ -224,7 +225,7 @@
 
   "network": {
     "format": "{icon}",
-    "format-wifi": "  {signalStrength}% | {bandwidthTotalBits}",
+    "format-wifi": " ", //{signalStrength}% | {bandwidthTotalBits}
     "format-ethernet": "{ifname} 󰀂",
     "format-disconnected": "󰖪",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)",
