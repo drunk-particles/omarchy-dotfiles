@@ -21,12 +21,14 @@
     //"power-profiles-daemon",
     "mpris"
   ],
-  "modules-center": [
-    "custom/cava",
+"modules-center": [
     "custom/weather",
+    "custom/cava", // Left visualizer
     "clock",
+    "custom/cava", // Right visualizer (Waybar allows multiple instances)
     "custom/updatespacman"
-  ],
+],
+
   "modules-right": [
     "custom/cpucat",
     "group/tray-expander",
@@ -190,7 +192,7 @@
 
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon6/temp1_input",
-    "format": "{temperatureC}° ",
+    "format": "{temperatureC}° ",
     "critical-threshold": 75,
     "format-critical": " {temperatureC}°C",
     "format-icons": ["", "", "", "", ""],
@@ -211,8 +213,8 @@
     "format": "{icon} ",
     "tooltip": false,
     "format-icons": {
-      "activated": "󰛊",
-      "deactivated": "󰾫"
+      "activated": "󰛊 ",
+      "deactivated": "󰾫 "
     }
   },
 

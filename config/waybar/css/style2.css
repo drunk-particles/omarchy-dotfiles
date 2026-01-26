@@ -1,0 +1,81 @@
+@import "../omarchy/current/theme/waybar.css";
+
+/* =========================================================
+   CLEAN MINIMALIST BASE
+   ========================================================= */
+* {
+  color: #e0def4; 
+  border: none;
+  border-radius: 8px; /* Slightly sharper corners for a modern feel */
+  font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
+  font-size: 13px;
+  font-weight: 600; /* Reverted to 600: bold but not "chunky" */
+  text-shadow: none; /* Removed the heavy shadows */
+}
+
+window#waybar {
+  background-color: transparent;
+}
+
+/* =========================================================
+   THE "SMOKE" ISLANDS (Pro Readability Fix)
+   ========================================================= */
+#battery, #bluetooth, #cpu, #memory, #network, #pulseaudio, 
+#clock, #workspaces, #custom-omarchy, #custom-update, #custom-updatespacman, 
+#custom-exit, #tray, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
+  padding: 2px 12px;
+  margin: 6px 4px;
+  
+  /* Expert approach: Instead of thick shadows, use a solid dark "smoke" base 
+     This guarantees readability on light walls without looking "glowy" */
+  background-color: rgba(15, 15, 20, 0.85);
+  
+  /* Hairline border - looks much cleaner than thick ones */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  
+  transition: background-color 0.2s ease;
+}
+
+/* =========================================================
+   PASTEL ACCENTS (Desaturated for Class)
+   ========================================================= */
+#clock { color: #cba6f7; }
+#network { color: #89b4fa; }
+#battery.charging { color: #a6e3a1; }
+#custom-cpucat { font-family: "Waycat"; color: #fab387; font-size: 22px; }
+#custom-cava { color: #94e2d5; }
+
+/* =========================================================
+   WORKSPACES (Clean Underline)
+   ========================================================= */
+#workspaces button {
+  color: rgba(255, 255, 255, 0.3);
+  padding: 0 4px;
+}
+
+#workspaces button.active {
+  color: #cba6f7;
+  /* Thin sharp underline instead of a box */
+  border-bottom: 2px solid #cba6f7;
+  border-radius: 0;
+}
+
+/* =========================================================
+   SUBTLE HOVER (No "Jumping")
+   ========================================================= */
+#custom-updatespacman:hover, #battery:hover, #bluetooth:hover, #cpu:hover, 
+#memory:hover, #network:hover, #pulseaudio:hover, #clock:hover, #custom-omarchy:hover,
+#custom-weather:hover, #custom-exit:hover, #mpris:hover {
+  /* Only change the tint, keep it static and professional */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+   SPECIAL STATES
+   ========================================================= */
+#custom-exit { color: #eb6f92; }
+
+#battery.critical, #battery.warning {
+  background-color: rgba(235, 111, 146, 0.2);
+  color: #eb6f92;
+}

@@ -1,0 +1,192 @@
+@import "colors.css";
+
+/* =========================================================
+   BASE STYLE (RESTORED)
+   ========================================================= */
+* {
+  color: @foreground;
+  border: none;
+  border-radius: 8px;
+  font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
+  font-size: 13px;
+  font-weight: 600;
+}
+
+window#waybar {
+  background-color: transparent;
+}
+
+/* =========================================================
+   PILL MERGING LOGIC (RESTORED SPACING)
+   ========================================================= */
+
+/* 1. Reset individual backgrounds for merged modules */
+#cpu, #memory, 
+#custom-cava, #custom-weather, #clock, #custom-updatespacman,
+#network, #bluetooth, #pulseaudio, #battery {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 1px 10px; /* Slimmed vertical padding from 2px to 1px */
+}
+
+/* 2. MERGED LEFT PILL (CPU + Memory) */
+.modules-left {
+  background-color: @island-bg;
+  border: 1px solid @island-border;
+  border-radius: 11px;
+  margin: 5px 4px;   
+  padding: 0 4px;
+}
+
+/* 3. MERGED CENTER PILL (Cava + Weather + Clock + Updates) */
+.modules-center {
+  background-color: @island-bg;
+  border: 1px solid @island-border;
+  border-radius: 11px;
+  margin: 5px 4px;
+  padding: 0 4px;
+}
+
+/* 4. MERGED RIGHT PILL (Network + BT + Audio + Battery) */
+.modules-right {
+  background-color: @island-bg;
+  border: 1px solid @island-border;
+  border-radius: 11px;
+  margin: 5px 4px;
+  padding: 0 4px;
+}
+
+/* 5. STANDALONE MODULES (Slimmed vertical padding from 2px to 1px) */
+#custom-omarchy, #mpris, #custom-cpucat, #custom-cava, #custom-exit {
+  background-color: @island-bg;
+  border: 1px solid @island-border;
+  border-radius: 11px;
+  margin: 5px 4px;
+  padding: 1px 12px; 
+}
+
+/* =========================================================
+   SCREEN RECORDING (Liquid Edge)
+   ========================================================= */
+#custom-screenrecording-indicator {
+  background-color: @island-bg;
+  border: 1px solid @island-border;
+  border-radius: 11px;
+  margin: 5px 4px;
+  padding: 1px 14px;
+  color: alpha(@foreground, 0.5);
+  transition: all 0.6s ease;
+}
+
+#custom-screenrecording-indicator.recording,
+#custom-screenrecording-indicator.active {
+  color: #ffffff;
+  background-color: rgba(40, 10, 10, 0.8); 
+  border: 1px solid alpha(@red, 0.6);
+  box-shadow: 0 0 10px alpha(@red, 0.3), inset 0 0 8px alpha(@red, 0.2);
+  animation: liquid-pulse 3s infinite ease-in-out;
+}
+
+@keyframes liquid-pulse {
+  0% { border-color: alpha(@red, 0.3); box-shadow: 0 0 5px alpha(@red, 0.2); }
+  50% { border-color: alpha(@red, 0.8); box-shadow: 0 0 15px alpha(@red, 0.5); }
+  100% { border-color: alpha(@red, 0.3); box-shadow: 0 0 5px alpha(@red, 0.2); }
+}
+
+
+/* =========================================================
+   AESTHETIC POLISH & COLORS
+   ========================================================= */
+#clock { color: @mauve; }
+#network { color: @blue; }
+#bluetooth.connected { color: @teal; }
+#bluetooth:not(.connected) { color: @mauve; }
+#pulseaudio { color: @sapphire; }
+#battery { color: @green; }
+#custom-exit { color: @red; }
+#mpris { color: @pink; font-style: italic; }
+
+/* =========================================================
+   WAYCAT (Muted Teal - Breath Edition)
+   ========================================================= */
+#custom-cpucat {
+  font-family: "Waycat";
+  color: #94e2d5; 
+  font-size: 22px;
+  margin: 0px -6px;
+  background: @island-bg;
+  border: 1px solid @island-border;
+  border-radius: 11px;
+  margin: 5px -1px;
+  padding: 1px 9px; 
+  animation: cat-breath 4s ease-in-out infinite;
+}
+
+@keyframes cat-breath {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1.0;
+    /* Subtle glow for the 'Astonishing' look */
+    text-shadow: 0 0 10px rgba(148, 226, 213, 0.5);
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+
+/* =========================================================
+   TRAY EXPANDER (Polished Gap Fix)
+   ========================================================= */
+#tray-expander {
+  background-color: transparent; 
+  border: none;
+  box-shadow: none;
+  opacity: 0; 
+  transition: opacity 0.3s ease-in-out, background-color 0.3s ease;
+  
+  /* Expert Fix: Negative right margin pulls the Network pill closer */
+  margin: 5px -10px 5px 4px; 
+  padding: 1px 0px; /* Reduced right padding to slim the gap */
+}
+
+/* Re-apply background on hover as before */
+window#waybar:hover #tray-expander,
+#tray-expander:hover {
+  opacity: 0.8;
+  background-color: @island-bg; 
+  border: 1px solid @island-border;
+}
+
+
+/* =========================================================
+   WORKSPACES & STATES
+   ========================================================= */
+#workspaces button {
+  color: alpha(@lavender, 0.3);
+  padding: 0 6px;
+}
+
+#workspaces button.active {
+  color: @mauve;
+  border-bottom: 2px solid @mauve;
+}
+
+#battery.critical, #battery.warning {
+  color: @red;
+}
+
+/* Hover Effect */
+*:hover {
+  /*background-color: @hover-tint;*/
+}
+
+tooltip {
+  background: @mantle;
+  border: 1px solid @island-border;
+  border-radius: 8px;
+}
