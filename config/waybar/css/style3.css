@@ -9,7 +9,7 @@
   border: none;
   border-radius: 8px;
   font-family: 'CaskaydiaMono Nerd Font';
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -216,22 +216,20 @@ window#waybar {
 #temperature { color: #b1be5d; }
 
 #custom-cava {
-  padding: 8px 20px 0px 20px;
+  padding: 8px 8px 0px 8px;
   border: 1px solid;
   border-style: hidden;
-  border-radius: 4px;
-  font-size: 15px;
-  animation: pulse-cava 0.5s infinite alternate;
+  border-radius: 8px;
+  font-size: 13px;
+}#custom-cava {
+  padding: 8px 8px 0px 8px;
+  border: 1px solid;
+  border-style: hidden;
+  border-radius: 8px;
+  font-size: 13px;
 }
 
-#custom-cpucat {
-  font-family: "Waycat", monospace;
-  font-size: 25px;
-  font-weight: bold;
-  color: #de9c54;
-  padding-left: 8px;
-  padding-right: 8px;
-}
+#custom-cpucat { font-family: "Waycat"; color: #94e2d5; font-size: 23px; }
 
 #custom-updatespacman.has-updates {
   color: #ff3434;

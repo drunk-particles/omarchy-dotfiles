@@ -1,5 +1,5 @@
 @import "../omarchy/current/theme/waybar.css";
-
+@import "colors.css";
 /* =========================================================
    CLEAN MINIMALIST BASE
    ========================================================= */
@@ -8,7 +8,7 @@
   border: none;
   border-radius: 8px; /* Slightly sharper corners for a modern feel */
   font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600; /* Reverted to 600: bold but not "chunky" */
   text-shadow: none; /* Removed the heavy shadows */
 }
@@ -42,8 +42,15 @@ window#waybar {
 #clock { color: #cba6f7; }
 #network { color: #89b4fa; }
 #battery.charging { color: #a6e3a1; }
-#custom-cpucat { font-family: "Waycat"; color: #fab387; font-size: 22px; }
-#custom-cava { color: #94e2d5; }
+#custom-cpucat { font-family: "Waycat"; color: #94e2d5; font-size: 22px; }
+#mpris { color: @pink; font-style: italic; }
+#custom-cava {
+  padding: 8px 8px 0px 8px;
+  border: 1px solid;
+  border-style: hidden;
+  border-radius: 8px;
+  font-size: 13px;
+}
 
 /* =========================================================
    WORKSPACES (Clean Underline)
