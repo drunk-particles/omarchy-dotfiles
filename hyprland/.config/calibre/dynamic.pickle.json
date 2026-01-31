@@ -1,0 +1,24 @@
+{
+  "notified-version-updates": {
+    "__class__": "set",
+    "__value__": [
+      "8.16",
+      "8.14",
+      "8.15",
+      "9.0"
+    ]
+  },
+  "sort_history": [
+    [
+      "timestamp",
+      false
+    ],
+    [
+      "timestamp",
+      false
+    ]
+  ],
+  "viewer-background-image": "/home/pseudo/Pictures",
+  "welcome_wizard_device": "default",
+  "welcome_wizard_was_run": true
+}
