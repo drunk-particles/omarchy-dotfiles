@@ -110,7 +110,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+#DOTFILES "dots"
 alias dots='cd ~/dotfiles-omarchy && git add . && git commit -m "sync: $(date)" && git push && cd -'
+#OMARCHY theme "fmsync"
+alias fmsync='cd ~/.config/omarchy/themes/full-moon && git add . && git commit -m "theme update: $(date)" && git push && cd -'
+
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
