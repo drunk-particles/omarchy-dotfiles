@@ -20,7 +20,7 @@ ASCII_MAX_RANGE = 7
 
 CAVA_CONFIG = """
 [general]
-bars = 14
+bars = 8
 framerate = 60
 sensitivity = 100
 [input]
