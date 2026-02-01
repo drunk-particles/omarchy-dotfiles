@@ -1,71 +1,225 @@
-@import "colors.css";
+/* =========================================================
+   Ancient Runes - Waybar Style
+   Designed by: Omarchy (Modified by Sami)
+    GitHub:https://github.com/drunk-particles/omarchy-dotfiles.git
+   ========================================================= */
+
+@import "../omarchy/current/theme/waybar.css";
 
 /* =========================================================
-   BASE STYLE (RESTORED)
+   BASE STYLE
    ========================================================= */
 * {
+  background-color: @background;
   color: @foreground;
   border: none;
   border-radius: 8px;
-  font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
+  font-family: 'CaskaydiaMono Nerd Font';
   font-size: 12px;
-  font-weight: 600;
+  font-weight: bold;
+}
+
+tooltip {
+  padding: 4px;
+  background: @background;
+  font-size: 10px;
+  border: 1px solid alpha(@foreground, 0.35);
+  border-radius: 4px;
+}
+
+tooltip label {
+  color: @foreground;
+  font-weight: normal;
 }
 
 window#waybar {
   background-color: transparent;
 }
 
+#waybar > box {
+  margin: 0 0 2px 0;
+  border-radius: 0;
+  background-color: @background;
+  box-shadow: 0px 0px 0px 0px #101010;
+  transition: background-color 0.5s;
+}
+
 /* =========================================================
-   PILL MERGING LOGIC (RESTORED SPACING)
+   LAYOUT
    ========================================================= */
-
-/* 1. Reset individual backgrounds for merged modules */
-#cpu, #memory, 
-#custom-cava, #custom-weather, #clock, #custom-updatespacman,
-#network, #bluetooth, #pulseaudio, #battery {
-  background: none;
-  border: none;
-  box-shadow: none;
-  margin: 0;
-  padding: 1px 10px; /* Slimmed vertical padding from 2px to 1px */
-}
-
-/* 2. MERGED LEFT PILL (CPU + Memory) */
-.modules-left {
-  background-color: @island-bg;
-  border: 1px solid @island-border;
-  border-radius: 11px;
-  margin: 5px 4px;   
-  padding: 0 4px;
-}
-
-/* 3. MERGED CENTER PILL (Cava + Weather + Clock + Updates) */
+.modules-left  { border-radius: 4px; margin-left: 8px; }
+.modules-right { margin-right: 8px; }
 .modules-center {
-  background-color: @island-bg;
-  border: 1px solid @island-border;
-  border-radius: 11px;
-  margin: 5px 4px;
-  padding: 0 4px;
+  border-radius: 4px;
+  margin-right: 8px;
+  border-left: 0 solid alpha(@foreground, 0.2);
+  border-right: 0 solid alpha(@foreground, 0.2);
+  padding: 0 9px;
+  color: #f9e2af;
 }
 
-/* 4. MERGED RIGHT PILL (Network + BT + Audio + Battery) */
-.modules-right {
-  background-color: @island-bg;
-  border: 1px solid @island-border;
-  border-radius: 11px;
-  margin: 5px 4px;
-  padding: 0 4px;
+/* =========================================================
+   WORKSPACES
+   ========================================================= */
+#workspaces button {
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 9px;
 }
 
-/* 5. STANDALONE MODULES (Slimmed vertical padding from 2px to 1px) */
-#custom-omarchy, #mpris, #custom-cpucat, #custom-cava, #custom-exit {
-  background-color: @island-bg;
-  border: 1px solid @island-border;
-  border-radius: 11px;
-  margin: 5px 4px;
-  padding: 1px 12px; 
+#workspaces button.empty { opacity: 0.5; }
+
+/* =========================================================
+   MODULE SPACING
+   ========================================================= */
+#backlight,
+#battery,
+#bluetooth,
+#cpu,
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-update,
+#custom-updatespacman,
+#idle_inhibitor,
+#memory,
+#mpris,
+#network,
+#tray {
+  min-width: 20px;
+  margin: 0 10.5px;
 }
+
+#custom-expand-icon { margin-right: 7px; }
+#clock, #idle_inhibitor { margin-left: 5px; }
+
+#custom-screenrecording-indicator {
+  margin-left: 0px;
+  font-size: 15px;
+  
+}
+
+#custom-screenrecording-indicator.active { 
+     color: #ed6262;
+     border-radius: 0px;
+     animation: blink 1s infinite alternate;
+}
+
+
+#custom-update { font-size: 10px; padding-top: 2px; }
+#window { margin: 8.75px; }
+
+/* =========================================================
+   MODULE STYLES
+   ========================================================= */
+#battery,
+#bluetooth,
+#network,
+#pulseaudio,
+#custom-exit,
+#custom-updatespacman {
+  padding: 0 4px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: transparent;
+}
+
+/* Hover glow effect */
+#battery:hover,
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover,
+#custom-exit:hover,
+#custom-updatespacman:hover {
+  background-color: alpha(@foreground, 0.12);
+  box-shadow: 0 0 10px alpha(@foreground, 0.3);
+}
+
+/* Custom exit: red icon */
+#custom-exit { color: #ff3434; padding: 0 3px; }
+
+/* CPU & Memory */
+#cpu, #memory {
+  border-left: 0 solid alpha(@foreground, 0.2);
+  border-right: 0 solid alpha(@foreground, 0.2);
+  border-radius: 4px;
+  padding: 0 5px;
+}
+
+/* Clock */
+#clock {
+  border-left: 2px solid alpha(@foreground, 0.2);
+  border-right: 2px solid alpha(@foreground, 0.2);
+  border-radius: 3px;
+  padding: 0 10px;
+  animation: breathe 8s ease-in-out infinite;
+} 
+
+/* =========================================================
+   STATES
+   ========================================================= */
+#battery { transition: color 0.3s ease; }
+#battery.charging { color: #3fc54c; }
+#battery.warning,
+#battery.critical {
+  color: #ff3434;
+  animation: pulse-cava 0.5s infinite alternate;
+}
+
+#bluetooth.connected { color: #4ecea8; }
+#bluetooth:not(.connected) { 
+  color: #f38ba8; 
+  animation: pulse-slow 3s ease-in-out infinite alternate;
+}
+
+#network.wifi { 
+  color: @foreground; /*a6e3a1*/
+  /*animation: network-pulse 4s ease-in-out infinite alternate;*/
+}
+#network.disconnected { color: #f38ba8; }
+
+#cpu.critical,
+#memory.critical,
+#temperature.critical {
+  color: #f38ba8;
+  animation: pulse-cava 0.5s infinite alternate;
+}
+
+#cpu.warning,
+#cpu.critical,
+#memory.warning,
+#memory.critical {
+  animation: warning-fill 1.5s ease infinite alternate;
+}
+
+/* =========================================================
+   MPRIS - Text-focused playing animation
+   ========================================================= */
+#mpris {
+  padding: 0 5px;
+  background-color: @bg;
+  box-shadow: 1px 1px 3px 1px @ia1;
+  margin: 2px 4px 4px 4px;
+  color: @fg;
+  transition: color 0.3s ease-in-out;
+}
+
+#mpris.paused {
+  opacity: 0.6;
+  color: alpha(@fg, 0.7);
+}
+
+#mpris.playing {
+  /*animation: mpris-text-pulse 2.2s ease-in-out infinite alternate;*/
+}
+
+#mpris.chromium,
+#mpris.chrome,
+#mpris.brave,
+#mpris.brave-browser,
+#mpris.default { color: #d26e6e; }
+#mpris.spotify { color: #3fc54c; }
+
+#temperature { color: #b1be5d; }
 
 #custom-cava {
   padding: 8px 8px 0px 8px;
@@ -73,128 +227,85 @@ window#waybar {
   border-style: hidden;
   border-radius: 8px;
   font-size: 13px;
+}#custom-cava {
+  padding: 8px 8px 0px 8px;
+  border: 1px solid;
+  border-style: hidden;
+  border-radius: 8px;
+  font-size: 13px;
 }
+
+#custom-cpucat { font-family: "Waycat"; color: #94e2d5; font-size: 23px; }
+
+#custom-updatespacman.has-updates {
+  color: #ff3434;
+  animation: update-pulse 0.9s ease infinite alternate;
+}
+
+/* Tray */
+#tray > .passive:hover { opacity: 0.6; }
 
 /* =========================================================
-   SCREEN RECORDING (Liquid Edge)
+   ANIMATIONS (All percentage-based for GTK/Waybar compatibility)
    ========================================================= */
-#custom-screenrecording-indicator {
-  background-color: @island-bg;
-  border: 1px solid @island-border;
-  border-radius: 11px;
-  margin: 5px 4px;
-  padding: 1px 14px;
-  color: alpha(@foreground, 0.5);
-  transition: all 0.6s ease;
+@keyframes pulse-cava {
+  0% { opacity: 1; }
+  100% { opacity: 0.65; }
 }
 
-#custom-screenrecording-indicator.recording,
-#custom-screenrecording-indicator.active {
-  color: #ffffff;
-  background-color: rgba(40, 10, 10, 0.8); 
-  border: 1px solid alpha(@red, 0.6);
-  box-shadow: 0 0 10px alpha(@red, 0.3), inset 0 0 8px alpha(@red, 0.2);
-  animation: liquid-pulse 3s infinite ease-in-out;
+@keyframes pulse-slow {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
-@keyframes liquid-pulse {
-  0% { border-color: alpha(@red, 0.3); box-shadow: 0 0 5px alpha(@red, 0.2); }
-  50% { border-color: alpha(@red, 0.8); box-shadow: 0 0 15px alpha(@red, 0.5); }
-  100% { border-color: alpha(@red, 0.3); box-shadow: 0 0 5px alpha(@red, 0.2); }
+@keyframes breathe {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
 }
 
-
-/* =========================================================
-   AESTHETIC POLISH & COLORS
-   ========================================================= */
-#clock { color: @mauve; }
-#network { color: @blue; }
-#bluetooth.connected { color: @teal; }
-#bluetooth:not(.connected) { color: @mauve; }
-#pulseaudio { color: @sapphire; }
-#battery { color: @green; }
-#custom-exit { color: @red; }
-#mpris { color: @pink; font-style: italic; }
-
-/* =========================================================
-   WAYCAT (Muted Teal - Breath Edition)
-   ========================================================= */
-#custom-cpucat {
-  font-family: "Waycat";
-  color: @teal; 
-  font-size: 22px;
-  margin: 0px -6px;
-  background: @island-bg;
-  border: 1px solid @island-border;
-  border-radius: 11px;
-  margin: 5px -1px;
-  padding: 1px 9px; 
-  animation: cat-breath 4s ease-in-out infinite;
+@keyframes network-pulse {
+  0% { color: #a6e3a1; }
+  100% { color: #c7f0d1; }
 }
 
-@keyframes cat-breath {
+@keyframes warning-fill {
+  0% { background-color: transparent; }
+  100% { background-color: alpha(#f38ba8, 0.18); }
+}
+
+/* Strong text-only pulse when playing */
+@keyframes mpris-text-pulse {
   0% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 1.0;
-    /* Subtle glow for the 'Astonishing' look */
-    text-shadow: 0 0 10px rgba(148, 226, 213, 0.5);
+    opacity: 1;
+    color: @fg;
   }
   100% {
-    opacity: 0.7;
+    opacity: 0.75;
+    color: alpha(@foreground, 1.4);  /* brighter, more saturated text */
   }
 }
 
-
-/* =========================================================
-   TRAY EXPANDER (Polished Gap Fix)
-   ========================================================= */
-#tray-expander {
-  background-color: transparent; 
-  border: none;
-  box-shadow: none;
-  opacity: 0; 
-  transition: opacity 0.3s ease-in-out, background-color 0.3s ease;
-  
-  /* Expert Fix: Negative right margin pulls the Network pill closer */
-  margin: 5px -10px 5px 4px; 
-  padding: 1px 0px; /* Reduced right padding to slim the gap */
+@keyframes update-pulse {
+  0% { opacity: 1; }
+  100% { opacity: 0.5; }
 }
 
-/* Re-apply background on hover as before */
-window#waybar:hover #tray-expander,
-#tray-expander:hover {
-  opacity: 0.8;
-  background-color: @island-bg; 
-  border: 1px solid @island-border;
+@keyframes blink {
+  0% {
+    background-color: transparent;
+    color: inherit;
+  }
+  100% {
+    background-color: #eb4034;
+    color: #484a4a;
+  }
+}
+#custom-voxtype {
+  min-width: 12px;
+  margin: 0 0 0 7.5px;
 }
 
-
-/* =========================================================
-   WORKSPACES & STATES
-   ========================================================= */
-#workspaces button {
-  color: alpha(@lavender, 0.3);
-  padding: 0 6px;
-}
-
-#workspaces button.active {
-  color: @mauve;
-  border-bottom: 2px solid @mauve;
-}
-
-#battery.critical, #battery.warning {
-  color: @red;
-}
-
-/* Hover Effect */
-*:hover {
-  /*background-color: @hover-tint;*/
-}
-
-tooltip {
-  background: @mantle;
-  border: 1px solid @island-border;
-  border-radius: 8px;
+#custom-voxtype.recording {
+  color: #a55555;
 }
