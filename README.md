@@ -2,9 +2,17 @@
 
 Dotfiles setup with static and dynamic themes and plenty of useful scripts.
 
-| ![](https://github.com/drunk-particles/Full-Moon/blob/main/look.png) |      |      |
-| ------------------------------------------------------------ | ---- | ---- |
-| ![](https://github.com/drunk-particles/Full-Moon/blob/main/look.png) |      |      |
-| ![](https://github.com/drunk-particles/Full-Moon/blob/main/look.png) |      |      |
-| ![](https://github.com/drunk-particles/Full-Moon/blob/main/look.png) |      |      |
-
+<table>
+  <tr>
+    <td><img src="demo/1.png" width="400"/></td>
+    <td><img src="demo/8.png" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="demo/4.png" width="400"/></td>
+    <td><img src="demo/2.png" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="demo/6.png" width="400"/></td>
+    <td><img src="demo/3.png" width="400"/></td>
+  </tr>
+</table>
