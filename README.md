@@ -203,3 +203,5 @@ Cyber Pills
 ### Application Launcher - Walker
 
 ![](https://github.com/drunk-particles/omarchy-dotfiles/blob/main/demo/walker.png)
+
+### Desktop Overview
