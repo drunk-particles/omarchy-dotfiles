@@ -93,3 +93,8 @@ brave-bin
 localsend
 obsidian
 yay
+
+# VirtualBox
+virtualbox-guest-utils
+mesa
+xf86-video-vmware
