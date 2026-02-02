@@ -18,8 +18,7 @@ This repository contains my personal dotfiles, designed around [OMARCHY](https:/
     <td><img src="demo/3.png" width="400"/></td>
   </tr>
 </table>
-
-Quick info:
+##### Quick info:
 
 - [bin](bin) - all scripts live here, it is added to path in uwsm config
 - [install](install/install) - main installation script
