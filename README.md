@@ -74,8 +74,6 @@ Quick info:
 
     ##### What the installer does:
 
-    
-
 
 <details>
 <summary><b>Backup</b></summary>
@@ -91,6 +89,8 @@ Quick info:
   - A text file listing all changed files
   - Commands to quickly revert everything
   - A [rollback script](install/lib/rollback.sh) for easy restoration
+
+</details>
 
 <details>
 <summary><b>Package Installation</b></summary>
