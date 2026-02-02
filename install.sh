@@ -5,31 +5,42 @@ set -e
 
 echo "🚀 Starting your Omarchy setup..."
 
-# 1. Install 'yay' first if it's missing (required for the AUR packages in your list)
+# 1. FIX: Correct Yay Installation
 if ! command -v yay &> /dev/null; then
     echo "🛠️ Installing yay (AUR helper)..."
     sudo pacman -S --needed base-devel git
-    git clone https://aur.archlinux.org
+    # Corrected URL
+    git clone https://aur.archlinux.org/yay.git
     cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 fi
 
-# 2. Filter out comments and install everything using yay
-# This reads your list, ignores lines starting with #, and installs the rest
+# 2. Package Installation
 echo "📦 Installing packages from your list..."
-grep -v '^#' pkglist.txt | xargs yay -S --needed --noconfirm
+if [ -f pkglist.txt ]; then
+    grep -v '^#' pkglist.txt | xargs yay -S --needed --noconfirm
+else
+    echo "❌ Error: pkglist.txt not found!"
+    exit 1
+fi
 
-# 3. Use Stow to link your configs
-# This assumes your folders are named 'hypr', 'kitty', etc.
+# 3. FIX: Safe Stow Logic
 echo "🔗 Symlinking dotfiles..."
 folders=(hypr mako waybar yazi zsh nvim kitty)
 
 for folder in "${folders[@]}"; do
     if [ -d "$folder" ]; then
         echo "Stowing $folder..."
-        stow "$folder"
+        # --adopt handles conflicts by 'adopting' existing files into your repo
+        stow --adopt "$folder"
     else
         echo "⚠️ Folder '$folder' not found in repo, skipping."
     fi
 done
 
-echo "✅ All done! Log out and back in to see changes."
+# 4. VM-Specific Setup
+if systemd-detect-virt -q; then
+    echo "🖥️ VM Detected: Enabling Guest Services..."
+    sudo systemctl enable --now vboxservice.service
+fi
+
+echo "✅ All done! Please reboot to apply changes."
