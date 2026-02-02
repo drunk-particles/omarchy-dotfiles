@@ -2,7 +2,7 @@
 
 [![Arch Linux](https://img.shields.io/badge/Arch-Linux-1793D1?logo=arch-linux&logoColor=white)](https://archlinux.org/)
 
-Dotfiles setup with static and dynamic themes and plenty of useful scripts.
+This repository contains my personal dotfiles, designed around [OMARCHY](https://omarchy.org/).
 
 <table>
   <tr>
