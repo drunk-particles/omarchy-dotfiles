@@ -1,8 +1,3 @@
-git commit -m "Clean up dotfiles-omarchy and sync local state"
+# Dotfiles for Hyprland on Arch Linux
 
-git add .
-
-git commit -m "Add essential configuration files"
-
-git pull --rebase origin main
-git push origin main
+Dotfiles setup with static and dynamic themes and plenty of useful scripts.
