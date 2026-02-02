@@ -67,13 +67,11 @@ Quick info:
   **⚠️ Important Notes:**
 
   - This is specifically for **Arch Linux with Hyprland**
-
   - I've tested the installer on both fresh installs and configured desktops, but ideally you should **know what you're doing**, make sure to backup manually just in case
-
   - Everything that will be changed is backed up first
 
-    ##### What the installer does:
 
+#### What the installer does:
 
 <details>
 <summary><b>Backup</b></summary>
