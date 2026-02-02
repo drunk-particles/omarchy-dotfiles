@@ -72,25 +72,23 @@ Quick info:
 
   - Everything that will be changed is backed up first
 
-    **What the installer does:**
+    ##### What the installer does:
 
 
-  <details>
-  <summary><b>Backup</b></summary>
+<details>
+<summary><b>Backup</b></summary>
 
 
-  - Backs up everything that will be changed ([backup script](install/lib/backup.sh))
-    - Files in `~/.config`
-    - `pacman.conf`
-    - Ly display manager configuration (if installed)
-    - ZSH and LazyVim configs
-    - Everything else that gets modified
-  - Creates a backup folder in your Home directory with:
-    - A text file listing all changed files
-    - Commands to quickly revert everything
-    - A [rollback script](install/lib/rollback.sh) for easy restoration
-
-
+- Backs up everything that will be changed ([backup script](install/lib/backup.sh))
+  - Files in `~/.config`
+  - `pacman.conf`
+  - Ly display manager configuration (if installed)
+  - ZSH and LazyVim configs
+  - Everything else that gets modified
+- Creates a backup folder in your Home directory with:
+  - A text file listing all changed files
+  - Commands to quickly revert everything
+  - A [rollback script](install/lib/rollback.sh) for easy restoration
 
 <details>
 <summary><b>Package Installation</b></summary>
