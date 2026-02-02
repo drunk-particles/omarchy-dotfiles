@@ -169,3 +169,37 @@ You can manually use the dotfiles without the installer:
 2. Copy desired configs from `config/` to `~/.config/` (some configs live in [default](default) directory. Also everything relies on the scripts folder being in path)
 3. Copy scripts from `bin/` to your preferred location
 4. You can use some install scripts for partial setup if you want
+
+## Screenshots & videos
+
+### Waybar themes
+
+Ancient Runes
+
+
+
+Arctic Segments
+
+
+
+Cyber Pills
+
+
+
+### Lazyvim
+
+
+
+
+
+### Menu overview
+
+<https://github.com/user-attachments/assets/9b9cb437-a3e4-4cd7-90f1-80175036e196>
+
+### Dynamic Theming
+
+<https://github.com/user-attachments/assets/044216d5-44a6-4b56-99d0-a820ceef3a68>
+
+### Application Launcher - Walker
+
+![](https://github.com/drunk-particles/omarchy-dotfiles/blob/main/demo/walker.png)
