@@ -166,15 +166,15 @@ You can manually use the dotfiles without the installer:
 
 Ancient Runes
 
-
+![](https://github.com/drunk-particles/waybar/blob/main/Ancient%20Runes/Ancient%20Runes.png)
 
 Arctic Segments
 
-
+![](https://github.com/drunk-particles/waybar/blob/main/Arctic%20Segments/Arctic%20Segments.png)
 
 Cyber Pills
 
-
+![](https://github.com/drunk-particles/waybar/blob/main/Cyber%20Pills/Cyber%20Pills.png)
 
 ### Lazyvim
 
