@@ -114,6 +114,8 @@ source $ZSH/oh-my-zsh.sh
 alias dots='cd ~/dotfiles-omarchy && git add . && git commit -m "sync: $(date)" && git push && cd -'
 #OMARCHY theme "fmsync"
 alias fmsync='cd ~/.config/omarchy/themes/full-moon && git add . && git commit -m "theme update: $(date)" && git push && cd -'
+#waybar
+alias way='cd ~/waybar && git add . && git commit -m "sync: $(date)" && git push && cd -'
 
 
 
@@ -125,3 +127,14 @@ fortune | cowsay -r
 
 
 export PATH=$PATH:/home/pseudo/.spicetify
+
+
+# --- Persistent Waydroid Hider ---
+hide_waydroid() {
+  # (N) makes the loop skip silently if no waydroid files exist
+  # grep -L finds files that DON'T have the NoDisplay flag yet
+  grep -L "NoDisplay=true" ~/.local/share/applications/waydroid.*.desktop(N) | xargs -I {} sed -i '/\[Desktop Entry\]/a NoDisplay=true' {} 2>/dev/null
+}
+
+# Run in background (&) and hide all output (>/dev/null)
+hide_waydroid > /dev/null 2>&1 &
