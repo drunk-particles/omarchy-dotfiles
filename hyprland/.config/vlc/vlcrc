@@ -2945,7 +2945,7 @@ sout-x264-tune=film
 avcodec-hw=none
 
 # Threads (integer)
-#avcodec-threads=0
+avcodec-threads=2
 
 # Advanced options (string)
 #avcodec-options=
@@ -4226,7 +4226,7 @@ sub-language=en
 #meta-url=
 
 # File caching (ms) (integer)
-#file-caching=1000
+file-caching=0
 
 # Live capture caching (ms) (integer)
 #live-caching=300
@@ -4334,7 +4334,7 @@ sub-language=en
 #packetizer=
 
 # VoD server module (string)
-#vod-server=
+vod-server=any
 
 # Use a plugins cache (boolean)
 #plugins-cache=1
