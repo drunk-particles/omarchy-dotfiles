@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# mpv-smart: portable wrapper with basic GPU detection + robust arg handling
+
+# Default safe values (fallback everywhere)
+HWDEC="auto"
+VO="gpu-next"
+GPU_API="auto"   # auto is safer on Intel; change to vulkan if stable
+
+# Detect GPU
+if command -v lspci &>/dev/null; then
+    GPU_INFO=$(lspci -mm | grep -iE 'vga|3d|display' | head -1 | awk -F '"' '{print $4 $6}')
+
+    if [[ $GPU_INFO =~ NVIDIA ]]; then
+        HWDEC="vulkan"
+        GPU_API="vulkan"
+        VO="gpu-next"
+        echo "Detected NVIDIA → using vulkan hwdec" >&2
+    elif [[ $GPU_INFO =~ AMD|ATI|Radeon ]]; then
+        HWDEC="vulkan"
+        GPU_API="vulkan"
+        VO="gpu-next"
+        echo "Detected AMD → using vulkan hwdec" >&2
+    elif [[ $GPU_INFO =~ Intel ]]; then
+        HWDEC="vaapi"
+        GPU_API="auto"          # Changed: vulkan → auto for Intel stability (vaapi fallback)
+        VO="gpu-next"
+        echo "Detected Intel → using vaapi hwdec" >&2
+    else
+        echo "Unknown GPU → falling back to auto" >&2
+    fi
+else
+    echo "lspci not found → using auto defaults" >&2
+fi
+
+# VAAPI support check for Intel
+if command -v vainfo &>/dev/null && [[ $HWDEC == "vaapi" ]]; then
+    if vainfo | grep -q -i "VAProfile"; then
+        echo "VAAPI seems supported → keeping vaapi" >&2
+    else
+        HWDEC="auto"
+        echo "VAAPI not usable → fallback to auto" >&2
+    fi
+fi
+
+# Robust argument handling: filter out trailing empty args
+args=("$@")
+while [[ ${#args[@]} -gt 0 && -z "${args[-1]}" ]]; do
+    unset 'args[-1]'
+done
+
+# If no file provided → just show version/info (mpv --version works fine)
+if [[ ${#args[@]} -eq 0 ]]; then
+    exec mpv --version
+fi
+
+# Launch mpv
+exec mpv \
+    --hwdec="$HWDEC" \
+    --vo="$VO" \
+    --gpu-api="$GPU_API" \
+    --profile=gpu-hq \
+    "${args[@]}"
+
+
+
+    # Debug: show what args mpv will get
+echo "Launching mpv with args: ${args[@]}" >&2
+
+exec mpv \
+    --hwdec="$HWDEC" \
+    --vo="$VO" \
+    --gpu-api="$GPU_API" \
+    --profile=gpu-hq \
+    "${args[@]}"
