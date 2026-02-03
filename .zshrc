@@ -37,17 +37,18 @@ alias is='fzf --preview="bat --style=numbers --color=always {}"'
 alias nis='nvim $(fzf --preview="bat --color=always {}")'
 
 # Navigation
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
+alias ..='zd ..'
+alias ...='zd ../..'
+alias ....='zd ../../..'
 
 # Sync Aliases
-alias dots='cd ~/dotfiles-omarchy && git add . && git commit -m "sync: $(date)" && git push && cd -'
-alias fmsync='cd ~/.config/omarchy/themes/full-moon && git add . && git commit -m "theme update: $(date)" && git push && cd -'
-alias way='cd ~/waybar && git add . && git commit -m "sync: $(date)" && git push && cd -'
+# Using 'builtin cd' here bypasses the zd function for safety during git operations
+alias dots='builtin cd ~/dots && git add . && git commit -m "sync: $(date)" && git push && builtin cd -'
+alias fmsync='builtin cd ~/.config/omarchy/themes/full-moon && git add . && git commit -m "theme update: $(date)" && git push && builtin cd -'
+alias way='builtin cd ~/waybar && git add . && git commit -m "sync: $(date)" && git push && builtin cd -'
 
 # --- FUNCTIONS ---
-zi() { cd "$(zoxide query -i)"; }
+zi() { zd "$(zoxide query -i)"; }
 
 zd() {
   if [ $# -eq 0 ]; then 
@@ -63,8 +64,7 @@ open() { xdg-open "$@" >/dev/null 2>&1 & }
 cp2c() { [[ -z "$1" ]] && return 1; wl-copy < "$1"; }
 c2f() { [[ -z "$1" ]] && return 1; wl-paste > "$1"; }
 
-# --- WAYDROID HIDER (FIXED) ---
-# Running via sh -c prevents Zsh from parsing the path as a glob attribute
+# --- WAYDROID HIDER ---
 hide_waydroid() {
   sh -c 'find "$HOME/.local/share/applications" -name "waydroid.*.desktop" -exec grep -L "NoDisplay=true" {} + | xargs -I {} sed -i "/\[Desktop Entry\]/a NoDisplay=true" {}' 2>/dev/null
 }
@@ -74,20 +74,24 @@ hide_waydroid >/dev/null 2>&1 &!
 
 # Visual Intro
 if [[ $(tty) == *"pts"* ]]; then
-  fortune | cowsay -r
+  # Ensure fortune and cowsay are installed via [Arch Wiki](https://wiki.archlinux.org)
+  command -v fortune &>/dev/null && command -v cowsay &>/dev/null && fortune | cowsay -r
 fi
 
-# Starship Prompt (Check [Starship.rs](https://starship.rs) for customization)
+# Starship Prompt
 if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
 fi
 
-# Zoxide (Check [Zoxide GitHub](https://github.com) for usage)
+# Zoxide
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-# FZF (Check [FZF GitHub](https://github.com) for keybindings)
-if command -v fzf &>/dev/null; then
+# FZF
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+elif command -v fzf &>/dev/null; then
   source <(fzf --zsh)
 fi
