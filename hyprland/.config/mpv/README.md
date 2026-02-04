@@ -15,8 +15,8 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 
 
-| ![img](/home/pseudo/.config/mpv/demo/1.png) | ![img](/home/pseudo/.config/mpv/demo/2.png) |
-| ------------------------------------------- | ------------------------------------------- |
+| ![img](demo/1.png) | ![img](/home/pseudo/.config/mpv/demo/2.png) |
+| ------------------ | ------------------------------------------- |
 
 
 
