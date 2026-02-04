@@ -1,44 +1,32 @@
-### Required Packages
+🎬 mpv + uosc config
 
-##### mpv
+A minimalist, high-performance **mpv** configuration focused on a clean UI and automated workflows. This setup leverages **uosc** for a modern interface and **subliminal** for hands-free subtitle management.
 
-The video player, of course! haha 😂
+✨ Highlights
 
+- **UI:** Modern, proximity-based controls via `uosc`.
+- **Visuals:** High-speed thumbnail previews with `thumbfast`.
+- **Automation:** Auto-downloading subtitles via `autosub`.
+- **Performance:** GPU-optimized playback using `mpv-smart`.
 
+------
 
-##### mpv-autosub-git
+📦 Required Packages
 
-For downloading subtitles automatically.
+| Component      | Description                | Installation                |
+| :------------- | :------------------------- | :-------------------------- |
+| **mpv**        | Core media player          | `sudo pacman -S mpv`        |
+| **uosc**       | Modern UI replacement      | `yay -S mpv-uosc-git`       |
+| **thumbfast**  | On-hover thumbnails        | `yay -S mpv-thumbfast-git`  |
+| **subliminal** | Subtitle downloader engine | `yay -S subliminal`         |
+| **autosub**    | Automatic subtitle script  | `yay -S mpv-autosub-git`    |
+| **python-pip** | Required for subliminal    | `sudo pacman -S python-pip` |
 
+------
 
+🔧 Performance Script
 
-##### mpv-thumbfast-git
+This setup includes the **mpv-smart** script for GPU optimization.
 
-Lets you see thumbnail when you seek fast forward or...i mean hover on top of the timeline.
-
-
-
-##### subliminal 
-
-it's necessary for autosub.lua to work....python
-
-
-
-```
-sudo pacman -S python-pip
-```
-
-apparently you need it for "subliminal"
-
-```
-yay -Syu mpv-uosc-git
-```
-
-It's the UI replacement for default "mpv"
-
-
-
-##### mpv-smart
-
- (a script, for gpu, lives inside .local/share/omarchy/bin)
-
+- **Path:** `~/.local/share/omarchy/bin/mpv-smart`
+- **Permission:** `chmod +x ~/.local/share/omarchy/bin/mpv-smart`
