@@ -11,14 +11,14 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 ------
 
-### 🖼️ Preview
+🖼️ Preview
 
 
 
-| ![img](demo/1.png) | ![img](demo/8.png)                          |
-| ------------------ | ------------------------------------------- |
-| ![img](demo/4.png) | ![img](demo/2.png)                          |
-| ![img](demo/6.png) | ![img](/home/pseudo/.config/mpv/demo/3.png) |
+| ![img](demo/1.png) | ![img](demo/2.png) |
+| ------------------ | ------------------ |
+|                    |                    |
+|                    |                    |
 
 
 
@@ -32,7 +32,7 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 ------
 
-### 📦 Required Packages
+📦 Required Packages
 
 | Component      | Description                | Installation                |
 | :------------- | :------------------------- | :-------------------------- |
@@ -45,7 +45,7 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 ------
 
-### 🔧 Performance Script
+🔧 Performance Script
 
 This setup includes the **mpv-smart** script for GPU optimization.
 
