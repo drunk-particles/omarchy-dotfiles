@@ -35,7 +35,7 @@ A minimalist, high-performance **mpv** configuration optimized for **Intel hardw
 
 ------
 
-📦 Requirementss
+📦 Requirements
 
 1. #### Core Packages (Arch Linux)
 
