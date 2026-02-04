@@ -1,4 +1,4 @@
-🎬 mpv + uosc config
+### 🎬 mpv + uosc config
 
 A minimalist, high-performance **mpv** configuration focused on a clean UI and automated workflows. This setup leverages **uosc** for a modern interface and **subliminal** for hands-free subtitle management.
 
@@ -11,7 +11,28 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 ------
 
-📦 Required Packages
+### 🖼️ Preview
+
+
+
+| ![img](demo/1.png) | ![img](demo/8.png)                          |
+| ------------------ | ------------------------------------------- |
+| ![img](demo/4.png) | ![img](demo/2.png)                          |
+| ![img](demo/6.png) | ![img](/home/pseudo/.config/mpv/demo/3.png) |
+
+
+
+
+
+
+
+
+
+
+
+------
+
+### 📦 Required Packages
 
 | Component      | Description                | Installation                |
 | :------------- | :------------------------- | :-------------------------- |
@@ -24,9 +45,11 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 ------
 
-🔧 Performance Script
+### 🔧 Performance Script
 
 This setup includes the **mpv-smart** script for GPU optimization.
 
 - **Path:** `~/.local/share/omarchy/bin/mpv-smart`
 - **Permission:** `chmod +x ~/.local/share/omarchy/bin/mpv-smart`
+
+------
