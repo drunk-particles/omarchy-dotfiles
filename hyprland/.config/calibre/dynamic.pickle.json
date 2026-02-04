@@ -2,10 +2,11 @@
   "notified-version-updates": {
     "__class__": "set",
     "__value__": [
-      "8.16",
-      "8.14",
       "8.15",
-      "9.0"
+      "8.16",
+      "9.0",
+      "9.1",
+      "8.14"
     ]
   },
   "sort_history": [
