@@ -72,8 +72,11 @@ This setup includes the **mpv-smart** script for GPU optimization.
 
 #### 📂 Installation
 
-1. Move `mpv.conf`, `input.conf`, and `uosc.conf` to `~/.config/mpv/`.
-2. Place `position-seek.lua` and `autosub.lua` in `~/.config/mpv/scripts/`.
-3. Enjoy the cleanest media experience on Linux.
+1. Move `mpv.conf`, `input.conf` to `~/.config/mpv/`.
+2. Move  `uosc.conf`, `autosub.conf` to  `~/.config/mpv/script-opts`
+3. Place `position-seek.lua` and `autosub.lua` in `~/.config/mpv/scripts/`.
+4. Enjoy the cleanest media experience on Linux.
 
 ------
+
+# Or just place the extracted files inside  `~/.config/mpv/`, that'll do.
