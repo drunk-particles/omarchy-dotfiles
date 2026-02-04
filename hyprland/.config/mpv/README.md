@@ -37,7 +37,7 @@ A minimalist, high-performance **mpv** configuration optimized for **Intel hardw
 
 📦 Requirements
 
-1. Core Packages (Arch Linux)
+1. #### Core Packages (Arch Linux)
 
 bash
 
@@ -53,7 +53,7 @@ Use code with caution.
 
 
 
-2. Performance Script (Omarchy)
+2. #### Performance Script (Omarchy)
 
 This setup includes the **mpv-smart** script for GPU optimization.
 
@@ -62,7 +62,7 @@ This setup includes the **mpv-smart** script for GPU optimization.
 
 ------
 
-🔧 Configuration Logic
+#### 🔧 Configuration Logic
 
 - **Video:** Optimized for Intel (VA-API) with safe fallbacks and `target-colorspace-hint=no` to prevent washed-out fullscreen colors.
 - **Aesthetics:** `uosc` is configured with a hidden volume bar and a compact, centered control layout for a distraction-free experience.
@@ -70,7 +70,7 @@ This setup includes the **mpv-smart** script for GPU optimization.
 
 ------
 
-📂 Installation
+#### 📂 Installation
 
 1. Move `mpv.conf`, `input.conf`, and `uosc.conf` to `~/.config/mpv/`.
 2. Place `position-seek.lua` and `autosub.lua` in `~/.config/mpv/scripts/`.
