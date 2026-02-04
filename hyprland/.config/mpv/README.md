@@ -1,19 +1,18 @@
-### 🎬 mpv + uosc config
+### 🎬 Premium mpv + uosc config
 
-A minimalist, high-performance **mpv** configuration focused on a clean UI and automated workflows. This setup leverages **uosc** for a modern interface and **subliminal** for hands-free subtitle management.
+A minimalist, high-performance **mpv** configuration optimized for **Intel hardware** and **Everforest** aesthetics. This setup features a modern **uosc** interface, automated subtitle workflows, and a custom **position-aware** navigation system.
 
 ✨ Highlights
 
-- **UI:** Modern, proximity-based controls via `uosc`.
-- **Visuals:** High-speed thumbnail previews with `thumbfast`.
-- **Automation:** Auto-downloading subtitles via `autosub`.
-- **Performance:** GPU-optimized playback using `mpv-smart`.
+- **Visuals:** `gpu-next` + `ewa_lanczossharp` for elite upscaling and debanding.
+- **UI:** Custom uosc build with an **Everforest** theme (`#d3c6aa`).
+- **Navigation:** Intelligent double-click zones for seeking vs. fullscreen.
+- **Audio:** Dynamic normalization for consistent volume across loud/quiet scenes.
+- **Subtitles:** Warm, cinematic gold (`#F7E3AC`) with automated subliminal fetching.
 
 ------
 
-🖼️ Preview
-
-
+#### 🖼️ Preview
 
 | ![img](demo/1.png) | ![img](demo/2.png) |
 | ------------------ | ------------------ |
@@ -22,24 +21,59 @@ A minimalist, high-performance **mpv** configuration focused on a clean UI and a
 
 ------
 
-📦 Required Packages
+#### ⌨️ Smart Navigation & Controls
 
-| Component      | Description                | Installation                |
-| :------------- | :------------------------- | :-------------------------- |
-| **mpv**        | Core media player          | `sudo pacman -S mpv`        |
-| **uosc**       | Modern UI replacement      | `yay -S mpv-uosc-git`       |
-| **thumbfast**  | On-hover thumbnails        | `yay -S mpv-thumbfast-git`  |
-| **subliminal** | Subtitle downloader engine | `yay -S subliminal`         |
-| **autosub**    | Automatic subtitle script  | `yay -S mpv-autosub-git`    |
-| **python-pip** | Required for subliminal    | `sudo pacman -S python-pip` |
+| Input                     | Action                              |
+| :------------------------ | :---------------------------------- |
+| **Left Click**            | Play / Pause                        |
+| **Right Click**           | Open **uosc** Menu                  |
+| **Double Click (Sides)**  | Seek ±10s (Outer 15% of screen)     |
+| **Double Click (Center)** | Toggle Fullscreen (Center 70%)      |
+| **Scroll Wheel**          | Volume ±2                           |
+| **`s` / `S`**             | Cycle Subtitles / Toggle Visibility |
+| **`i` / `?`**             | Show Stats / Toggle Stats Overlay   |
 
 ------
 
-🔧 Performance Script
+📦 Requirements
+
+1. Core Packages (Arch Linux)
+
+bash
+
+```
+# Core & Dependencies
+sudo pacman -S mpv python-pip
+
+# AUR: UI & Subtitle Tools
+yay -S mpv-uosc-git mpv-thumbfast-git subliminal mpv-autosub-git
+```
+
+Use code with caution.
+
+
+
+2. Performance Script (Omarchy)
 
 This setup includes the **mpv-smart** script for GPU optimization.
 
 - **Path:** `~/.local/share/omarchy/bin/mpv-smart`
-- **Permission:** `chmod +x ~/.local/share/omarchy/bin/mpv-smart`
+- **Setup:** `chmod +x ~/.local/share/omarchy/bin/mpv-smart`
+
+------
+
+🔧 Configuration Logic
+
+- **Video:** Optimized for Intel (VA-API) with safe fallbacks and `target-colorspace-hint=no` to prevent washed-out fullscreen colors.
+- **Aesthetics:** `uosc` is configured with a hidden volume bar and a compact, centered control layout for a distraction-free experience.
+- **Subtitles:** Integrated `autosub.lua` (powered by `subliminal`) handles fetching missing tracks automatically.
+
+------
+
+📂 Installation
+
+1. Move `mpv.conf`, `input.conf`, and `uosc.conf` to `~/.config/mpv/`.
+2. Place `position-seek.lua` and `autosub.lua` in `~/.config/mpv/scripts/`.
+3. Enjoy the cleanest media experience on Linux.
 
 ------
