@@ -30,7 +30,7 @@ A minimalist, high-performance **mpv** configuration optimized for **Intel hardw
 | **Double Click (Sides)**  | Seek ±10s (Outer 15% of screen)     |
 | **Double Click (Center)** | Toggle Fullscreen (Center 70%)      |
 | **Scroll Wheel**          | Volume ±2                           |
-| **`s` / `S`**             | Cycle Subtitles / Toggle Visibility |
+| **`s` / `v`               | Cycle Subtitles / Toggle Visibility |
 | **`i` / `?`**             | Show Stats / Toggle Stats Overlay   |
 
 ------
