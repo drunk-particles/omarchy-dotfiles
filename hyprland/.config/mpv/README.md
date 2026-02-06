@@ -81,3 +81,13 @@ This setup includes the **mpv-smart** script for GPU optimization.
 ------
 
 # Or just place the extracted files inside  `~/.config/mpv/`, that'll do.
+
+
+
+
+
+## Credits
+
+Heavily inspired by and adapted from **[HongYue1/mpv-config](https://github.com/HongYue1/mpv-config)** — thank you for the great starting point!
+
+Many thanks to HongYue1 for their excellent mpv configuration that I merged parts of into my own setup.
