@@ -91,3 +91,8 @@ This setup includes the **mpv-smart** script for GPU optimization.
 Heavily inspired by and adapted from **[HongYue1/mpv-config](https://github.com/HongYue1/mpv-config)** — thank you for the great starting point!
 
 Many thanks to HongYue1 for their excellent mpv configuration that I merged parts of into my own setup.
+
+
+
+- Several shader presets and profile conditions were adapted from HongYue1/mpv-config
+- Some input.conf bindings and script integrations were taken and modified from there
