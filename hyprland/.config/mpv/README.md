@@ -80,7 +80,7 @@ This setup includes the **mpv-smart** script for GPU optimization.
 
 ------
 
-# Or just place the extracted files inside  `~/.config/mpv/`, that'll do.
+# Or just place the extracted files inside  `~/.config/mpv/`, that'll do. 🫠
 
 
 
