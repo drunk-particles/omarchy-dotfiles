@@ -53,7 +53,7 @@
   "lookup_location": "Wordnik",
   "main_window_state": {
     "__class__": "bytearray",
-    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAEAAAACgvwCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAAAAACggAAAIUA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAAD/////AAAAkQD///8AAAABAAABAAAAAtD8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsCAAAAAAAAAAAAAAUAAAAC0PsAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAAAAAC0AAAAOIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAD/////AAAAEQD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAA/////wAAAMwA////AAAFAAAAAtAAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAAAAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHICAAAAAP////8AAAAAAAAAAA=="
+    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAEAAAACjPwCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAAAAACjAAAAIUA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAAD/////AAAAkQD///8AAAABAAABAAAAAtD8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsCAAAAAAAAAAAAAAUAAAAC0PsAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAAAAAC0AAAAOIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAD/////AAAAEQD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAA/////wAAAMwA////AAAFAAAAAtAAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAAAAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHICAAAAAP////8AAAAAAAAAAA=="
   },
   "old_prefs_migrated": true,
   "session_data": {
@@ -85,7 +85,7 @@
         ],
         "key": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
         "pathtoebook": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
-        "timestamp": "2026-01-30T14:59:41.060Z",
+        "timestamp": "2026-02-08T16:04:39.520Z",
         "title": "I Shall Seal the Heavens"
       },
       {
@@ -102,7 +102,7 @@
       "*adnan": {
         "background": "#000000",
         "foreground": "#878787",
-        "link": "#86ee56",
+        "link": "#ee5739",
         "name": "adnan"
       }
     },

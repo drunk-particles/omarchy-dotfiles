@@ -1,98 +1,203 @@
 #!/bin/bash
+set -euo pipefail
 
 source "$HOME/.local/share/omarchy/bin/lib/helpers.sh"
 
+# -------------------------------
+# Paths & state
+# -------------------------------
+STATE="$HOME/.cache/media-downloader"
+mkdir -p "$STATE"
+
+LAST_TYPE="$STATE/last_type"
+LAST_QUALITY="$STATE/last_quality"
+LAST_AUDIO="$STATE/last_audio"
+
+VIDEO_DIR="$HOME/Videos/Downloaded Videos"
+AUDIO_DIR="$HOME/Music"
+
+mkdir -p "$VIDEO_DIR" "$AUDIO_DIR"
+
+# -------------------------------
+# Clipboard detection
+# -------------------------------
+get_clipboard() {
+  if command -v wl-paste &>/dev/null; then
+    wl-paste 2>/dev/null
+  elif command -v xclip &>/dev/null; then
+    xclip -selection clipboard -o 2>/dev/null
+  elif command -v xsel &>/dev/null; then
+    xsel --clipboard --output 2>/dev/null
+  else
+    return 1
+  fi
+}
+
+# -------------------------------
+# Header
+# -------------------------------
 clear
 log_header "Media Downloader"
 
-url=$(gum input --prompt "Media URL: " --placeholder "YouTube, Reddit, Instagram...")
+# -------------------------------
+# URL input (clipboard-aware)
+# -------------------------------
+url=""
 
-if [[ -z "$url" ]]; then
-  log_info "Cancelled"
-  exit 0
+CLIP_URL="$(get_clipboard || true)"
+
+if [[ "$CLIP_URL" =~ ^https?:// ]]; then
+  if yt-dlp --dump-json --quiet "$CLIP_URL" >/dev/null 2>&1; then
+    if ask_yes_no "Use URL from clipboard?"; then
+      url="$CLIP_URL"
+      log_info "Using clipboard URL"
+    fi
+  fi
 fi
 
-echo
-if ! spinner "Validating URL..." yt-dlp --dump-json --quiet --no-warnings "$url" > /dev/null 2>&1; then
-  log_error "URL not supported or invalid"
+if [[ -z "$url" ]]; then
+  url="$(gum input --prompt 'Media URL: ' --placeholder 'YouTube, Reddit, Instagram...')"
+fi
+
+[[ -z "$url" ]] && { log_info "Cancelled"; exit 0; }
+
+# -------------------------------
+# Validate URL
+# -------------------------------
+if ! spinner "Validating URL..." yt-dlp --dump-json --quiet "$url"; then
+  log_error "Unsupported or invalid URL"
   show_done
   exit 1
 fi
-log_success "Site supported!"
 
-echo
-type=$(gum choose --header "Select download type" "Video" "Audio")
+log_success "Site supported"
 
-if [[ -z "$type" ]]; then
-  log_info "Cancelled"
-  exit 0
-fi
+# -------------------------------
+# Detect site (for presets)
+# -------------------------------
+SITE="$(echo "$url" | awk -F/ '{print $3}' | sed 's/^www\.//')"
 
-video_dir="$HOME/Videos/Downloaded Videos"
-audio_dir="$HOME/Music"
-mkdir -p "$video_dir" "$audio_dir"
+DEFAULT_TYPE=""
+DEFAULT_QUALITY=""
+DEFAULT_AUDIO=""
 
+case "$SITE" in
+  youtube.com|youtu.be)
+    DEFAULT_TYPE="Video"
+    DEFAULT_QUALITY="1080p"
+    ;;
+  instagram.com)
+    DEFAULT_TYPE="Video"
+    DEFAULT_QUALITY="Best Quality"
+    ;;
+  reddit.com)
+    DEFAULT_TYPE="Video"
+    DEFAULT_QUALITY="720p"
+    ;;
+  soundcloud.com)
+    DEFAULT_TYPE="Audio"
+    DEFAULT_AUDIO="opus"
+    ;;
+esac
+
+# -------------------------------
+# Choose type
+# -------------------------------
+type=$(gum choose \
+  --header "Select download type" \
+  "$DEFAULT_TYPE" \
+  "$(cat "$LAST_TYPE" 2>/dev/null || true)" \
+  "Video" "Audio" | uniq)
+
+[[ -z "$type" ]] && { log_info "Cancelled"; exit 0; }
+echo "$type" > "$LAST_TYPE"
+
+# -------------------------------
+# Progress bar renderer
+# -------------------------------
+render_progress() {
+  awk -F'|' '
+  function bar(p, w, i, s) {
+    s=""
+    for (i=0;i<w;i++) s = s (i < p*w/100 ? "█" : "░")
+    return s
+  }
+  {
+    gsub(/%/, "", $1)
+    printf "\r%s %3d%% | %s / %s | %s | ETA %s",
+      bar($1, 20),
+      $1, $2, $3, $4, $5
+    fflush()
+  }
+  END { print "" }
+  '
+}
+
+PROGRESS_TEMPLATE="download:%(progress._percent_str)s|%(progress._downloaded_bytes_str)s|%(progress._total_bytes_estimate_str)s|%(progress._speed_str)s|%(progress._eta_str)s"
+
+# -------------------------------
+# Video flow
+# -------------------------------
 if [[ "$type" == "Video" ]]; then
-  echo
-  quality=$(gum choose --header "Select video quality" "Best Quality" "1080p" "720p" "480p" "360p")
+  quality=$(gum choose \
+    --header "Select video quality" \
+    "$DEFAULT_QUALITY" \
+    "$(cat "$LAST_QUALITY" 2>/dev/null || true)" \
+    "Best Quality" "1080p" "720p" "480p" "360p" | uniq)
 
-  if [[ -z "$quality" ]]; then
-    log_info "Cancelled"
-    exit 0
-  fi
+  [[ -z "$quality" ]] && { log_info "Cancelled"; exit 0; }
+  echo "$quality" > "$LAST_QUALITY"
 
   case "$quality" in
-    "Best Quality")
-      format_spec="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
-      ;;
-    "1080p")
-      format_spec="bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080]"
-      ;;
-    "720p")
-      format_spec="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720]"
-      ;;
-    "480p")
-      format_spec="bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/best[height<=480]"
-      ;;
-    "360p")
-      format_spec="bestvideo[height<=360][ext=mp4]+bestaudio[ext=m4a]/best[height<=360]"
-      ;;
+    "Best Quality") FORMAT="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best" ;;
+    "1080p") FORMAT="bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]" ;;
+    "720p") FORMAT="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]" ;;
+    "480p") FORMAT="bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]" ;;
+    "360p") FORMAT="bestvideo[height<=360][ext=mp4]+bestaudio[ext=m4a]" ;;
   esac
 
-  echo
-  log_step "Downloading video ($quality)..."
+  log_step "Downloading video ($quality)"
 
-  yt-dlp -f "$format_spec" \
-         --no-warnings \
-         --no-playlist \
-         --progress-template "download: %(progress._percent_str)8s | %(progress._total_bytes_estimate_str)8s | %(progress._speed_str)10s | ETA %(progress._eta_str)8s" \
-         -o "$video_dir/%(title)s.%(ext)s" \
-         "$url" \
-         && log_success "Video saved to ~/Videos/Downloaded Videos" \
-         || { log_error "Download failed"; show_done; exit 1; }
+  yt-dlp \
+    -f "$FORMAT" \
+    --merge-output-format mp4 \
+    --progress \
+    --progress-template "$PROGRESS_TEMPLATE" \
+    --no-playlist \
+    -o "$VIDEO_DIR/%(title).200B [%(id)s].%(ext)s" \
+    "$url" | render_progress \
+    && log_success "Saved to ~/Videos/Downloaded Videos" \
+    || { log_error "Download failed"; show_done; exit 1; }
 
-elif [[ "$type" == "Audio" ]]; then
-  echo
-  audio_format=$(gum choose --header "Select audio format" "MP3" "M4A" "Opus" "FLAC")
+# -------------------------------
+# Audio flow
+# -------------------------------
+else
+  audio_fmt=$(gum choose \
+    --header "Select audio format" \
+    "$DEFAULT_AUDIO" \
+    "$(cat "$LAST_AUDIO" 2>/dev/null || true)" \
+    "mp3" "m4a" "opus" "flac" | uniq)
 
-  if [[ -z "$audio_format" ]]; then
-    log_info "Cancelled"
-    exit 0
-  fi
+  [[ -z "$audio_fmt" ]] && { log_info "Cancelled"; exit 0; }
+  echo "$audio_fmt" > "$LAST_AUDIO"
 
-  audio_format=$(echo "$audio_format" | tr '[:upper:]' '[:lower:]')
+  log_step "Downloading audio ($audio_fmt)"
 
-  echo
-  log_step "Downloading audio ($audio_format)..."
-
-  yt-dlp -x --audio-format "$audio_format" \
-         --no-warnings \
-         --no-playlist \
-         --progress-template "download: %(progress._percent_str)8s | %(progress._total_bytes_estimate_str)8s | %(progress._speed_str)10s | ETA %(progress._eta_str)8s" \
-         -o "$audio_dir/%(title)s.%(ext)s" \
-         "$url" \
-         && log_success "Audio saved to ~/Music" \
-         || { log_error "Download failed"; show_done; exit 1; }
+  yt-dlp \
+    -x \
+    --audio-format "$audio_fmt" \
+    --audio-quality 0 \
+    --embed-metadata \
+    --embed-thumbnail \
+    --convert-thumbnails jpg \
+    --progress \
+    --progress-template "$PROGRESS_TEMPLATE" \
+    --no-playlist \
+    -o "$AUDIO_DIR/%(title).200B [%(id)s].%(ext)s" \
+    "$url" | render_progress \
+    && log_success "Saved to ~/Music" \
+    || { log_error "Download failed"; show_done; exit 1; }
 fi
 
 show_done
