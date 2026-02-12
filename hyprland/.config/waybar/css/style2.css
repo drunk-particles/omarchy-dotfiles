@@ -78,7 +78,7 @@ window#waybar {
    ========================================================= */
 #custom-updatespacman:hover, #battery:hover, #bluetooth:hover, #cpu:hover, 
 #memory:hover, #network:hover, #pulseaudio:hover, #clock:hover, #custom-omarchy:hover,
-#custom-weather:hover, #custom-exit:hover, #mpris:hover {
+#custom-weather:hover, #custom-exit:hover, #mpris:hover, #custom-cpucat:hover, #custom-cava:hover {
   /* Only change the tint, keep it static and professional */
   background-color: rgba(255, 255, 255, 0.1);
 }
