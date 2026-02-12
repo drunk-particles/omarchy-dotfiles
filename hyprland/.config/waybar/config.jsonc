@@ -129,7 +129,9 @@
     "tooltip": false,
     "interval": 60,
     "exec": "wttrbar --nerd --location chittagong",
-    "return-type": "json"
+    "return-type": "json",
+    "on-click": "sleep 0.1 && hyprctl dispatch hyprexpo:expo toggle"
+
   },
 
   "clock": {
