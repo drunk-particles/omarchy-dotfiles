@@ -263,7 +263,7 @@
 
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "max-volume": 150,
+    "max-volume": 130,
     "on-click": "pamixer -t",
     "on-click-right": "timeout 15s omarchy-launch-audio",
     "tooltip": false,

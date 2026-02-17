@@ -44,7 +44,7 @@ window#waybar { background: transparent; }
 /* 4. Accents & Special Modules */
 #clock, #workspaces button.active { color: @mauve; }
 #network { color: @blue; }
-#cpu, #memory { color: @teal; }
+/* #cpu, #memory { color: @teal; } */
 #mpris { color: @pink; font-style: italic; }
 #custom-cpucat { font-family: "Waycat"; color: @teal; font-size: 22px; }
 #custom-cava { padding: 8px 8px 0px 8px; font-size: 13px; }
