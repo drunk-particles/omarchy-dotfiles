@@ -1,0 +1,61 @@
+configuration {
+    show-icons:     true;
+    icon-theme:     "Papirus";
+    font:           "JetBrainsMono Nerd Font 11";
+}
+
+* {
+    background:     #1e1e2e80;
+    foreground:     #cdd6f4;
+    selected:       #89b4fa;
+    border:         #45475a;
+}
+
+window {
+    width:          50%;
+    transparency:   "real";
+    background-color: @background;
+    border:         2px;
+    border-color:   @border;
+    border-radius:  16px;
+    location:       center;
+    anchor:         center;
+}
+
+mainbox {
+    background-color: transparent;
+    padding: 10px;
+}
+
+inputbar { enabled: false; }
+
+listview {
+    columns:        2;       /* 2 columns makes horizontal layout look better */
+    lines:          3;       /* This reduces the HEIGHT significantly */
+    spacing:        10px;
+    fixed-columns:  true;
+    background-color: transparent;
+}
+
+element {
+    orientation:    horizontal;
+    spacing:        15px;
+    padding:        8px;
+    border-radius:  10px;
+    background-color: transparent;
+}
+
+element-icon {
+    size:           4em;     /* Slightly smaller to save height */
+    border-radius:  8px;
+}
+
+element-text {
+    vertical-align: 0.5;    /* Centers text with the icon */
+    text-color:     @foreground;
+}
+
+element selected {
+    background-color: @selected;
+    text-color:       #11111b;
+}
