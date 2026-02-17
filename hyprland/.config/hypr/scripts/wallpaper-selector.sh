@@ -28,18 +28,29 @@ for wp in "${WALLPAPERS[@]}"; do
 done
 
 # --- 4. REDUCED HEIGHT SELECTOR ---
-# Reduced width to 40% and limited listview to 2 rows
+# Added 'textbox-prompt-colon' to make the Theme Name always visible
 selected=$(echo -en "$entries" | \
     rofi -dmenu \
-         -p "   $THEME_NAME" \
+         -p "Theme: $THEME_NAME" \
          -i -show-icons -no-custom \
          -theme-str '
-            window { width: 40%; border: 2px; border-radius: 12px; background-color: #1e1e2e; }
-            listview { columns: 3; lines: 2; spacing: 10px; padding: 10px; fixed-columns: true; fixed-height: false; }
-            element { orientation: vertical; padding: 5px; border-radius: 8px; }
-            element-icon { size: 100px; horizontal-align: 0.5; }
-            element-text { horizontal-align: 0.5; font: "JetBrainsMono Nerd Font 9"; }
-            inputbar { padding: 8px; }
+            window { width: 45%; border: 2px; border-radius: 12px; background-color: #1e1e2e; }
+            mainbox { children: [ "textbox-prompt-colon", "listview" ]; }
+            textbox-prompt-colon {
+                expand: false;
+                str: "    Theme: '"$THEME_NAME"'";
+                padding: 12px;
+                text-color: #89b4fa;
+                background-color: #313244;
+                horizontal-align: 0.5;
+                font: "JetBrainsMono Nerd Font Bold 10";
+            }
+            listview { columns: 4; lines: 2; spacing: 10px; padding: 15px; fixed-columns: false; fixed-height: false; }
+            element { orientation: vertical; padding: 10px; border-radius: 8px; }
+            element selected { background-color: #45475a; }
+            element-icon { size: 110px; horizontal-align: 0.5; }
+            element-text { horizontal-align: 0.5; font: "JetBrainsMono Nerd Font 9"; padding: 5px 0 0 0; }
+            inputbar { enabled: false; }
          ')
 
 [[ -z "$selected" ]] && exit 0
@@ -53,7 +64,6 @@ if [ -f "$NEW_WP" ]; then
         --transition-type grow --transition-pos "$(hyprctl cursorpos)" \
         --transition-fps 120 --transition-duration 1.2 --resize crop &
     
-    # Sync system colors
     if command -v wallust >/dev/null 2>&1; then
         wallust run "$NEW_WP"
     fi
