@@ -24,7 +24,7 @@ window#waybar { background: transparent; }
 
 /* 3. States & Interactivity */
 #battery:hover, #bluetooth:hover, #cpu:hover, #memory:hover, #network:hover, 
-#pulseaudio:hover, #custom-omarchy:hover, #custom-updatespacman:hover, #custom-exit:hover, 
+#pulseaudio:hover, #clock:hover, #custom-omarchy:hover, #custom-updatespacman:hover, #custom-exit:hover, 
 #mpris:hover, #custom-cpucat:hover, #custom-cava:hover, #custom-weather:hover { background: @hover-tint; }
 
 /* Warnings & Critical (Unified) */
