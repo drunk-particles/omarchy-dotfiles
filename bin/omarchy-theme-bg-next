@@ -12,8 +12,15 @@ TOTAL=${#BACKGROUNDS[@]}
 
 if [[ $TOTAL -eq 0 ]]; then
   notify-send "No background was found for theme" -t 2000
-  pkill -x swaybg
-  setsid uwsm-app -- swaybg --color '#000000' >/dev/null 2>&1 &
+  pkill -x swww 2>/dev/null
+  setsid uwsm-app -- swww img "$HOME/.config/omarchy/current/background" \
+    --transition-type grow \
+    --transition-angle "$(shuf -i 0-359 -n 1)" \
+    --transition-pos "$(hyprctl cursorpos)" \
+    --transition-fps 120 \
+    --transition-step 45 \
+    --transition-duration 1 \
+    --resize crop >/dev/null 2>&1 &
 else
   # Get current background from symlink
   if [[ -L "$CURRENT_BACKGROUND_LINK" ]]; then
@@ -44,7 +51,14 @@ else
   # Set new background symlink
   ln -nsf "$NEW_BACKGROUND" "$CURRENT_BACKGROUND_LINK"
 
-  # Relaunch swaybg
-  pkill -x swaybg
-  setsid uwsm-app -- swaybg -i "$CURRENT_BACKGROUND_LINK" -m fill >/dev/null 2>&1 &
+  # Relaunch swww with new background
+  pkill -x swww 2>/dev/null
+  setsid uwsm-app -- swww img "$CURRENT_BACKGROUND_LINK" \
+    --transition-type grow \
+    --transition-angle "$(shuf -i 0-359 -n 1)" \
+    --transition-pos "$(hyprctl cursorpos)" \
+    --transition-fps 120 \
+    --transition-step 45 \
+    --transition-duration 1 \
+    --resize crop >/dev/null 2>&1 &
 fi
