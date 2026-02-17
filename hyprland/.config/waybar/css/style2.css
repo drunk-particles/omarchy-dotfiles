@@ -1,100 +1,52 @@
-/* =========================================================
-   Arctic Segments - Waybar Style
-   Based on: Omarchy (Modified by Sami)
-   ========================================================= */
-
+/* Arctic Segments - Compact Edition */
 @import "../omarchy/current/theme/waybar.css";
 @import "colors.css";
 
-/* =========================================================
-   CLEAN MINIMALIST BASE
-   ========================================================= */
+/* 1. Base & Global */
 * {
-  color: @foreground; 
-  border: none;
-  border-radius: 8px;
+  color: @foreground; border: none; border-radius: 8px;
   font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
-  font-size: 12px;
-  font-weight: 600;
-  text-shadow: none;
-  
+  font-size: 12px; font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Static Elements (No Transitions) */
-#clock, #mpris, #workspaces button {
-  transition: none;
-}
+/* Static Modules (No transitions) */
+#clock, #mpris, #workspaces button, #network { transition: none; }
+window#waybar { background: transparent; }
 
-window#waybar {
-  background-color: transparent;
-}
-
-/* =========================================================
-   THE "SMOKE" ISLANDS
-   ========================================================= */
-#battery, #bluetooth, #cpu, #memory, #network, #pulseaudio, 
-#clock, #workspaces, #custom-omarchy, #custom-update, #custom-updatespacman, 
+/* 2. Layout (The Islands) */
+#battery, #bluetooth, #cpu, #memory, #network, #pulseaudio, #clock, 
+#workspaces, #custom-omarchy, #custom-update, #custom-updatespacman, 
 #custom-exit, #tray, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
-  padding: 2px 12px;
-  margin: 6px 4px;
-  background-color: @island-bg;
-  border: 1px solid @island-border;
+  padding: 2px 12px; margin: 6px 4px;
+  background: @island-bg; border: 1px solid @island-border;
 }
 
-/* =========================================================
-   SUBTLE HOVER (Glass Effect)
-   ========================================================= */
-#custom-updatespacman:hover, #battery:hover, #bluetooth:hover, #cpu:hover, 
-#memory:hover, #network:hover, #pulseaudio:hover, #clock:hover, #custom-omarchy:hover,
-#custom-weather:hover, #custom-exit:hover, #mpris:hover, #custom-cpucat:hover, #custom-cava:hover {
-  background-color: @hover-tint;
+/* 3. States & Interactivity */
+#battery:hover, #bluetooth:hover, #cpu:hover, #memory:hover, #network:hover, 
+#pulseaudio:hover, #clock:hover, #custom-omarchy:hover, #custom-exit:hover, 
+#mpris:hover, #custom-cpucat:hover, #custom-cava:hover { background: @hover-tint; }
+
+/* Warnings & Critical (Unified) */
+#cpu.warning, #memory.warning, #network.wifi.low { color: @yellow; }
+#cpu.critical, #memory.critical, #battery.critical, #battery.warning, #network.disconnected { 
+  color: @red; background: rgba(237, 135, 150, 0.15); 
 }
 
-/* =========================================================
-   FUNCTIONAL STATES (Using Variables)
-   ========================================================= */
-
-/* Audio States */
+/* Functional Colors */
 #pulseaudio:not(.microphone).muted { color: @speaker-muted; }
 #pulseaudio.microphone.source-muted { color: @mic-muted; }
-
-/* Bluetooth State */
 #bluetooth.off, #bluetooth.disabled { color: @bt-off; }
-
-/* Battery State */
-#battery.critical, #battery.warning {
-  background-color: rgba(237, 135, 150, 0.2); /* Low opacity Red */
-  color: @battery-warn;
-}
-
-/* =========================================================
-   PASTEL ACCENTS
-   ========================================================= */
-#clock { color: @mauve; }
-#network { color: @blue; }
 #battery.charging { color: @green; }
-#custom-cpucat { font-family: "Waycat"; color: @teal; font-size: 22px; }
+
+/* 4. Accents & Special Modules */
+#clock, #workspaces button.active { color: @mauve; }
+#network { color: @blue; }
 #mpris { color: @pink; font-style: italic; }
 #custom-exit { color: @red; }
+#custom-cpucat { font-family: "Waycat"; color: @teal; font-size: 22px; }
+#custom-cava { padding: 8px 8px 0px 8px; font-size: 13px; }
 
-#custom-cava {
-  padding: 8px 8px 0px 8px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  font-size: 13px;
-}
-
-/* =========================================================
-   WORKSPACES
-   ========================================================= */
-#workspaces button {
-  color: rgba(202, 211, 245, 0.3); /* Low opacity Foreground */
-  padding: 0 4px;
-}
-
-#workspaces button.active {
-  color: @mauve;
-  border-bottom: 2px solid @mauve;
-  border-radius: 0;
-}
+/* 5. Workspaces */
+#workspaces button { color: rgba(202, 211, 245, 0.3); padding: 0 4px; }
+#workspaces button.active { border-bottom: 2px solid @mauve; border-radius: 0; }
