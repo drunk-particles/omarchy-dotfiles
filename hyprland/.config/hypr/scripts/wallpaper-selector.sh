@@ -1,8 +1,3 @@
-#=======================================================================
-#  Wallpaper Selector for Omarchy   
-# I had a headache trying get it to work with my preferrences, DAMN!!
-#=======================================================================
-
 #!/usr/bin/env bash
 
 # --- 1. CONFIG ---
@@ -12,6 +7,19 @@ USER_BG_DIR="$HOME/.config/omarchy/backgrounds/$THEME_NAME/"
 CURRENT_BG_LINK="$HOME/.config/omarchy/current/background"
 CACHE_DIR="$HOME/.cache/wallpaper-thumbs/$THEME_NAME"
 THUMB_SIZE="200"
+
+# --- COLOR EXTRACTION (The "Magic" Part) ---
+# This looks at your walker.css and pulls the Zen Garden colors
+CSS_FILE="$HOME/.config/omarchy/current/theme/walker.css"
+get_color() {
+    grep "@define-color $1" "$CSS_FILE" | awk '{print $3}' | sed 's/;//'
+}
+
+C_BASE=$(get_color "base" || echo "#051A18")
+C_TEXT=$(get_color "text" || echo "#E0E4DE")
+C_BORDER=$(get_color "border" || echo "#355A53")
+C_SEL_BOX=$(get_color "selected-box" || echo "#006F92")
+C_SEL_TEXT=$(get_color "selected-text" || echo "#C3EED2")
 
 mkdir -p "$CACHE_DIR"
 
@@ -33,28 +41,48 @@ for wp in "${WALLPAPERS[@]}"; do
 done
 
 # --- 4. REDUCED HEIGHT SELECTOR ---
-# Added 'textbox-prompt-colon' to make the Theme Name always visible
+# We use the C_ variables here to style Rofi dynamically
 selected=$(echo -en "$entries" | \
     rofi -dmenu \
          -p "Theme: $THEME_NAME" \
          -i -show-icons -no-custom \
          -theme-str '
-            window { width: 45%; border: 2px; border-radius: 12px; background-color: #1e1e2e; }
-            mainbox { children: [ "textbox-prompt-colon", "listview" ]; }
+            window { 
+                width: 45%; 
+                border: 2px; 
+                border-radius: 12px; 
+                background-color: '"$C_BASE"'; 
+                border-color: '"$C_BORDER"'; 
+            }
+            mainbox { children: [ "textbox-prompt-colon", "listview" ]; background-color: transparent; }
             textbox-prompt-colon {
                 expand: false;
                 str: "    Theme: '"$THEME_NAME"'";
                 padding: 12px;
-                text-color: #89b4fa;
-                background-color: #313244;
+                text-color: '"$C_SEL_TEXT"';
+                background-color: '"$C_BORDER"';
                 horizontal-align: 0.5;
                 font: "JetBrainsMono Nerd Font Bold 10";
             }
-            listview { columns: 4; lines: 2; spacing: 10px; padding: 15px; fixed-columns: false; fixed-height: false; }
-            element { orientation: vertical; padding: 10px; border-radius: 8px; }
-            element selected { background-color: #45475a; }
-            element-icon { size: 110px; horizontal-align: 0.5; }
-            element-text { horizontal-align: 0.5; font: "JetBrainsMono Nerd Font 9"; padding: 5px 0 0 0; }
+            listview { 
+                columns: 4; lines: 2; spacing: 10px; padding: 15px; 
+                fixed-columns: false; fixed-height: false;
+                background-color: transparent;
+            }
+            element { 
+                orientation: vertical; padding: 10px; border-radius: 8px; 
+                background-color: transparent;
+                text-color: '"$C_TEXT"';
+            }
+            element selected { 
+                background-color: '"$C_SEL_BOX"'; 
+                text-color: '"$C_SEL_TEXT"';
+            }
+            element-icon { size: 110px; horizontal-align: 0.5; background-color: transparent; }
+            element-text { 
+                horizontal-align: 0.5; font: "JetBrainsMono Nerd Font 9"; padding: 5px 0 0 0; 
+                text-color: inherit;
+            }
             inputbar { enabled: false; }
          ')
 
