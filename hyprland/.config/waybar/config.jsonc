@@ -34,6 +34,7 @@
     "group/tray-expander",
     "network",
     "bluetooth",
+    "pulseaudio#microphone",
     "pulseaudio",
     "battery",
     "custom/exit"
@@ -255,11 +256,11 @@
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "max-volume": 150,
-    "on-click": "timeout 15s omarchy-launch-audio",
-    "on-click-right": "pamixer -t",
+    "on-click": "pamixer -t",
+    "on-click-right": "timeout 15s omarchy-launch-audio",
     "tooltip": false,
     "scroll-step": 5,
-    "format-muted": "Mute 🚫",
+    "format-muted": "Muted🚫",
     "format-icons": {
       "headphone": "󰋋",
       "hands-free": "󰋌",
@@ -270,6 +271,17 @@
       "default": ["", "", ""]
     }
   },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": " Muted",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%",
+    "scroll-step": 5
+},
+
 
   "battery": {
     "format": "{capacity}% {icon}",
