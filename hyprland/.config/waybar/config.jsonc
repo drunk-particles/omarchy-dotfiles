@@ -242,16 +242,18 @@
     "on-click": "timeout 5s omarchy-launch-wifi"
   },
 
-  "bluetooth": {
+"bluetooth": {
     "format": "",
     "format-disabled": "󰂲",
-    "format-off": "󰂲",
-    "format-connected": "",
+    "format-off": "  ",
+    "format-connected": "󰂱",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected-battery": "{device_alias} {device_battery_percentage}%",
     "tooltip-format-enumerate-connected": "{device_alias}",
-    "on-click": "timeout 10s omarchy-launch-floating-terminal-with-presentation bluetui"
-  },
+    "on-click": "rfkill toggle bluetooth", 
+    "on-click-right": "timeout 10s omarchy-launch-floating-terminal-with-presentation bluetui"
+},
+
 
   "pulseaudio": {
     "format": "{icon} {volume}%",

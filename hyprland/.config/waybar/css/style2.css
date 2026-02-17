@@ -1,17 +1,16 @@
 /* =========================================================
    Arctic Segments - Waybar Style
-   Designed by: Omarchy (Modified by Sami)
-   GitHub: https://github.com/drunk-particles/dots.git
+   Based on: Omarchy (Modified by Sami)
    ========================================================= */
 
 @import "../omarchy/current/theme/waybar.css";
 @import "colors.css";
 
 /* =========================================================
-   CLEAN MINIMALIST BASE (GTK COMPATIBLE)
+   CLEAN MINIMALIST BASE
    ========================================================= */
 * {
-  color: #e0def4; 
+  color: @foreground; 
   border: none;
   border-radius: 8px;
   font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
@@ -19,12 +18,11 @@
   font-weight: 600;
   text-shadow: none;
   
-  /* Global transition for that smooth glass feel */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* REMOVE TRANSITION FOR TIME/CALENDAR AND MPRIS */
-#clock, #mpris {
+/* Static Elements (No Transitions) */
+#clock, #mpris, #workspaces button {
   transition: none;
 }
 
@@ -40,8 +38,8 @@ window#waybar {
 #custom-exit, #tray, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
   padding: 2px 12px;
   margin: 6px 4px;
-  background-color: rgba(15, 15, 20, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: @island-bg;
+  border: 1px solid @island-border;
 }
 
 /* =========================================================
@@ -50,59 +48,53 @@ window#waybar {
 #custom-updatespacman:hover, #battery:hover, #bluetooth:hover, #cpu:hover, 
 #memory:hover, #network:hover, #pulseaudio:hover, #clock:hover, #custom-omarchy:hover,
 #custom-weather:hover, #custom-exit:hover, #mpris:hover, #custom-cpucat:hover, #custom-cava:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: @hover-tint;
 }
 
 /* =========================================================
-   AUDIO STATES (ISOLATED)
+   FUNCTIONAL STATES (Using Variables)
    ========================================================= */
 
-#pulseaudio:not(.microphone).muted {
-  color: #ff9e64;
-}
+/* Audio States */
+#pulseaudio:not(.microphone).muted { color: @speaker-muted; }
+#pulseaudio.microphone.source-muted { color: @mic-muted; }
 
-#pulseaudio.microphone.source-muted {
-  color: #bb9af7;
+/* Bluetooth State */
+#bluetooth.off, #bluetooth.disabled { color: @bt-off; }
+
+/* Battery State */
+#battery.critical, #battery.warning {
+  background-color: rgba(237, 135, 150, 0.2); /* Low opacity Red */
+  color: @battery-warn;
 }
 
 /* =========================================================
    PASTEL ACCENTS
    ========================================================= */
-#clock { color: #cba6f7; }
-#network { color: #89b4fa; }
-#battery.charging { color: #a6e3a1; }
-#custom-cpucat { font-family: "Waycat"; color: #94e2d5; font-size: 22px; }
+#clock { color: @mauve; }
+#network { color: @blue; }
+#battery.charging { color: @green; }
+#custom-cpucat { font-family: "Waycat"; color: @teal; font-size: 22px; }
 #mpris { color: @pink; font-style: italic; }
+#custom-exit { color: @red; }
 
 #custom-cava {
   padding: 8px 8px 0px 8px;
-  border: 1px solid;
-  border-style: hidden;
+  border: 1px solid transparent;
   border-radius: 8px;
   font-size: 13px;
 }
 
 /* =========================================================
-   WORKSPACES (Clean Underline)
+   WORKSPACES
    ========================================================= */
 #workspaces button {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(202, 211, 245, 0.3); /* Low opacity Foreground */
   padding: 0 4px;
-  transition: none; /* Usually better to keep workspaces snappy */
 }
 
 #workspaces button.active {
-  color: #cba6f7;
-  border-bottom: 2px solid #cba6f7;
+  color: @mauve;
+  border-bottom: 2px solid @mauve;
   border-radius: 0;
-}
-
-/* =========================================================
-   SPECIAL STATES
-   ========================================================= */
-#custom-exit { color: #eb6f92; }
-
-#battery.critical, #battery.warning {
-  background-color: rgba(235, 111, 146, 0.2);
-  color: #eb6f92;
 }

@@ -19,3 +19,9 @@
 @define-color island-bg rgba(15, 15, 20, 0.82);
 @define-color island-border rgba(255, 255, 255, 0.08);
 @define-color hover-tint rgba(255, 255, 255, 0.12);
+
+/* Logic Mapping (For easier updates) */
+@define-color speaker-muted @peach;
+@define-color mic-muted @mauve;
+@define-color bt-off @maroon;
+@define-color battery-warn @red;
