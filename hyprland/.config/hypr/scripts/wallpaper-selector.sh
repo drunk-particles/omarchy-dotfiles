@@ -1,3 +1,8 @@
+#=======================================================================
+#  Wallpaper Selector for Omarchy   
+# I had a headache trying get it to work with my preferrences, DAMN!!
+#=======================================================================
+
 #!/usr/bin/env bash
 
 # --- 1. CONFIG ---
