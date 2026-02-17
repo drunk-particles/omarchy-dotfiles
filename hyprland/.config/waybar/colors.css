@@ -1,3 +1,5 @@
+@import "../omarchy/current/theme/waybar.css";
+
 @define-color background rgb(36, 39, 58);
 @define-color foreground #cad3f5;
 @define-color mantle #1e2030;

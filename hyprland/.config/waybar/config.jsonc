@@ -309,7 +309,7 @@
     "tooltip-format-charging": "full charge in {time} {power:>1.0f}W ↑",
     "interval": 5,
     "on-click": "omarchy-menu power",
-    "states": { "warning": 30, "critical": 20 }
+    "states": { "warning": 20, "critical": 10 }
   },
 
   "custom/exit": {

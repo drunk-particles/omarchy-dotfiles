@@ -1,5 +1,4 @@
 /* Arctic Segments - Compact Edition */
-@import "../omarchy/current/theme/waybar.css";
 @import "colors.css";
 
 /* 1. Base & Global */
@@ -31,8 +30,8 @@ window#waybar { background: transparent; }
 #mpris:hover, #custom-cpucat:hover, #custom-cava:hover, #custom-weather:hover { background: @hover-tint; }
 
 /* Warnings & Critical (Unified) */
-#cpu.warning, #memory.warning, #network.wifi.low { color: @yellow; }
-#cpu.critical, #memory.critical, #battery.critical, #battery.warning, #network.disconnected { 
+#cpu.warning, #memory.warning, #network.wifi.low, #battery.warning { color: @yellow; }
+#cpu.critical, #memory.critical, #battery.critical, #network.disconnected { 
   color: @red; background: rgba(237, 135, 150, 0.15); 
 }
 
@@ -46,10 +45,9 @@ window#waybar { background: transparent; }
 #clock, #workspaces button.active { color: @mauve; }
 #network { color: @blue; }
 #mpris { color: @pink; font-style: italic; }
-#custom-exit { color: @red; }
 #custom-cpucat { font-family: "Waycat"; color: @teal; font-size: 22px; }
 #custom-cava { padding: 8px 8px 0px 8px; font-size: 13px; }
 
 /* 5. Workspaces */
 #workspaces button { color: rgba(202, 211, 245, 0.3); padding: 0 4px; }
-#workspaces button.active { border-bottom: 2px solid @mauve; border-radius: 0; }
+#workspaces button.active { border-bottom: 3px solid @mauve; border-radius: 0; }
