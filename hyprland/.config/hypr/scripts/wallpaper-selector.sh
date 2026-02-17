@@ -1,82 +1,62 @@
 #!/usr/bin/env bash
 
-# === CONFIG ===
-THEME_NAME=$(cat "$HOME/.config/omarchy/current/theme.name" 2>/dev/null || echo "Unknown")
+# --- 1. CONFIG ---
+THEME_NAME=$(cat "$HOME/.config/omarchy/current/theme.name" 2>/dev/null || echo "default")
 THEME_BG_DIR="$HOME/.config/omarchy/current/theme/backgrounds/"
 USER_BG_DIR="$HOME/.config/omarchy/backgrounds/$THEME_NAME/"
-CURRENT_BACKGROUND_LINK="$HOME/.config/omarchy/current/background"
-CACHE_DIR="$HOME/.cache/wallpaper-thumbs"
-THUMB_SIZE="128"
+CURRENT_BG_LINK="$HOME/.config/omarchy/current/background"
+CACHE_DIR="$HOME/.cache/wallpaper-thumbs/$THEME_NAME"
+THUMB_SIZE="200"
 
 mkdir -p "$CACHE_DIR"
 
-# Merge wallpapers, prefer user overrides
+# --- 2. FIND WALLPAPERS ---
 mapfile -t WALLPAPERS < <(find -L "$USER_BG_DIR" "$THEME_BG_DIR" -maxdepth 1 -type f \
-    \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print 2>/dev/null | sort -u)
+    \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -print 2>/dev/null | sort -u)
 
-if [ ${#WALLPAPERS[@]} -eq 0 ]; then
-    notify-send -u normal "Wallpaper Selector" "No wallpapers found for $THEME_NAME" -t 4000
-    exit 1
-fi
-
-# Build list + map
+# --- 3. PREP ENTRIES ---
 declare -A wp_map
 entries=""
 for wp in "${WALLPAPERS[@]}"; do
     base=$(basename "$wp")
-    name="${base%.*}"
-
-    # Generate PNG thumb for better compatibility
-    thumb="$CACHE_DIR/${base}.thumb.png"
+    thumb="$CACHE_DIR/${base}.png"
     if [ ! -f "$thumb" ]; then
-        ffmpeg -y -i "$wp" \
-            -vf "scale=$THUMB_SIZE:$THUMB_SIZE:force_original_aspect_ratio=decrease,pad=$THUMB_SIZE:$THUMB_SIZE:(ow-iw)/2:(oh-ih)/2" \
-            -frames:v 1 "$thumb" >/dev/null 2>&1 || continue
+        ffmpeg -y -i "$wp" -vf "scale='if(gt(iw,ih),-1,$THUMB_SIZE)':'if(gt(iw,ih),$THUMB_SIZE,-1)',crop=$THUMB_SIZE:$THUMB_SIZE" -frames:v 1 "$thumb" >/dev/null 2>&1 || continue
     fi
-
-    # Absolute path for icon (fallback if realpath fails)
-    abs_thumb=$(realpath "$thumb" 2>/dev/null || echo "$thumb")
-
-    wp_map["$name"]="$wp"
-    entries+="$name\0icon\x1f$abs_thumb\n"
+    wp_map["$base"]="$wp"
+    entries+="$base\0icon\x1f$thumb\n"
 done
 
-# Launch fuzzel (no --icon-size)
+# --- 4. REDUCED HEIGHT SELECTOR ---
+# Reduced width to 40% and limited listview to 2 rows
 selected=$(echo -en "$entries" | \
-    fuzzel --dmenu \
-           -p "Pick wallpaper ($THEME_NAME) " \
-           --lines=10 \
-           --width=60 \
-           --cache=/dev/null)
+    rofi -dmenu \
+         -p "   $THEME_NAME" \
+         -i -show-icons -no-custom \
+         -theme-str '
+            window { width: 40%; border: 2px; border-radius: 12px; background-color: #1e1e2e; }
+            listview { columns: 3; lines: 2; spacing: 10px; padding: 10px; fixed-columns: true; fixed-height: false; }
+            element { orientation: vertical; padding: 5px; border-radius: 8px; }
+            element-icon { size: 100px; horizontal-align: 0.5; }
+            element-text { horizontal-align: 0.5; font: "JetBrainsMono Nerd Font 9"; }
+            inputbar { padding: 8px; }
+         ')
 
-if [ -z "$selected" ]; then
-    exit 0
-fi
-
-# Lookup path
+[[ -z "$selected" ]] && exit 0
 NEW_WP="${wp_map[$selected]}"
 
-if [ -z "$NEW_WP" ] || [ ! -f "$NEW_WP" ]; then
-    notify-send -u critical "Wallpaper Selector" "Couldn't find file for: $selected" -t 3000
-    exit 1
+# --- 5. APPLY ---
+if [ -f "$NEW_WP" ]; then
+    ln -nsf "$NEW_WP" "$CURRENT_BG_LINK"
+    pkill -x swww 2>/dev/null
+    setsid uwsm-app -- swww img "$CURRENT_BG_LINK" \
+        --transition-type grow --transition-pos "$(hyprctl cursorpos)" \
+        --transition-fps 120 --transition-duration 1.2 --resize crop &
+    
+    # Sync system colors
+    if command -v wallust >/dev/null 2>&1; then
+        wallust run "$NEW_WP"
+    fi
+
+    notify-send -u normal "Wallpaper Set" "$selected" -i "$CACHE_DIR/${selected}.png"
 fi
-
-# Update symlink
-ln -nsf "$NEW_WP" "$CURRENT_BACKGROUND_LINK"
-
-# Apply with swww
-pkill -x swww 2>/dev/null
-setsid uwsm-app -- swww img "$CURRENT_BACKGROUND_LINK" \
-    --transition-type random \
-    --transition-angle "$(shuf -i 0-359 -n 1)" \
-    --transition-pos "$(hyprctl cursorpos)" \
-    --transition-fps 120 \
-    --transition-step 45 \
-    --transition-duration 2 \
-    --resize crop >/dev/null 2>&1 &
-
-# Notify
-THUMB_NOTIFY="${CACHE_DIR}/$(basename "$NEW_WP").thumb.png"
-[ -f "$THUMB_NOTIFY" ] || THUMB_NOTIFY="/usr/share/icons/Adwaita/48x48/places/folder-pictures-symbolic.symbolic.png"
-
-notify-send -u normal "Wallpaper Changed" "$selected ($THEME_NAME)" -t 2500 -i "$THUMB_NOTIFY"
