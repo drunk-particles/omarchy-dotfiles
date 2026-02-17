@@ -18,9 +18,12 @@ window#waybar { background: transparent; }
 #battery, #bluetooth, #cpu, #memory, #network, #pulseaudio, #clock, 
 #workspaces, #custom-omarchy, #custom-update, #custom-updatespacman, 
 #custom-exit, #tray, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
-  padding: 2px 12px; margin: 6px 4px;
-  background: @island-bg; border: 1px solid @island-border;
+  padding: 2px 11px; /* Slightly slimmer height, wider width for a "pill" feel */
+  margin: 5px 3px;   /* Increased gap between islands for better separation */
+  background: @island-bg; 
+  border: 2px solid @island-border;
 }
+
 
 /* 3. States & Interactivity */
 #battery:hover, #bluetooth:hover, #cpu:hover, #memory:hover, #network:hover, 
