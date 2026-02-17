@@ -1,22 +1,31 @@
 /* =========================================================
    Arctic Segments - Waybar Style
    Designed by: Omarchy (Modified by Sami)
-    GitHub:https://github.com/drunk-particles/omarchy-dotfiles.git
+   GitHub: https://github.com/drunk-particles/dots.git
    ========================================================= */
 
 @import "../omarchy/current/theme/waybar.css";
 @import "colors.css";
+
 /* =========================================================
-   CLEAN MINIMALIST BASE
+   CLEAN MINIMALIST BASE (GTK COMPATIBLE)
    ========================================================= */
 * {
   color: #e0def4; 
   border: none;
-  border-radius: 8px; /* Slightly sharper corners for a modern feel */
+  border-radius: 8px;
   font-family: 'CaskaydiaMono Nerd Font', 'JetBrainsMono Nerd Font';
   font-size: 12px;
-  font-weight: 600; /* Reverted to 600: bold but not "chunky" */
-  text-shadow: none; /* Removed the heavy shadows */
+  font-weight: 600;
+  text-shadow: none;
+  
+  /* Global transition for that smooth glass feel */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* REMOVE TRANSITION FOR TIME/CALENDAR AND MPRIS */
+#clock, #mpris {
+  transition: none;
 }
 
 window#waybar {
@@ -24,32 +33,47 @@ window#waybar {
 }
 
 /* =========================================================
-   THE "SMOKE" ISLANDS (Pro Readability Fix)
+   THE "SMOKE" ISLANDS
    ========================================================= */
 #battery, #bluetooth, #cpu, #memory, #network, #pulseaudio, 
 #clock, #workspaces, #custom-omarchy, #custom-update, #custom-updatespacman, 
 #custom-exit, #tray, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
   padding: 2px 12px;
   margin: 6px 4px;
-  
-  /* Expert approach: Instead of thick shadows, use a solid dark "smoke" base 
-     This guarantees readability on light walls without looking "glowy" */
   background-color: rgba(15, 15, 20, 0.85);
-  
-  /* Hairline border - looks much cleaner than thick ones */
   border: 1px solid rgba(255, 255, 255, 0.08);
-  
-  transition: background-color 0.2s ease;
 }
 
 /* =========================================================
-   PASTEL ACCENTS (Desaturated for Class)
+   SUBTLE HOVER (Glass Effect)
+   ========================================================= */
+#custom-updatespacman:hover, #battery:hover, #bluetooth:hover, #cpu:hover, 
+#memory:hover, #network:hover, #pulseaudio:hover, #clock:hover, #custom-omarchy:hover,
+#custom-weather:hover, #custom-exit:hover, #mpris:hover, #custom-cpucat:hover, #custom-cava:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+   AUDIO STATES (ISOLATED)
+   ========================================================= */
+
+#pulseaudio:not(.microphone).muted {
+  color: #ff9e64;
+}
+
+#pulseaudio.microphone.source-muted {
+  color: #bb9af7;
+}
+
+/* =========================================================
+   PASTEL ACCENTS
    ========================================================= */
 #clock { color: #cba6f7; }
 #network { color: #89b4fa; }
 #battery.charging { color: #a6e3a1; }
 #custom-cpucat { font-family: "Waycat"; color: #94e2d5; font-size: 22px; }
 #mpris { color: @pink; font-style: italic; }
+
 #custom-cava {
   padding: 8px 8px 0px 8px;
   border: 1px solid;
@@ -64,23 +88,13 @@ window#waybar {
 #workspaces button {
   color: rgba(255, 255, 255, 0.3);
   padding: 0 4px;
+  transition: none; /* Usually better to keep workspaces snappy */
 }
 
 #workspaces button.active {
   color: #cba6f7;
-  /* Thin sharp underline instead of a box */
   border-bottom: 2px solid #cba6f7;
   border-radius: 0;
-}
-
-/* =========================================================
-   SUBTLE HOVER (No "Jumping")
-   ========================================================= */
-#custom-updatespacman:hover, #battery:hover, #bluetooth:hover, #cpu:hover, 
-#memory:hover, #network:hover, #pulseaudio:hover, #clock:hover, #custom-omarchy:hover,
-#custom-weather:hover, #custom-exit:hover, #mpris:hover, #custom-cpucat:hover, #custom-cava:hover {
-  /* Only change the tint, keep it static and professional */
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* =========================================================

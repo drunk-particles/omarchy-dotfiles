@@ -157,7 +157,7 @@
     "format": "{} {icon}",
     "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
     "return-type": "json",
-    "format-icons": { "has-updates": "👹", "updated": " " },
+    "format-icons": { "has-updates": "👻", "updated": " " },
     "exec-if": "which waybar-module-pacman-updates",
     "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300"
   },
@@ -260,7 +260,7 @@
     "on-click-right": "timeout 15s omarchy-launch-audio",
     "tooltip": false,
     "scroll-step": 5,
-    "format-muted": "Muted🚫",
+    "format-muted": "🚫Muted",
     "format-icons": {
       "headphone": "󰋋",
       "hands-free": "󰋌",
@@ -272,15 +272,18 @@
     }
   },
 
-  "pulseaudio#microphone": {
+"pulseaudio#microphone": {
     "format": "{format_source}",
     "format-source": " {volume}%",
     "format-source-muted": " Muted",
-    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
-    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%",
+    "on-click": "pamixer --default-source -t",
+    "on-click-right": "timeout 15s omarchy-launch-audio",
+    "on-scroll-up": "pamixer --default-source --increase 5",
+    "on-scroll-down": "pamixer --default-source --decrease 5",
     "scroll-step": 5
 },
+
+
 
 
   "battery": {
