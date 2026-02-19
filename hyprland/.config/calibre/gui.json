@@ -118,28 +118,28 @@
   ],
   "geometry-of-calibre_main_window_geometry": {
     "frame_geometry": {
-      "height": 651,
-      "width": 631,
+      "height": 642,
+      "width": 1272,
       "x": 0,
       "y": 0
     },
     "full_screened": false,
     "geometry": {
-      "height": 651,
-      "width": 631,
+      "height": 642,
+      "width": 1272,
       "x": 0,
       "y": 0
     },
     "maximized": true,
     "normal_geometry": {
-      "height": 651,
+      "height": 642,
       "width": 631,
       "x": 0,
       "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAAAnYAAAKKAAAAAAAAAAAAAAJ2AAACigAAAAACAAAABQAAAAAAAAAAAAAAAnYAAAKK"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAABPcAAAKBAAAAAAAAAAAAAAJ2AAACgQAAAAACAAAABQAAAAAAAAAAAAAABPcAAAKB"
     },
     "screen": {
       "depth": 32,
@@ -171,26 +171,26 @@
     "frame_geometry": {
       "height": 378,
       "width": 532,
-      "x": 90,
-      "y": 52
+      "x": 0,
+      "y": 0
     },
     "full_screened": false,
     "geometry": {
       "height": 378,
       "width": 532,
-      "x": 90,
-      "y": 52
+      "x": 0,
+      "y": 0
     },
     "maximized": true,
     "normal_geometry": {
       "height": 378,
       "width": 532,
-      "x": 90,
-      "y": 52
+      "x": 0,
+      "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAABaAAAANAAAAm0AAAGtAAAAWgAAADQAAAJtAAABrQAAAAACAAAABQAAAABaAAAANAAAAm0AAAGt"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAAhMAAAF5AAAAAAAAAAAAAAITAAABeQAAAAACAAAABQAAAAAAAAAAAAAAAhMAAAF5"
     },
     "screen": {
       "depth": 32,
@@ -322,7 +322,7 @@
   },
   "grid view visible": false,
   "library_usage_stats": {
-    "/home/pseudo/Calibre Library": 104
+    "/home/pseudo/Calibre Library": 108
   },
   "main_window_central_widget_state": {
     "layout": "wide",

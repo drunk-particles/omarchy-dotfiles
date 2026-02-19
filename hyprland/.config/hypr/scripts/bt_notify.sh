@@ -1,46 +1,86 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# =============================================================================
+# Bluetooth notifier – minimal style: "Device Name 80%" only on connect
+# Deduplicated, low-battery warning separate
+# =============================================================================
 
-# Configuration
-LOW_BATT_LIMIT=20
+set -u -e -o pipefail
 
-# Function to handle notifications
-handle_bt_event() {
-    # Get MAC of the first connected/recently disconnected device
-    MAC=$(bluetoothctl devices Connected | awk '{print $2}' | head -n 1)
-    
-    # If no connected device is found, we assume a disconnection event occurred
-    if [ -z "$MAC" ]; then
-        # Optional: You can try to find the last known device name from 'bluetoothctl devices'
-        notify-send -u low -i bluetooth-disabled "Bluetooth Disconnected" "Device has been disconnected"
-        return
+# ─── Config ───────────────────────────────────────────────────────
+readonly LOW_BATTERY_THRESHOLD=20
+readonly ICON_CONNECTED="bluetooth"
+readonly ICON_DISCONNECTED="bluetooth-disabled"
+readonly ICON_LOW_BATTERY="battery-low"
+
+last_handled=0
+readonly DEBOUNCE_SECONDS=3
+
+# ─── Helpers ──────────────────────────────────────────────────────
+get_first_connected_mac() {
+    bluetoothctl devices Connected 2>/dev/null | awk 'NR==1 {print $2}'
+}
+
+get_device_name() {
+    local mac="$1"
+    bluetoothctl info "$mac" 2>/dev/null \
+        | awk -F': *' '/^Name:/ {print $2; exit}'
+}
+
+get_battery_percentage() {
+    local mac="$1"
+    bluetoothctl info "$mac" 2>/dev/null \
+        | awk -F'[()]' '/Battery Percentage:/ {gsub(/[^0-9]/,"",$2); print $2; exit}'
+}
+
+notify() {
+    local urgency="$1" icon="$2" title="$3" body="$4"
+    notify-send ${urgency:+-u "$urgency"} ${icon:+-i "$icon"} "$title" "$body"
+}
+
+handle_event() {
+    local now mac name batt msg
+
+    now=$(date +%s)
+    (( now - last_handled < DEBOUNCE_SECONDS )) && return 0
+    last_handled=$now
+
+    mac=$(get_first_connected_mac)
+
+    if [[ -z "$mac" ]]; then
+        notify "low" "$ICON_DISCONNECTED" \
+            "Bluetooth Disconnected" "A device was disconnected"
+        return 0
     fi
 
-    # Fetch device information
-    INFO=$(bluetoothctl info "$MAC")
-    NAME=$(echo "$INFO" | grep "Name:" | cut -d ' ' -f 2-)
-    BATT=$(echo "$INFO" | grep "Battery Percentage:" | awk -F '[()]' '{print $2}' | tr -d '%')
+    name=$(get_device_name "$mac")
+    [[ -z "$name" ]] && name="Bluetooth device"
 
-    # Connection Notification
-    if [ -n "$BATT" ]; then
-        notify-send -i bluetooth "Bluetooth Connected" "$NAME: $BATT%"
-        
-        # Low Battery Check
-        if [ "$BATT" -le "$LOW_BATT_LIMIT" ]; then
-            notify-send -u critical -i battery-low "Low Battery Alert" "$NAME is at $BATT%!"
+    batt=$(get_battery_percentage "$mac")
+
+    if [[ -n "$batt" ]]; then
+        msg="$name $batt%"
+
+        # Main connect notification – just name + percentage
+        notify "" "$ICON_CONNECTED" "$msg" ""
+
+        if (( batt <= LOW_BATTERY_THRESHOLD )); then
+            notify "critical" "$ICON_LOW_BATTERY" \
+                "Low Battery" "$name is at ${batt}% – charge soon!"
         fi
     else
-        notify-send -i bluetooth "Bluetooth Connected" "$NAME connected"
+        # No battery reported → just show device name
+        notify "" "$ICON_CONNECTED" "$name" ""
     fi
 }
 
-# Listen for DBus property changes (Connect/Disconnect)
-# Use 2>/dev/null to ignore the "AccessDenied" warning; eavesdropping still works
-dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',path_namespace='/org/bluez'" 2>/dev/null | 
+# ─── Main ─────────────────────────────────────────────────────────
+echo "→ Minimal Bluetooth notifier running (shows \"Name %\" only)"
+
+dbus-monitor --system \
+    "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',path_namespace='/org/bluez'" 2>/dev/null |
 while read -r line; do
-    # Trigger on 'Connected' status changes
-    if echo "$line" | grep -q "Connected"; then
-        # Wait briefly for Bluetooth services to sync status
+    if [[ "$line" =~ "'Connected':"[[:space:]]*"<'true'>" ]]; then
         sleep 1
-        handle_bt_event
+        handle_event
     fi
 done
