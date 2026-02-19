@@ -17,9 +17,9 @@
     "custom/omarchy",
     "cpu",
     "memory",
-    "custom/screenrecording-indicator",
     //"power-profiles-daemon",
-    "mpris"
+    "mpris",
+    "custom/screenrecording-indicator"
   ],
 "modules-center": [
     "custom/weather",
@@ -235,9 +235,10 @@
     "return-type": "json"
   },
 
+
   "network": {
     "format": "{icon}",
-    "format-wifi": " ", //{signalStrength}% | {bandwidthTotalBits}
+    "format-wifi": "  {bandwidthTotalBits}", //{signalStrength}% | {bandwidthTotalBits}
     "format-ethernet": "{ifname} 󰀂",
     "format-disconnected": "󰖪",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)",
@@ -313,7 +314,7 @@
   },
 
   "custom/exit": {
-    "format": "  ",
+    "format": "",
     "tooltip": false,
     "tooltip-format": "Power Menu",
     "on-click": "GSK_RENDERER=ngl omarchy-menu system"
