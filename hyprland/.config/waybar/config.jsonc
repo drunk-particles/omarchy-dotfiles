@@ -30,7 +30,7 @@
 ],
 
   "modules-right": [
-    "custom/cpucat",
+    //"custom/cpucat",
     "group/tray-expander",
     "network",
     "bluetooth",
@@ -287,6 +287,7 @@
     "format-source-muted": " Muted",
     "on-click": "pamixer --default-source -t",
     "on-click-right": "timeout 15s omarchy-launch-audio",
+    "tooltip": false,
     "on-scroll-up": "pamixer --default-source --increase 5",
     "on-scroll-down": "pamixer --default-source --decrease 5",
     "scroll-step": 5
