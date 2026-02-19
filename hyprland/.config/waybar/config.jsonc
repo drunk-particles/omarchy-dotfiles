@@ -142,7 +142,7 @@
   },
 
   "clock": {
-    "format": "{:L%A %H:%M %p}",
+    "format": "{:L%A %I:%M %p}",
     "format-alt": "{:%d %B %Y}",
     "tooltip": true,
     "tooltip-format": "<span>{calendar}</span>",
