@@ -1,5 +1,10 @@
-/* Arctic Segments - Compact Edition */
-@import "colors.css";
+/* =========================================================
+   Arctic Segments - Waybar Style
+   Designed by: Omarchy (Modified by Sami)
+   GitHub: https://github.com/drunk-particles/omarchy-dots.git 
+   ========================================================= */
+
+   @import "colors.css";
 
 /* 1. Base & Global */
 * {
