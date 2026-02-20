@@ -1,14 +1,15 @@
 /* =========================================================
    Ancient Runes - Waybar Style
    Designed by: Omarchy (Modified by Sami)
-    GitHub:https://github.com/drunk-particles/omarchy-dots.git
+   GitHub: https://github.com/drunk-particles/omarchy-dots.git
    ========================================================= */
+
 @import "colors.css";
 @import "../omarchy/current/theme/waybar.css";
 
-/* =========================================================
-   BASE STYLE
-   ========================================================= */
+/* ────────────────────────────────────────────────
+   Global / Base
+   ──────────────────────────────────────────────── */
 * {
   background-color: @background;
   color: @foreground;
@@ -23,9 +24,9 @@
 tooltip {
   padding: 1px;
   background: @background;
-  font-size: 2px;
   border: 1px solid alpha(@foreground, 0.35);
   border-radius: 4px;
+  font-size: 12px;
 }
 
 tooltip label {
@@ -41,23 +42,23 @@ window#waybar {
   margin: 0 0 2px 0;
   border-radius: 0;
   background-color: @background;
-  box-shadow: 0px 0px 0px 0px #101010;
+  box-shadow: 0 0 0 0 #101010;
   transition: background-color 0.5s;
 }
 
 /* ────────────────────────────────────────────────
-   LAYOUT & GROUPS
+   Layout & Containers
    ──────────────────────────────────────────────── */
-.modules-left  { margin-left: 8px; }
-.modules-right { margin-right: 8px; }
+.modules-left   { margin-left: 8px; }
 .modules-center {
   margin: 0 8px;
   padding: 0 9px;
   color: @mauve;
 }
+.modules-right  { margin-right: 8px; }
 
 /* ────────────────────────────────────────────────
-   WORKSPACES
+   Workspaces
    ──────────────────────────────────────────────── */
 #workspaces button {
   all: unset;
@@ -65,37 +66,46 @@ window#waybar {
   min-width: 10px;
 }
 
-#workspaces button.empty { opacity: 0.45; }
+#workspaces button.empty {
+  opacity: 0.45;
+}
 
 /* ────────────────────────────────────────────────
-   MODULE SPACING - FIXED
+   Module Spacing
    ──────────────────────────────────────────────── */
-#backlight, #battery, #bluetooth, #cpu, #custom-omarchy,
-#custom-screenrecording-indicator, #custom-update, #custom-updatespacman,
-#idle_inhibitor, #memory, #mpris, #network, #pulseaudio, #temperature, #tray {
-  margin: 0 8px;  /* Restored horizontal margin: 8px on left and right */
+#backlight,
+#battery,
+#bluetooth,
+#cpu,
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-updatespacman,
+#idle_inhibitor,
+#memory,
+#mpris,
+#network,
+#pulseaudio,
+#temperature {
+  margin: 0 8px;
   min-width: 20px;
 }
 
-#clock, #idle_inhibitor { 
+/* Fine-tuned spacing */
+#clock,
+#idle_inhibitor {
   margin-left: 6px;
-  margin-right: 8px;  /* Added right margin for consistency */
+  margin-right: 8px;
 }
 
-#custom-expand-icon { 
-  margin-right: 8px;  /* Consistent spacing */
+#custom-expand-icon {
+  margin-right: 8px;
 }
 
 #custom-screenrecording-indicator {
-  margin-left: 0px;
+  margin-left: 0;          /* override - usually first in left after omarchy */
 }
 
-#custom-update { 
-  font-size: 10px;
-  margin: 0 8px;  /* Consistent margins */
-}
-
-/* Special case for first and last elements to prevent double spacing */
+/* Edge spacing fix */
 .modules-left > :first-child {
   margin-left: 0;
 }
@@ -105,18 +115,30 @@ window#waybar {
 }
 
 /* ────────────────────────────────────────────────
-   ACCENT MODULES
+   Colors & Module Styles
    ──────────────────────────────────────────────── */
-#clock          { color: @foreground; padding: 0 10px; }
-#network        { color: @foreground; }
-#temperature    { color: @foreground; }
-#mpris          { color: @pink; }
-#mpris.spotify  { color: @teal; }
+#clock {
+  color: @foreground;
+  padding: 0 10px;
+}
+
+#custom-exit {
+  color: @foreground;
+  padding: 0 10px;
+}
+
+#network,
+#temperature {
+  color: @foreground;
+}
+
+#mpris            { color: @pink; }
+#mpris.spotify    { color: @teal; }
 #mpris.chromium,
 #mpris.chrome,
 #mpris.brave,
 #mpris.brave-browser,
-#mpris.default { color: @red; }
+#mpris.default    { color: @red; }
 
 #custom-cpucat {
   font-family: "Waycat";
@@ -124,37 +146,42 @@ window#waybar {
   font-size: 22px;
 }
 
-#custom-exit  {
-  color: @foreground;
-  padding: 0 10px;
+/* ────────────────────────────────────────────────
+   Status Indicators
+   ──────────────────────────────────────────────── */
+#pulseaudio:not(.microphone).muted {
+  color: @speaker-muted;
 }
 
-/* ────────────────────────────────────────────────
-   STATES & INTERACTIVE
-   ──────────────────────────────────────────────── */
-#pulseaudio:not(.microphone).muted { color: @speaker-muted; }
-#pulseaudio.microphone.source-muted { color: @mic-muted; }
-#bluetooth.off, #bluetooth.disabled { color: @bt-off; }
-#battery.charging { color: @teal; }
+#pulseaudio.microphone.source-muted {
+  color: @mic-muted;
+}
 
+#bluetooth.off,
+#bluetooth.disabled {
+  color: @bt-off;
+}
 
+#battery.charging {
+  color: @teal;
+}
+
+/* Recording pulse */
 #custom-screenrecording-indicator.recording {
   background: rgba(237, 135, 150, 0.2);
   border: 2px solid @red;
-  animation: blink 1.5s infinite; /* Smooth pulse */
+  animation: blink 1.5s infinite;
 }
 
-/* CAVA OVERRIDE - Completely collapse the module */
+/* ────────────────────────────────────────────────
+   Visualizer (hidden)
+   ──────────────────────────────────────────────── */
 #custom-cava {
-    all: unset;        /* Wipes out previous margins, padding, and borders */
-    opacity: 0;        /* Makes it invisible */
-    font-size: 0px;    /* Collapses text height */
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-    min-height: 0;
+  all: unset;
+  opacity: 0;
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
 }
-
-
-
-
