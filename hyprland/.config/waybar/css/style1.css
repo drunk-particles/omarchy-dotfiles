@@ -3,7 +3,7 @@
    Designed by: Omarchy (Modified by Sami)
     GitHub:https://github.com/drunk-particles/omarchy-dotfiles.git
    ========================================================= */
-
+@import "colors.css";
 @import "../omarchy/current/theme/waybar.css";
 
 /* =========================================================
@@ -17,19 +17,20 @@
   font-family: 'CaskaydiaMono Nerd Font';
   font-size: 12px;
   font-weight: bold;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 tooltip {
-  padding: 4px;
+  padding: 1px;
   background: @background;
-  font-size: 10px;
+  font-size: 2px;
   border: 1px solid alpha(@foreground, 0.35);
   border-radius: 4px;
 }
 
 tooltip label {
   color: @foreground;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 window#waybar {
@@ -44,268 +45,123 @@ window#waybar {
   transition: background-color 0.5s;
 }
 
-/* =========================================================
-   LAYOUT
-   ========================================================= */
-.modules-left  { border-radius: 4px; margin-left: 8px; }
+/* ────────────────────────────────────────────────
+   LAYOUT & GROUPS
+   ──────────────────────────────────────────────── */
+.modules-left  { margin-left: 8px; }
 .modules-right { margin-right: 8px; }
 .modules-center {
-  border-radius: 4px;
-  margin-right: 8px;
-  border-left: 0 solid alpha(@foreground, 0.2);
-  border-right: 0 solid alpha(@foreground, 0.2);
+  margin: 0 8px;
   padding: 0 9px;
-  color: #f9e2af;
+  color: @mauve;
 }
 
-/* =========================================================
+/* ────────────────────────────────────────────────
    WORKSPACES
-   ========================================================= */
+   ──────────────────────────────────────────────── */
 #workspaces button {
-  all: initial;
+  all: unset;
   padding: 0 6px;
-  margin: 0 1.5px;
-  min-width: 9px;
+  min-width: 10px;
 }
 
-#workspaces button.empty { opacity: 0.5; }
+#workspaces button.empty { opacity: 0.45; }
 
-/* =========================================================
-   MODULE SPACING
-   ========================================================= */
-#backlight,
-#battery,
-#bluetooth,
-#cpu,
-#custom-omarchy,
-#custom-screenrecording-indicator,
-#custom-update,
-#custom-updatespacman,
-#idle_inhibitor,
-#memory,
-#mpris,
-#network,
-#tray {
+/* ────────────────────────────────────────────────
+   MODULE SPACING - FIXED
+   ──────────────────────────────────────────────── */
+#backlight, #battery, #bluetooth, #cpu, #custom-omarchy,
+#custom-screenrecording-indicator, #custom-update, #custom-updatespacman,
+#idle_inhibitor, #memory, #mpris, #network, #pulseaudio, #temperature, #tray {
+  margin: 0 8px;  /* Restored horizontal margin: 8px on left and right */
   min-width: 20px;
-  margin: 0 10.5px;
 }
 
-#custom-expand-icon { margin-right: 7px; }
-#clock, #idle_inhibitor { margin-left: 5px; }
+#clock, #idle_inhibitor { 
+  margin-left: 6px;
+  margin-right: 8px;  /* Added right margin for consistency */
+}
+
+#custom-expand-icon { 
+  margin-right: 8px;  /* Consistent spacing */
+}
 
 #custom-screenrecording-indicator {
   margin-left: 0px;
-  font-size: 15px;
-  
 }
 
-#custom-screenrecording-indicator.active { 
-     color: #ed6262;
-     border-radius: 0px;
-     animation: blink 1s infinite alternate;
+#custom-update { 
+  font-size: 10px;
+  margin: 0 8px;  /* Consistent margins */
 }
 
-
-#custom-update { font-size: 10px; padding-top: 2px; }
-#window { margin: 8.75px; }
-
-/* =========================================================
-   MODULE STYLES
-   ========================================================= */
-#battery,
-#bluetooth,
-#network,
-#pulseaudio,
-#custom-exit,
-#custom-updatespacman {
-  padding: 0 4px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: transparent;
+/* Special case for first and last elements to prevent double spacing */
+.modules-left > :first-child {
+  margin-left: 0;
 }
 
-/* Hover glow effect */
-#battery:hover,
-#bluetooth:hover,
-#network:hover,
-#pulseaudio:hover,
-#custom-exit:hover,
-#custom-updatespacman:hover {
-  background-color: alpha(@foreground, 0.12);
-  box-shadow: 0 0 10px alpha(@foreground, 0.3);
+.modules-right > :last-child {
+  margin-right: 0;
 }
 
-/* Custom exit: red icon */
-#custom-exit { color: #ff3434; padding: 0 3px; }
-
-/* CPU & Memory */
-#cpu, #memory {
-  border-left: 0 solid alpha(@foreground, 0.2);
-  border-right: 0 solid alpha(@foreground, 0.2);
-  border-radius: 4px;
-  padding: 0 5px;
-}
-
-/* Clock */
-#clock {
-  border-left: 2px solid alpha(@foreground, 0.2);
-  border-right: 2px solid alpha(@foreground, 0.2);
-  border-radius: 3px;
-  padding: 0 10px;
-  animation: breathe 8s ease-in-out infinite;
-} 
-
-/* =========================================================
-   STATES
-   ========================================================= */
-#battery { transition: color 0.3s ease; }
-#battery.charging { color: #3fc54c; }
-#battery.warning,
-#battery.critical {
-  color: #ff3434;
-  animation: pulse-cava 0.5s infinite alternate;
-}
-
-#bluetooth.connected { color: #4ecea8; }
-#bluetooth:not(.connected) { 
-  color: #f38ba8; 
-  animation: pulse-slow 3s ease-in-out infinite alternate;
-}
-
-#network.wifi { 
-  color: @foreground; /*a6e3a1*/
-  /*animation: network-pulse 4s ease-in-out infinite alternate;*/
-}
-#network.disconnected { color: #f38ba8; }
-
-#cpu.critical,
-#memory.critical,
-#temperature.critical {
-  color: #f38ba8;
-  animation: pulse-cava 0.5s infinite alternate;
-}
-
-#cpu.warning,
-#cpu.critical,
-#memory.warning,
-#memory.critical {
-  animation: warning-fill 1.5s ease infinite alternate;
-}
-
-/* =========================================================
-   MPRIS - Text-focused playing animation
-   ========================================================= */
-#mpris {
-  padding: 0 5px;
-  background-color: @bg;
-  box-shadow: 1px 1px 3px 1px @ia1;
-  margin: 2px 4px 4px 4px;
-  color: @fg;
-  transition: color 0.3s ease-in-out;
-}
-
-#mpris.paused {
-  opacity: 0.6;
-  color: alpha(@fg, 0.7);
-}
-
-#mpris.playing {
-  /*animation: mpris-text-pulse 2.2s ease-in-out infinite alternate;*/
-}
-
+/* ────────────────────────────────────────────────
+   ACCENT MODULES
+   ──────────────────────────────────────────────── */
+#clock          { color: @foreground; padding: 0 10px; }
+#network        { color: @foreground; }
+#temperature    { color: @foreground; }
+#mpris          { color: @pink; }
+#mpris.spotify  { color: @teal; }
 #mpris.chromium,
 #mpris.chrome,
 #mpris.brave,
 #mpris.brave-browser,
-#mpris.default { color: #d26e6e; }
-#mpris.spotify { color: #3fc54c; }
+#mpris.default { color: @red; }
 
-#temperature { color: #b1be5d; }
+#custom-cpucat {
+  font-family: "Waycat";
+  color: @teal;
+  font-size: 22px;
+}
 
 #custom-cava {
-  padding: 8px 8px 0px 8px;
-  border: 1px solid;
-  border-style: hidden;
-  border-radius: 8px;
-  font-size: 13px;
-}#custom-cava {
-  padding: 8px 8px 0px 8px;
-  border: 1px solid;
-  border-style: hidden;
-  border-radius: 8px;
+  padding: 6px 10px 2px;
   font-size: 13px;
 }
 
-#custom-cpucat { font-family: "Waycat"; color: #94e2d5; font-size: 23px; }
-
-#custom-updatespacman.has-updates {
-  color: #ff3434;
-  animation: update-pulse 0.9s ease infinite alternate;
+#custom-exit  {
+  color: @foreground;
+  padding: 0 10px;
 }
 
-/* Tray */
-#tray > .passive:hover { opacity: 0.6; }
+/* ────────────────────────────────────────────────
+   STATES & INTERACTIVE
+   ──────────────────────────────────────────────── */
+#pulseaudio:not(.microphone).muted { color: @speaker-muted; }
+#pulseaudio.microphone.source-muted { color: @mic-muted; }
+#bluetooth.off, #bluetooth.disabled { color: @bt-off; }
+#battery.charging { color: @teal; }
 
-/* =========================================================
-   ANIMATIONS (All percentage-based for GTK/Waybar compatibility)
-   ========================================================= */
-@keyframes pulse-cava {
-  0% { opacity: 1; }
-  100% { opacity: 0.65; }
+
+#custom-screenrecording-indicator.recording {
+  background: rgba(237, 135, 150, 0.2);
+  border: 2px solid @red;
+  animation: blink 1.5s infinite; /* Smooth pulse */
 }
 
-@keyframes pulse-slow {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
+#custom-cava {
+  /* This multiplies the opacity of your variable by 0.5 */
+  background-color: alpha(@island-bg, 0.2);
+
+  border: 1px solid alpha(@island-border, 0.5);
+  border-radius: 11px;
+  margin: 5px 4px;
+  padding: 1px 12px;
 }
 
-@keyframes breathe {
-  0% { opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { opacity: 1; }
-}
 
-@keyframes network-pulse {
-  0% { color: #a6e3a1; }
-  100% { color: #c7f0d1; }
-}
-
-@keyframes warning-fill {
-  0% { background-color: transparent; }
-  100% { background-color: alpha(#f38ba8, 0.18); }
-}
-
-/* Strong text-only pulse when playing */
-@keyframes mpris-text-pulse {
-  0% {
-    opacity: 1;
-    color: @fg;
-  }
-  100% {
-    opacity: 0.75;
-    color: alpha(@foreground, 1.4);  /* brighter, more saturated text */
-  }
-}
-
-@keyframes update-pulse {
-  0% { opacity: 1; }
-  100% { opacity: 0.5; }
-}
-
-@keyframes blink {
-  0% {
-    background-color: transparent;
-    color: inherit;
-  }
-  100% {
-    background-color: #eb4034;
-    color: #484a4a;
-  }
-}
-#custom-voxtype {
-  min-width: 12px;
-  margin: 0 0 0 7.5px;
-}
-
-#custom-voxtype.recording {
-  color: #a55555;
+/* CAVA OVERRIDE */
+#custom-cava{
+  padding:8px 8px 0 8px;border:1px solid;border-style:hidden;
+  border-radius:5px;font-size:13px;
 }
