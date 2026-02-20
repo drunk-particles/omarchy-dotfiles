@@ -124,6 +124,26 @@ window#waybar {
   font-size: 22px;
 }
 
+#custom-exit  {
+  color: @foreground;
+  padding: 0 10px;
+}
+
+/* ────────────────────────────────────────────────
+   STATES & INTERACTIVE
+   ──────────────────────────────────────────────── */
+#pulseaudio:not(.microphone).muted { color: @speaker-muted; }
+#pulseaudio.microphone.source-muted { color: @mic-muted; }
+#bluetooth.off, #bluetooth.disabled { color: @bt-off; }
+#battery.charging { color: @teal; }
+
+
+#custom-screenrecording-indicator.recording {
+  background: rgba(237, 135, 150, 0.2);
+  border: 2px solid @red;
+  animation: blink 1.5s infinite; /* Smooth pulse */
+}
+
 /* CAVA OVERRIDE - Completely collapse the module */
 #custom-cava {
     all: unset;        /* Wipes out previous margins, padding, and borders */
@@ -134,3 +154,7 @@ window#waybar {
     min-width: 0;
     min-height: 0;
 }
+
+
+
+
