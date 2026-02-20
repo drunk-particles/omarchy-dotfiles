@@ -211,16 +211,16 @@
     "tooltip": false
   },
 
-  "pulseaudio#microphone": {
-    "format": " {volume}%",
+"pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
     "format-source-muted": " Muted",
-    "scroll-step": 5,
     "on-click": "pamixer --default-source -t",
-    "on-click-right": "timeout 15s omarchy-launch-audio",
     "on-scroll-up": "pamixer --default-source --increase 5",
     "on-scroll-down": "pamixer --default-source --decrease 5",
+    "scroll-step": 5,
     "tooltip": false
-  },
+},
 
   "battery": {
     "format": "{capacity}% {icon}",
