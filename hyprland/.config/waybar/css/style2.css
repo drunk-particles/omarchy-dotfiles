@@ -16,7 +16,7 @@ window#waybar { background: transparent; }
 /* 2. Layout (The Islands) */
 #battery, #bluetooth, #cpu, #memory, #network, #pulseaudio, #clock, 
 #workspaces, #custom-omarchy, #custom-update, #custom-updatespacman, #custom-screenrecording-indicator,
-#custom-exit, #tray, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
+#custom-exit, #tray, #group-tray-expander, #idle_inhibitor, #temperature, #backlight, #mpris, #custom-weather, #custom-cpucat, #custom-cava {
   padding: 2px 11px; /* Slightly slimmer height, wider width for a "pill" feel */
   margin: 5px 3px;   /* Increased gap between islands for better separation */
   background: @island-bg; 

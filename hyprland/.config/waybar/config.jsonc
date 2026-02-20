@@ -191,14 +191,10 @@
     ]
   },
 
-  "custom/expand-icon": {
-    "format": "{} ",
-    "format-icons": {
-      "expanded": "▽ ",
-      "collapsed": "▷ "
-    },
+"custom/expand-icon": {
+    "format": " ",
     "tooltip": false
-  },
+},
 
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon6/temp1_input",
