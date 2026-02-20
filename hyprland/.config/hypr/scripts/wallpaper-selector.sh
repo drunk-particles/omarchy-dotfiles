@@ -101,5 +101,5 @@ if [ -f "$NEW_WP" ]; then
         wallust run "$NEW_WP"
     fi
 
-    notify-send -u normal "Wallpaper Set" "$selected" -i "$CACHE_DIR/${selected}.png"
+    #notify-send -u normal "Wallpaper Set" "$selected" -i "$CACHE_DIR/${selected}.png"
 fi
