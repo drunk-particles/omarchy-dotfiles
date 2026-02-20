@@ -238,7 +238,7 @@
 
   "network": {
     "format": "{icon}",
-    "format-wifi": "  {bandwidthTotalBits}", //{signalStrength}% | {bandwidthTotalBits}
+    "format-wifi": "   {bandwidthDownBits}  {bandwidthUpBits}", //{signalStrength}% | {bandwidthTotalBits}
     "format-ethernet": "{ifname} 󰀂",
     "format-disconnected": "󰖪",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)",
