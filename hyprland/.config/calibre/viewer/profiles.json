@@ -1,0 +1,56 @@
+{
+  "viewer:": {
+    "Dark": {
+      "__timestamp__": "2026-02-19T23:22:07.391540+00:00",
+      "base_font_size": 31,
+      "columns_per_screen": {
+        "landscape": 2,
+        "portrait": 0
+      },
+      "current_color_scheme": "*adnan",
+      "margin_bottom": 60,
+      "margin_left": 60,
+      "margin_right": 60,
+      "margin_top": 60,
+      "standalone_font_settings": {
+        "standard_font": "mono"
+      },
+      "user_color_schemes": {
+        "*adnan": {
+          "background": "#000000",
+          "foreground": "#878787",
+          "is_dark_theme": true,
+          "link": "#8a4819",
+          "name": "adnan"
+        }
+      },
+      "user_stylesheet": "body{\nbackground-image:url('file:///path/to/background.jpg') !important;  /* adjust this line to point to where the background is stored */\nbackground-size:1600px 900px;  /* adjust this line to suit your screen resolution */\nbackground-repeat:no-repeat;\nbackground-attachment:fixed;\nbackground-position:center; \n}\n\np{\nmargin-bottom:0.5em !important; /* change this if you don't want a gap after each paragraph */"
+    },
+    "Sepia": {
+      "__timestamp__": "2026-02-19T23:21:28.977461+00:00",
+      "base_font_size": 31,
+      "columns_per_screen": {
+        "landscape": 2,
+        "portrait": 0
+      },
+      "current_color_scheme": "sepia-light",
+      "margin_bottom": 60,
+      "margin_left": 60,
+      "margin_right": 60,
+      "margin_top": 60,
+      "standalone_font_settings": {
+        "standard_font": "mono"
+      },
+      "user_color_schemes": {
+        "*adnan": {
+          "background": "#000000",
+          "foreground": "#878787",
+          "is_dark_theme": true,
+          "link": "#8a4819",
+          "name": "adnan"
+        }
+      },
+      "user_stylesheet": "body{\nbackground-image:url('file:///path/to/background.jpg') !important;  /* adjust this line to point to where the background is stored */\nbackground-size:1600px 900px;  /* adjust this line to suit your screen resolution */\nbackground-repeat:no-repeat;\nbackground-attachment:fixed;\nbackground-position:center; \n}\n\np{\nmargin-bottom:0.5em !important; /* change this if you don't want a gap after each paragraph */"
+    }
+  }
+}

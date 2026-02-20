@@ -68,15 +68,8 @@
     "margin_left": 60,
     "margin_right": 60,
     "margin_top": 60,
-    "override_book_colors": "never",
     "standalone_font_settings": {
       "standard_font": "mono"
-    },
-    "standalone_misc_settings": {
-      "remember_last_read": true,
-      "remember_window_geometry": false,
-      "save_annotations_in_ebook": true,
-      "singleinstance": false
     },
     "standalone_recently_opened": [
       {
@@ -102,6 +95,7 @@
       "*adnan": {
         "background": "#000000",
         "foreground": "#878787",
+        "is_dark_theme": true,
         "link": "#8a4819",
         "name": "adnan"
       }
