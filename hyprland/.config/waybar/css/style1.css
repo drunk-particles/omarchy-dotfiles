@@ -124,44 +124,13 @@ window#waybar {
   font-size: 22px;
 }
 
+/* CAVA OVERRIDE - Completely collapse the module */
 #custom-cava {
-  padding: 6px 10px 2px;
-  font-size: 13px;
-}
-
-#custom-exit  {
-  color: @foreground;
-  padding: 0 10px;
-}
-
-/* ────────────────────────────────────────────────
-   STATES & INTERACTIVE
-   ──────────────────────────────────────────────── */
-#pulseaudio:not(.microphone).muted { color: @speaker-muted; }
-#pulseaudio.microphone.source-muted { color: @mic-muted; }
-#bluetooth.off, #bluetooth.disabled { color: @bt-off; }
-#battery.charging { color: @teal; }
-
-
-#custom-screenrecording-indicator.recording {
-  background: rgba(237, 135, 150, 0.2);
-  border: 2px solid @red;
-  animation: blink 1.5s infinite; /* Smooth pulse */
-}
-
-#custom-cava {
-  /* This multiplies the opacity of your variable by 0.5 */
-  background-color: alpha(@island-bg, 0.2);
-
-  border: 1px solid alpha(@island-border, 0.5);
-  border-radius: 11px;
-  margin: 5px 4px;
-  padding: 1px 12px;
-}
-
-
-/* CAVA OVERRIDE */
-#custom-cava{
-  padding:8px 8px 0 8px;border:1px solid;border-style:hidden;
-  border-radius:5px;font-size:13px;
+    all: unset;        /* Wipes out previous margins, padding, and borders */
+    opacity: 0;        /* Makes it invisible */
+    font-size: 0px;    /* Collapses text height */
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
 }
