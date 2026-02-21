@@ -3,10 +3,11 @@
     "__class__": "set",
     "__value__": [
       "9.2",
-      "8.14",
-      "9.1",
-      "8.16",
       "9.0",
+      "8.16",
+      "9.1",
+      "8.14",
+      "9.3",
       "8.15"
     ]
   },
@@ -20,7 +21,7 @@
       false
     ]
   ],
-  "viewer-background-image": "/home/pseudo/Pictures",
+  "viewer-background-image": "/home/pseudo/Pictures/Screenshots",
   "welcome_wizard_device": "default",
   "welcome_wizard_was_run": true
 }

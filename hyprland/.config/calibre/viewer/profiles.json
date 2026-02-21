@@ -1,13 +1,33 @@
 {
   "viewer:": {
-    "Dark": {
-      "__timestamp__": "2026-02-19T23:22:07.391540+00:00",
+    "dark": {
+      "__timestamp__": "2026-02-21T05:58:18.409611+00:00",
       "base_font_size": 31,
       "columns_per_screen": {
         "landscape": 2,
         "portrait": 0
       },
       "current_color_scheme": "*adnan",
+      "keyboard_shortcuts": {
+        "show_profiles": [
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "p",
+            "metaKey": false,
+            "shiftKey": false
+          }
+        ],
+        "toggle_toc": [
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "t",
+            "metaKey": false,
+            "shiftKey": false
+          }
+        ]
+      },
       "margin_bottom": 60,
       "margin_left": 60,
       "margin_right": 60,
@@ -26,14 +46,35 @@
       },
       "user_stylesheet": "body{\nbackground-image:url('file:///path/to/background.jpg') !important;  /* adjust this line to point to where the background is stored */\nbackground-size:1600px 900px;  /* adjust this line to suit your screen resolution */\nbackground-repeat:no-repeat;\nbackground-attachment:fixed;\nbackground-position:center; \n}\n\np{\nmargin-bottom:0.5em !important; /* change this if you don't want a gap after each paragraph */"
     },
-    "Sepia": {
-      "__timestamp__": "2026-02-19T23:21:28.977461+00:00",
+    "sepia": {
+      "__timestamp__": "2026-02-21T05:57:10.084156+00:00",
+      "background_image": "clbr://internal.invalid/reader-background-63616c6962726520312e6a7067",
       "base_font_size": 31,
       "columns_per_screen": {
         "landscape": 2,
         "portrait": 0
       },
       "current_color_scheme": "sepia-light",
+      "keyboard_shortcuts": {
+        "show_profiles": [
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "p",
+            "metaKey": false,
+            "shiftKey": false
+          }
+        ],
+        "toggle_toc": [
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "t",
+            "metaKey": false,
+            "shiftKey": false
+          }
+        ]
+      },
       "margin_bottom": 60,
       "margin_left": 60,
       "margin_right": 60,

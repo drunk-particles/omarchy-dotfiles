@@ -15,14 +15,14 @@
     },
     "maximized": true,
     "normal_geometry": {
-      "height": 642,
+      "height": 648,
       "width": 631,
       "x": 0,
       "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAJ2AAACgQAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAJ2AAAChwAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
     },
     "screen": {
       "depth": 32,
@@ -50,6 +50,12 @@
       }
     }
   },
+  "local_storage": {
+    "search-bar-history-search-for-sc": [
+      "table of",
+      "profile"
+    ]
+  },
   "lookup_location": "Wordnik",
   "main_window_state": {
     "__class__": "bytearray",
@@ -57,6 +63,7 @@
   },
   "old_prefs_migrated": true,
   "session_data": {
+    "background_image": "clbr://internal.invalid/reader-background-63616c6962726520312e6a7067",
     "base_font_size": 31,
     "columns_per_screen": {
       "landscape": 2,
@@ -64,6 +71,26 @@
     },
     "controls_help_shown_count": 2,
     "current_color_scheme": "sepia-light",
+    "keyboard_shortcuts": {
+      "show_profiles": [
+        {
+          "altKey": false,
+          "ctrlKey": false,
+          "key": "p",
+          "metaKey": false,
+          "shiftKey": false
+        }
+      ],
+      "toggle_toc": [
+        {
+          "altKey": false,
+          "ctrlKey": false,
+          "key": "t",
+          "metaKey": false,
+          "shiftKey": false
+        }
+      ]
+    },
     "margin_bottom": 60,
     "margin_left": 60,
     "margin_right": 60,
@@ -78,7 +105,7 @@
         ],
         "key": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
         "pathtoebook": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
-        "timestamp": "2026-02-19T17:25:15.080Z",
+        "timestamp": "2026-02-21T05:27:35.508Z",
         "title": "I Shall Seal the Heavens"
       },
       {
