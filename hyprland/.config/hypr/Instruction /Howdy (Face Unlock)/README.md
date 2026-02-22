@@ -40,7 +40,7 @@ v4l2-ctl --list-devices
 mpv av://v4l2:/dev/video2
 ```
 
-###### Or,
+##### Or,
 
 ```
 ffplay /dev/video2
