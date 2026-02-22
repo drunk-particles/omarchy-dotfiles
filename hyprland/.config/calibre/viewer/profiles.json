@@ -1,7 +1,7 @@
 {
   "viewer:": {
-    "dark ": {
-      "__timestamp__": "2026-02-21T06:07:22.122118+00:00",
+    "dark": {
+      "__timestamp__": "2026-02-21T14:44:03.842832+00:00",
       "base_font_size": 31,
       "columns_per_screen": {
         "landscape": 2,
@@ -14,6 +14,22 @@
             "altKey": false,
             "ctrlKey": false,
             "key": "p",
+            "metaKey": false,
+            "shiftKey": false
+          }
+        ],
+        "toggle_full_screen": [
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "F11",
+            "metaKey": false,
+            "shiftKey": false
+          },
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "f",
             "metaKey": false,
             "shiftKey": false
           }
@@ -47,7 +63,7 @@
       "user_stylesheet": "body{\nbackground-image:url('file:///path/to/background.jpg') !important;  /* adjust this line to point to where the background is stored */\nbackground-size:1600px 900px;  /* adjust this line to suit your screen resolution */\nbackground-repeat:no-repeat;\nbackground-attachment:fixed;\nbackground-position:center; \n}\n\np{\nmargin-bottom:0.5em !important; /* change this if you don't want a gap after each paragraph */"
     },
     "sepia": {
-      "__timestamp__": "2026-02-21T06:06:55.789009+00:00",
+      "__timestamp__": "2026-02-21T14:42:10.841681+00:00",
       "background_image": "clbr://internal.invalid/reader-background-63616c696272652e6a7067",
       "base_font_size": 31,
       "columns_per_screen": {
@@ -61,6 +77,22 @@
             "altKey": false,
             "ctrlKey": false,
             "key": "p",
+            "metaKey": false,
+            "shiftKey": false
+          }
+        ],
+        "toggle_full_screen": [
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "F11",
+            "metaKey": false,
+            "shiftKey": false
+          },
+          {
+            "altKey": false,
+            "ctrlKey": false,
+            "key": "f",
             "metaKey": false,
             "shiftKey": false
           }
