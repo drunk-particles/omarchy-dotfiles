@@ -9,7 +9,7 @@ Tested with howdy-git, hyprlock, fprintd fingerprint as fallback, and sudo/lock 
 - Works in good lighting; add multiple face models for reliability
 - Snappy detection: ~1–3 seconds after trigger (with Enter press in hyprlock)
 
-## 📜 Prerequisites
+## Prerequisites 📜
 
 #### 1. **Install packages** (AUR helpers like `yay`/paru):
 
@@ -28,13 +28,25 @@ sudo linux-enable-ir-emitter configure   # Run in large terminal; follow prompts
 sudo systemctl enable --now linux-enable-ir-emitter.service
 ```
 
+You know, lists of devices...haha, it's usually video2, but if it's not...verify it.
+
+```
+v4l2-ctl --list-devices
+```
+
 ###### Reboot or test: 
 
 ```
 mpv av://v4l2:/dev/video2
 ```
 
-######  → IR LEDs should light up, grayscale face visible.
+Or,
+
+```
+ffplay /dev/video2
+```
+
+###### → IR LEDs should light up, grayscale face visible.
 
 #### 3. Confirm IR device (persistent path optional but better)
 
@@ -44,7 +56,7 @@ ls -l /dev/v4l/by-path/*video*   # Pick one ending in -index2 or matching video2
 
 
 
-### 👁Howdy Configuration (Snappy & Reliable) 👀
+### Howdy Configuration (Snappy & Reliable) 👀
 
 Run:
 
@@ -151,7 +163,7 @@ Save & Exit.
 ## Add Face Models (Do This Multiple Times!)
 
 ```
-sudo howdy add   # Run 5–10 times: different angles, lighting, glasses/no glasses, distances 40–70 cm (Run some IN DA DARK ENVIROMENT TOO, U WILL KNOW, WHY?)
+sudo howdy add   # Run 5–10 times: different angles, lighting, glasses/no glasses, distances 40–70 cm (Run some IN DA DARK ENVIROMENT TOO, U WILL THANK ME LATER)
 sudo howdy list  # Check them
 # Remove bad ones if needed: sudo howdy remove <id>
 ```
@@ -162,11 +174,13 @@ Test Detection:
 sudo howdy test   # Should be fast (~1–3s) after IR on
 ```
 
-## PAM Integration (Face First → Fingerprint → Password)
+## 🔑PAM Integration (Face First → Fingerprint → Password)
+
+##### Howdy for Terminal Sudo use case
 
 ```
-sudo cp /etc/pam.d/sudo /etc/pam.d/sudo.bak
-sudo nano /etc/pam.d/sudo
+sudo cp /etc/pam.d/sudo /etc/pam.d/sudo.bak  #Backup the existing config
+sudo nano /etc/pam.d/sudo                    #Open it and add the following, at the very top of anything else to have priority
 ```
 
 Use:
@@ -190,12 +204,16 @@ sudo whoami
 
 #####  → face scan first (IR on), then finger if fails, then password.
 
-###### ( If your howdy-git uses Python module: replace with ``pam_python.so /lib/security/howdy/pam.py`  )
-
-## For hyprlock (lock screen)
+###### If your howdy-git uses Python module: replace with 
 
 ```
-sudo nano /etc/pam.d/hyprlock
+pam_python.so /lib/security/howdy/pam.py
+```
+
+## 🔐 For hyprlock (lock screen)
+
+```
+sudo nano /etc/pam.d/hyprlock  # same as before, at the very top before any other "auth" okay??
 ```
 
 ###### Use Same Order:
@@ -213,7 +231,15 @@ session   include      system-auth
 
 Inside `~/.config/hypr/hyprlock.conf` :
 
+```
+# FACE RECOGNITION (added section for convenience)
 
+general {
+    ignore_empty_input = false   # Allows empty Enter to trigger PAM/Howdy
+}
+```
+
+###### Add this section to your hyprlock config, below is my hyprlock config currently in use.
 
 ```
 $hypr = ~/.config/hypr
@@ -377,7 +403,7 @@ auth {
 - Look at camera → **press Enter** → face scan starts (IR on)
 - If face fails → fingerprint LED/prompt
 - If both fail → type password
-- No true auto-start without Enter (known limitation; see hyprlock #910, howdy #1042)
+- No true auto-start without Enter (known limitation; see hyprlock #910, howdy #1042)  (A Pity!)
 
 ## Fingerprint Setup (Fallback)
 
@@ -388,9 +414,17 @@ fprintd-enroll   # Follow prompts; enroll multiple fingers
 ## Troubleshooting
 
 - **No IR LEDs**: Restart sudo systemctl restart linux-enable-ir-emitter.service; rerun configure.
+
 - **Slow detection**: Add more models, lower certainty to 4.8, smaller frames (test 280x280 if emitter unhappy).
+
 - **hyprlock no scan without Enter**: Normal for now; workaround=input sometimes breaks trigger.
-- **Breaks after update**: yay -Syu howdy-git python-dlib opencv
+
+- **Breaks after update**: 
+
+  ```
+  yay -Syu howdy-git python-dlib opencv
+  ```
+
 - **Logs**: journalctl -f during auth; look for pam_howdy / fprintd errors.
 
 ## Final Confirmation (What Worked for Me)
