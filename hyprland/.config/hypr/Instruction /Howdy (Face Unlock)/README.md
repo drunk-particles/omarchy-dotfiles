@@ -5,13 +5,13 @@ Tested with howdy-git, hyprlock, fprintd fingerprint as fallback, and sudo/lock 
 
 **Hardware notes**:
 - IR camera: `/dev/video2` (confirmed with `v4l2-ctl --list-devices`)
-- Emitter activation required via `linux-enable-ir-emitter`
+- Emitter activation required via `sudo linux-enable-ir-emitter`
 - Works in good lighting; add multiple face models for reliability
 - Snappy detection: ~1–3 seconds after trigger (with Enter press in hyprlock)
 
-## Prerequisites
+## 📜 Prerequisites
 
-1. **Install packages** (AUR helpers like yay/paru):
+#### 1. **Install packages** (AUR helpers like `yay`/paru):
 
 ```bash
 yay -S howdy-git linux-enable-ir-emitter
@@ -40,7 +40,7 @@ ls -l /dev/v4l/by-path/*video*   # Pick one ending in -index2 or matching video2
 
 
 
-### Howdy Configuration (Snappy & Reliable)
+### Howdy Configuration (Snappy & Reliable) 👀
 
 Run:
 
