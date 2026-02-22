@@ -26,7 +26,7 @@ yay -S fprintd
 
 
 ```
-linux-enable-ir-emitter configure   # Run in large terminal; follow prompts (selects /dev/video2 usually)
+sudo linux-enable-ir-emitter configure   # Run in large terminal; follow prompts (selects /dev/video2 usually)
 sudo systemctl enable --now linux-enable-ir-emitter.service
 ```
 
