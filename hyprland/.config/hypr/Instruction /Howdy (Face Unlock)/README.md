@@ -19,11 +19,9 @@ yay -S howdy-git linux-enable-ir-emitter
 yay -S fprintd
 ```
 
-
+###### `linux-enable-ir-emitter` , this shi* is important, U know why, right? damnation...ChatGPT, wasted my whole day...not telling me about this 💢
 
 #### 2. **Enable IR emitter** (critical – LEDs won't turn on without this):
-
-
 
 ```
 sudo linux-enable-ir-emitter configure   # Run in large terminal; follow prompts (selects /dev/video2 usually)
@@ -40,13 +38,12 @@ ls -l /dev/v4l/by-path/*video*   # Pick one ending in -index2 or matching video2
 
 
 
-### Howdy Configuration (Snappy & Reliable) 👀
+### 👁Howdy Configuration (Snappy & Reliable) 👀
 
 Run:
 
 ```
 sudo howdy config
-
 ```
 
 ##### Replace with this exact config (optimized for speed + reliability on T14 Gen 2):
@@ -148,7 +145,7 @@ Save & Exit.
 ## Add Face Models (Do This Multiple Times!)
 
 ```
-sudo howdy add   # Run 5–10 times: different angles, lighting, glasses/no glasses, distances 40–70 cm
+sudo howdy add   # Run 5–10 times: different angles, lighting, glasses/no glasses, distances 40–70 cm (Run some IN DA DARK ENVIROMENT TOO, U WILL KNOW, WHY?)
 sudo howdy list  # Check them
 # Remove bad ones if needed: sudo howdy remove <id>
 ```
