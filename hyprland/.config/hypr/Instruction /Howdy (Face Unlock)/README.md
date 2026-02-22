@@ -28,7 +28,13 @@ sudo linux-enable-ir-emitter configure   # Run in large terminal; follow prompts
 sudo systemctl enable --now linux-enable-ir-emitter.service
 ```
 
-###### Reboot or test: mpv av://v4l2:/dev/video2 → IR LEDs should light up, grayscale face visible.
+###### Reboot or test: 
+
+```
+mpv av://v4l2:/dev/video2
+```
+
+######  → IR LEDs should light up, grayscale face visible.
 
 #### 3. Confirm IR device (persistent path optional but better)
 
