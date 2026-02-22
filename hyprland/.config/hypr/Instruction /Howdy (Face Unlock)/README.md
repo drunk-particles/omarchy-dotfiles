@@ -100,7 +100,7 @@ workaround = off
 
 [video]
 # Certainty threshold (lower = faster/more forgiving; 5.0 for snappy speed)
-certainty = 3.5
+certainty = 5.0
 
 # Seconds to search before timeout (higher avoids quick fails → feels faster)
 timeout = 4
@@ -213,6 +213,7 @@ pam_python.so /lib/security/howdy/pam.py
 ## 🔐 For hyprlock (lock screen)
 
 ```
+sudo cp /etc/pam.d/hyprlock /etc/pam.d/hyprlock.bak  #backup first, it's better 2b safe 😁
 sudo nano /etc/pam.d/hyprlock  # same as before, at the very top before any other "auth" okay??
 ```
 
@@ -404,6 +405,22 @@ auth {
 - If face fails → fingerprint LED/prompt
 - If both fail → type password
 - No true auto-start without Enter (known limitation; see hyprlock #910, howdy #1042)  (A Pity!)
+
+## For SDDM 
+
+```
+sudo cp /etc/pam.d/sddm /etc/pam.d/sddm.bak
+sudo nano /etc/pam.d/sddm
+```
+
+Add these lines at the very top:
+
+```
+auth      sufficient /lib/security/pam_howdy.so
+auth      sufficient pam_unix.so try_first_pass likeauth nullok   # ← fallback
+```
+
+
 
 ## Fingerprint Setup (Fallback)
 
