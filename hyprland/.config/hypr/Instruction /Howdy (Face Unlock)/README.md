@@ -46,7 +46,7 @@ mpv av://v4l2:/dev/video2
 ffplay /dev/video2
 ```
 
-###### → IR LEDs should light up, grayscale face visible.
+##### IR LEDs should light up, grayscale face visible. 🥳
 
 #### 3. Confirm IR device (persistent path optional but better)
 
