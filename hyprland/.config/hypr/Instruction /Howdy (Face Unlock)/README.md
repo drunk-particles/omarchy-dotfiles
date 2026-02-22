@@ -406,7 +406,7 @@ auth {
 - If both fail → type password
 - No true auto-start without Enter (known limitation; see hyprlock #910, howdy #1042)  (A Pity!)
 
-## For SDDM 
+## For SDDM (Simple Desktop Display Manager)
 
 ```
 sudo cp /etc/pam.d/sddm /etc/pam.d/sddm.bak
