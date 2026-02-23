@@ -195,6 +195,7 @@
     "format": "",
     "format-disabled": "󰂲",
     "format-connected": "󰂱",
+    "tooltip": true,
     "tooltip-format-connected": "{device_enumerate}",
     "on-click": "rfkill toggle bluetooth",
     "on-click-right": "timeout 10s omarchy-launch-floating-terminal-with-presentation bluetui"

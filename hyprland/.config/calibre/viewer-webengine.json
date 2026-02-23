@@ -15,14 +15,14 @@
     },
     "maximized": true,
     "normal_geometry": {
-      "height": 644,
+      "height": 636,
       "width": 631,
       "x": 0,
       "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAJ2AAACgwAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAJ2AAACewAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
     },
     "screen": {
       "depth": 32,
