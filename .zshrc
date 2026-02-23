@@ -35,6 +35,7 @@ alias cd="zd"
 alias ff='sudo fd -HI -a --exclude .snapshots'
 alias is='fzf --preview="bat --style=numbers --color=always {}"'
 alias nis='nvim $(fzf --preview="bat --color=always {}")'
+alias hyprclock='~/.config/hypr/scripts/hyprclock'
 
 # Navigation
 alias ..='cd ..'
