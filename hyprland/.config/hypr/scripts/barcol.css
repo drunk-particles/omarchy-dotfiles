@@ -1,6 +1,0 @@
-# DEFINING COLORS (Space-free syntax for hyprlang compatibility)
-$bg1    = rgba(1e1e22ee)  # Deeper charcoal with alpha
-$fg     = rgb(f0f0f5)     # Off-white to reduce harshness
-$red    = rgb(ff6b6b)     # Soft coral red
-$yellow = rgb(ffe66d)     # Warm buttery yellow
-$green  = rgb(7bed9f)     # Refreshing mint green
