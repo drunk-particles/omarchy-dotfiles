@@ -43,7 +43,16 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Sync Aliases
-alias dots='cd ~/dots && git add . && git commit -m "sync: $(date)" && git push && cd -'
+dots() {
+    # Default message is "sync: [date]", but allows a custom message
+    local msg="${1:-sync: $(date)}"
+    cd ~/dots && \
+    git add . && \
+    git commit -m "$msg" && \
+    git push && \
+    cd -
+}
+
 alias fmsync='cd ~/.config/omarchy/themes/full-moon && git add . && git commit -m "theme update: $(date)" && git push && cd -'
 alias way='cd ~/waybar && git add . && git commit -m "sync: $(date)" && git push && cd -'
 
