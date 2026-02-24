@@ -1,0 +1,6 @@
+# Order matters: Envs first, then Core/OMZ, then Aliases/Functions, then Init
+source ~/zshrc/envs
+source ~/zshrc/cleanomarchy
+source ~/zshrc/aliases
+source ~/zshrc/functions
+source ~/zshrc/init

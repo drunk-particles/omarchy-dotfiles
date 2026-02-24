@@ -1,0 +1,30 @@
+# --- FUNCTIONS ---
+zi() { cd "$(zoxide query -i)"; }
+
+zd() {
+  if [ $# -eq 0 ]; then 
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then 
+    builtin cd "$1"
+  else 
+    z "$@" && printf "\U000F17A9 " && pwd
+  fi
+}
+
+dots() {
+    local msg="${1:-sync: $(date)}"
+    cd ~/dots && \
+    git add . && \
+    git commit -m "$msg" && \
+    git push && \
+    cd -
+}
+
+open() { xdg-open "$@" >/dev/null 2>&1 & }
+cp2c() { [[ -z "$1" ]] && return 1; wl-copy < "$1"; }
+c2f() { [[ -z "$1" ]] && return 1; wl-paste > "$1"; }
+
+# Waydroid Hider logic
+hide_waydroid() {
+  sh -c 'find "$HOME/.local/share/applications" -name "waydroid.*.desktop" -exec grep -L "NoDisplay=true" {} + | xargs -I {} sed -i "/\[Desktop Entry\]/a NoDisplay=true" {}' 2>/dev/null
+}

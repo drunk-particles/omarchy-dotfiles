@@ -1,0 +1,112 @@
+cleanomarchy() {
+
+    LOGFILE="$HOME/.cleanomarchy.log"
+
+    echo -e "\n✨ Omarchy Clean — Safe Mode"
+    echo "Log file: $LOGFILE"
+    echo "------------------------------------------" | tee -a "$LOGFILE"
+
+    {
+        echo -e "\n📊 Disk usage BEFORE:"
+        df -h /
+
+        ############################################
+        # 1️⃣ Ensure paccache exists
+        ############################################
+        if ! command -v paccache >/dev/null 2>&1; then
+            echo "Installing pacman-contrib (safe cache management)..."
+            sudo pacman -Sy --needed pacman-contrib
+        fi
+
+        echo -e "\n📦 Trimming pacman cache (keeping last 2 versions)..."
+        sudo paccache -r -k 2
+
+        ############################################
+        # 2️⃣ Remove leftover pacman download dirs
+        ############################################
+        sudo find /var/cache/pacman/pkg/ -type d -name "download-*" -empty -delete 2>/dev/null
+
+        ############################################
+        # 3️⃣ Dependency integrity check
+        ############################################
+        echo -e "\n🔎 Checking dependency integrity..."
+        pacman -Dk || true
+
+        ############################################
+        # 4️⃣ Orphan review (interactive)
+        ############################################
+        echo -e "\n👻 Checking for orphan packages..."
+        ORPHANS=$(pacman -Qdtq)
+
+        if [ -n "$ORPHANS" ]; then
+            echo "$ORPHANS" | tee -a "$LOGFILE"
+            read "confirm?Remove these orphans? (y/N): " < /dev/tty
+            echo
+            if [[ "$confirm" == "y" ]]; then
+                sudo pacman -Rns -- $ORPHANS
+                echo "✅ Orphans removed."
+            else
+                echo "Skipped orphan removal."
+            fi
+        else
+            echo "No orphaned packages found."
+        fi
+
+        ############################################
+        # 5️⃣ Journal cleanup
+        ############################################
+        echo -e "\n🪵 Trimming journal logs (max 200MB)..."
+        sudo journalctl --vacuum-size=200M
+
+        ############################################
+        # 6️⃣ User cache cleanup
+        ############################################
+        echo -e "\n🗑 Cleaning user cache..."
+        rm -rf "$HOME/.cache/"* 2>/dev/null
+        rm -rf "$HOME/.local/share/Trash/"* 2>/dev/null
+        rm -rf "$HOME/.cache/thumbnails/"* 2>/dev/null
+
+        ############################################
+        # 7️⃣ Hyprland temp cache (only if not running)
+        ############################################
+        if [[ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
+            echo "Cleaning Hyprland temp cache..."
+            rm -rf "$HOME/.cache/hyprland/"* 2>/dev/null
+            rm -rf /tmp/hypr/* 2>/dev/null
+        else
+            echo "Hyprland session detected — skipping live cache cleanup."
+        fi
+
+        ############################################
+        # 8️⃣ AUR cache cleanup
+        ############################################
+        if command -v yay >/dev/null 2>&1; then
+            echo -e "\n🔧 Cleaning yay cache..."
+            yay -Sc --noconfirm
+        fi
+
+        ############################################
+        # 9️⃣ Flatpak cleanup
+        ############################################
+        if command -v flatpak >/dev/null 2>&1; then
+            echo -e "\n📦 Removing unused Flatpaks..."
+            flatpak uninstall --unused -y
+        fi
+
+        ############################################
+        # 🔟 Broken symlink sweep
+        ############################################
+        echo -e "\n🔗 Removing broken symlinks in HOME..."
+        find "$HOME" -xtype l -delete 2>/dev/null
+
+        ############################################
+        # Final Report
+        ############################################
+        echo -e "\n📊 Disk usage AFTER:"
+        df -h /
+
+        echo -e "\n✨ Omarchy Clean Complete — System Stable & Lean"
+        echo "------------------------------------------"
+
+    } | tee -a "$LOGFILE"
+}

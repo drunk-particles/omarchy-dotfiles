@@ -1,0 +1,28 @@
+# --- ENVS & PATH ---
+export EDITOR=nvim
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=$PATH:/home/pseudo/.spicetify
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# History and Monitor Options
+setopt appendhistory
+setopt NO_NOTIFY
+setopt NO_MONITOR
+
+# Oh My Zsh Theme & Plugins (Required before oh-my-zsh.sh)
+ZSH_THEME="robbyrussell" 
+plugins=(
+  git 
+  sudo 
+  archlinux 
+  zsh-autosuggestions 
+  fast-syntax-highlighting 
+  copyfile 
+  copybuffer
+)
+
+# Load Oh My Zsh Core
+source $ZSH/oh-my-zsh.sh
