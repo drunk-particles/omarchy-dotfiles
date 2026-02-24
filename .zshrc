@@ -53,6 +53,7 @@ dots() {
     cd -
 }
 
+alias walls='cd ~/Wallpapers && git add . && git commit -m "sync: $(date)" && git push && cd -'
 alias fmsync='cd ~/.config/omarchy/themes/full-moon && git add . && git commit -m "theme update: $(date)" && git push && cd -'
 alias way='cd ~/waybar && git add . && git commit -m "sync: $(date)" && git push && cd -'
 
