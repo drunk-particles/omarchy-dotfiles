@@ -71,4 +71,3 @@ window#waybar { background: transparent; }
 /* 5. Workspaces */
 #workspaces button { color: rgba(202, 211, 245, 0.3); padding: 0 4px; }
 #workspaces button.active { border-bottom: 3px solid @mauve; border-radius: 0; }
-

@@ -15,14 +15,14 @@
     },
     "maximized": true,
     "normal_geometry": {
-      "height": 636,
-      "width": 631,
+      "height": 642,
+      "width": 695,
       "x": 0,
       "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAJ2AAACewAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAK2AAACgQAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
     },
     "screen": {
       "depth": 32,
@@ -122,7 +122,7 @@
         ],
         "key": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
         "pathtoebook": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
-        "timestamp": "2026-02-23T19:37:29.575Z",
+        "timestamp": "2026-02-26T15:48:09.856Z",
         "title": "I Shall Seal the Heavens"
       },
       {
