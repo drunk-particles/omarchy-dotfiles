@@ -25,6 +25,7 @@
 
   "modules-right": [
     //"custom/cpucat",
+    //"custom/mako-history",
     "group/tray-expander",
     "network",
     "bluetooth",
@@ -180,6 +181,16 @@
     "min-length": 5,
     "tooltip": false
   },
+
+"custom/mako-history": {
+    "format": "   {}", 
+    "exec": "~/.config/waybar/scripts/mako-history.sh",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "makoctl restore",
+    "on-click-right": "makoctl dismiss -a",
+    "tooltip": true
+},
 
   "network": {
     "format": "{icon}",
