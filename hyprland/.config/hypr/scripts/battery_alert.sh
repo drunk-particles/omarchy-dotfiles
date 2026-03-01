@@ -43,7 +43,7 @@ process_event() {
     if [[ "$status" != "$LAST_STATUS" ]]; then
         if [[ "$status" == "charging" ]]; then
             notify-send -u normal "Power Connected" "Charging ($capacity%)" -i battery-charging
-            powerprofilesctl set performance 2>/dev/null
+            powerprofilesctl set balanced 2>/dev/null
             rm -f "$FLAG_FILE"
             CRITICAL_TRIGGERED=false
             LAST_NAG_CAPACITY=0
