@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$HOME/.local/share/omarchy/bin/lib/helpers.sh"
+source "$HOME/.config/hypr/scripts/lib/helpers.sh"
 
 clear
 log_header "Media Downloader"
