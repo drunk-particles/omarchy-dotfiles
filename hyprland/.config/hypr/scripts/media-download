@@ -1,98 +1,180 @@
 #!/bin/bash
-
 source "$HOME/.config/hypr/scripts/lib/helpers.sh"
-
 clear
 log_header "Media Downloader"
 
-url=$(gum input --prompt "Media URL: " --placeholder "YouTube, Reddit, Instagram...")
-
-if [[ -z "$url" ]]; then
-  log_info "Cancelled"
-  exit 0
-fi
-
-echo
-if ! spinner "Validating URL..." yt-dlp --dump-json --quiet --no-warnings "$url" > /dev/null 2>&1; then
-  log_error "URL not supported or invalid"
-  show_done
-  exit 1
-fi
-log_success "Site supported!"
-
-echo
-type=$(gum choose --header "Select download type" "Video" "Audio")
-
-if [[ -z "$type" ]]; then
-  log_info "Cancelled"
-  exit 0
-fi
-
-video_dir="$HOME/Videos/Downloaded Videos"
-audio_dir="$HOME/Music"
-mkdir -p "$video_dir" "$audio_dir"
-
-if [[ "$type" == "Video" ]]; then
-  echo
-  quality=$(gum choose --header "Select video quality" "Best Quality" "1080p" "720p" "480p" "360p")
-
-  if [[ -z "$quality" ]]; then
+while true; do
+  url=$(gum input --prompt "Media URL: " --placeholder "YouTube, Reddit, Instagram...")
+  if [[ -z "$url" ]]; then
     log_info "Cancelled"
     exit 0
   fi
 
-  case "$quality" in
-    "Best Quality")
-      format_spec="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
-      ;;
-    "1080p")
-      format_spec="bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080]"
-      ;;
-    "720p")
-      format_spec="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720]"
-      ;;
-    "480p")
-      format_spec="bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/best[height<=480]"
-      ;;
-    "360p")
-      format_spec="bestvideo[height<=360][ext=mp4]+bestaudio[ext=m4a]/best[height<=360]"
-      ;;
-  esac
+  # Validate URL & grab title
+  echo
+  if ! spinner "Validating URL..." yt-dlp --dump-json --quiet --no-warnings --playlist-items 1 "$url" > /dev/null 2>&1; then
+    log_error "URL not supported or invalid"
+    show_done
+    exit 1
+  fi
+
+  title=$(yt-dlp --get-title --quiet --no-warnings --playlist-items 1 "$url" 2>/dev/null)
+  log_success "Found: $title"
+
+  # Playlist detection via URL
+  echo
+  is_playlist=false
+  playlist_count=0
+  playlist_title=""
+  if echo "$url" | grep -q "list="; then
+    playlist_title=$(yt-dlp --flat-playlist --dump-single-json --quiet --no-warnings "$url" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('title','Playlist'))" 2>/dev/null)
+    playlist_count=$(yt-dlp --flat-playlist --dump-single-json --quiet --no-warnings "$url" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d.get('entries',[])))" 2>/dev/null)
+    log_info "Playlist detected: $playlist_title ($playlist_count videos)"
+    echo
+    playlist_choice=$(gum choose --header "What would you like to download?" "This video only" "Entire playlist")
+    [[ -z "$playlist_choice" ]] && log_info "Cancelled" && exit 0
+    [[ "$playlist_choice" == "Entire playlist" ]] && is_playlist=true
+  fi
 
   echo
-  log_step "Downloading video ($quality)..."
-
-  yt-dlp -f "$format_spec" \
-         --no-warnings \
-         --no-playlist \
-         --progress-template "download: %(progress._percent_str)8s | %(progress._total_bytes_estimate_str)8s | %(progress._speed_str)10s | ETA %(progress._eta_str)8s" \
-         -o "$video_dir/%(title)s.%(ext)s" \
-         "$url" \
-         && log_success "Video saved to ~/Videos/Downloaded Videos" \
-         || { log_error "Download failed"; show_done; exit 1; }
-
-elif [[ "$type" == "Audio" ]]; then
-  echo
-  audio_format=$(gum choose --header "Select audio format" "MP3" "M4A" "Opus" "FLAC")
-
-  if [[ -z "$audio_format" ]]; then
+  type=$(gum choose --header "Select download type" "Video" "Audio")
+  if [[ -z "$type" ]]; then
     log_info "Cancelled"
     exit 0
   fi
 
-  audio_format=$(echo "$audio_format" | tr '[:upper:]' '[:lower:]')
+  # Set dirs
+  video_dir="$HOME/Videos/Downloaded Videos"
+  audio_dir="$HOME/Music"
+  mkdir -p "$video_dir" "$audio_dir"
 
+  if [[ "$type" == "Video" ]]; then
+    echo
+    if $is_playlist; then
+      download_dir=$(gum input --prompt "Save to: " --value "$video_dir/$playlist_title")
+    else
+      download_dir=$(gum input --prompt "Save to: " --value "$video_dir")
+    fi
+    [[ -z "$download_dir" ]] && download_dir="$video_dir"
+    mkdir -p "$download_dir"
+
+    echo
+    quality=$(gum choose --header "Select video quality" "Best Quality" "1080p" "720p" "480p" "360p")
+    if [[ -z "$quality" ]]; then
+      log_info "Cancelled"
+      exit 0
+    fi
+
+    case "$quality" in
+      "Best Quality") format_spec="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" ;;
+      "1080p")        format_spec="bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080]" ;;
+      "720p")         format_spec="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720]" ;;
+      "480p")         format_spec="bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/best[height<=480]" ;;
+      "360p")         format_spec="bestvideo[height<=360][ext=mp4]+bestaudio[ext=m4a]/best[height<=360]" ;;
+    esac
+
+    echo
+    if $is_playlist; then
+      log_step "Downloading playlist: $playlist_title ($playlist_count videos @ $quality)..."
+      echo
+      yt-dlp -f "$format_spec" \
+        --no-warnings --yes-playlist \
+        --newline \
+        --progress-template "download:[%(info.playlist_index)s/%(playlist_count)s] %(info.title).40s | %(progress._percent_str)s | %(progress._speed_str)s | ETA %(progress._eta_str)s" \
+        --ignore-errors \
+        -o "$download_dir/%(playlist_index)s - %(title)s.%(ext)s" "$url" 2>/dev/null \
+        | grep --line-buffered "download:" \
+        | while IFS= read -r line; do printf "\r  %s        " "$line"; done
+      echo
+      log_success "Playlist saved to $download_dir"
+    else
+      log_step "Downloading video ($quality)..."
+      yt-dlp -f "$format_spec" \
+        --no-warnings --playlist-items 1 \
+        --newline \
+        --progress-template "download: %(progress._percent_str)s | %(progress._speed_str)s | ETA %(progress._eta_str)s" \
+        -o "$download_dir/%(title)s.%(ext)s" "$url" 2>/dev/null \
+        | grep --line-buffered "%" \
+        | while IFS= read -r line; do printf "\r  %s        " "$line"; done
+      echo
+      if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+        log_error "Download failed"
+        show_done
+        exit 1
+      fi
+      log_success "Video saved to $download_dir"
+    fi
+
+  elif [[ "$type" == "Audio" ]]; then
+    echo
+    if $is_playlist; then
+      download_dir=$(gum input --prompt "Save to: " --value "$audio_dir/$playlist_title")
+    else
+      download_dir=$(gum input --prompt "Save to: " --value "$audio_dir")
+    fi
+    [[ -z "$download_dir" ]] && download_dir="$audio_dir"
+    mkdir -p "$download_dir"
+
+    echo
+    audio_format=$(gum choose --header "Select audio format" "MP3" "M4A" "Opus" "FLAC")
+    if [[ -z "$audio_format" ]]; then
+      log_info "Cancelled"
+      exit 0
+    fi
+
+    echo
+    audio_quality=$(gum choose --header "Select audio quality" "320k" "192k" "128k")
+    [[ -z "$audio_quality" ]] && audio_quality="192k"
+
+    audio_format_lower=$(echo "$audio_format" | tr '[:upper:]' '[:lower:]')
+
+    echo
+    if $is_playlist; then
+      log_step "Downloading playlist: $playlist_title ($playlist_count items @ $audio_format $audio_quality)..."
+      echo
+      yt-dlp -x \
+        --audio-format "$audio_format_lower" \
+        --audio-quality "$audio_quality" \
+        --no-warnings --yes-playlist \
+        --newline \
+        --progress-template "download:[%(info.playlist_index)s/%(playlist_count)s] %(info.title).40s | %(progress._percent_str)s | %(progress._speed_str)s | ETA %(progress._eta_str)s" \
+        --ignore-errors \
+        -o "$download_dir/%(playlist_index)s - %(title)s.%(ext)s" "$url" 2>/dev/null \
+        | grep --line-buffered "download:" \
+        | while IFS= read -r line; do printf "\r  %s        " "$line"; done
+      echo
+      log_success "Playlist saved to $download_dir"
+    else
+      log_step "Downloading audio ($audio_format @ $audio_quality)..."
+      yt-dlp -x \
+        --audio-format "$audio_format_lower" \
+        --audio-quality "$audio_quality" \
+        --no-warnings --playlist-items 1 \
+        --newline \
+        --progress-template "download: %(progress._percent_str)s | %(progress._speed_str)s | ETA %(progress._eta_str)s" \
+        -o "$download_dir/%(title)s.%(ext)s" "$url" 2>/dev/null \
+        | grep --line-buffered "%" \
+        | while IFS= read -r line; do printf "\r  %s        " "$line"; done
+      echo
+      if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+        log_error "Download failed"
+        show_done
+        exit 1
+      fi
+      log_success "Audio saved to $download_dir"
+    fi
+  fi
+
+  # Open folder option
   echo
-  log_step "Downloading audio ($audio_format)..."
+  gum confirm "Open download folder?" && xdg-open "$download_dir"
 
-  yt-dlp -x --audio-format "$audio_format" \
-         --no-warnings \
-         --no-playlist \
-         --progress-template "download: %(progress._percent_str)8s | %(progress._total_bytes_estimate_str)8s | %(progress._speed_str)10s | ETA %(progress._eta_str)8s" \
-         -o "$audio_dir/%(title)s.%(ext)s" \
-         "$url" \
-         && log_success "Audio saved to ~/Music" \
-         || { log_error "Download failed"; show_done; exit 1; }
-fi
+  # Loop
+  echo
+  gum confirm "Download another?" || break
+
+  clear
+  log_header "Media Downloader"
+done
 
 show_done
