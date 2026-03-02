@@ -23,6 +23,11 @@ C_BORDER=$( get_color "border"       ); C_BORDER="${C_BORDER:-#45475a}"
 C_SEL=$(    get_color "selected-box" ); C_SEL="${C_SEL:-#5f8fdb}"
 
 mkdir -p "$CACHE_DIR"
+# If rofi is already running, kill it and exit (toggle behavior)
+if pgrep -x rofi >/dev/null 2>&1; then
+    pkill -x rofi
+    exit 0
+fi
 
 # --- FIND WALLPAPERS (deduplicated by filename) ---------------
 declare -A seen

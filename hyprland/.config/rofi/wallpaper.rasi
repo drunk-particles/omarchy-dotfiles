@@ -4,6 +4,7 @@ configuration {
     hover-select:      true;
     me-select-entry:   "";
     me-accept-entry:   "MousePrimary";
+    me-close-entry:    "MouseSecondary";
 }
 
 * {
@@ -45,7 +46,8 @@ listview {
 element {
     orientation:      vertical;
     cursor:           pointer;
-    padding:          0px;
+    padding:          -25px;
+    margin:           2px;
     border-radius:    8px;
     background-color: transparent;
     border:           0px;
@@ -68,7 +70,7 @@ element selected.active {
 }
 
 element-icon {
-    size:             130px;
+    size:             169px;
     horizontal-align: 0.5;
     vertical-align:   0.5;
     border-radius:    8px;
@@ -77,3 +79,4 @@ element-icon {
 element-text {
     enabled: false;
 }
+
