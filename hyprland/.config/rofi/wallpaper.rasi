@@ -9,8 +9,8 @@ configuration {
 }
 
 window {
-    width:            980px;
-    background-color: #1e1e2e99;
+    width:            960px;
+    background-color: #1e1e2e55;
     border:           2px;
     border-color:     #45475a;
     border-radius:    14px;
@@ -30,11 +30,11 @@ scrollbar { enabled: false; }
 listview {
     columns:       5;
     lines:         3;
-    spacing:       8px;
-    padding:       12px;
-    fixed-columns: true;
+    spacing:       5px;
+    padding:       8px;
+    fixed-columns: false;
     fixed-height:  false;
-    dynamic:       true;
+    dynamic:       false;
     cycle:         true;
     scrollbar:     false;
 }
@@ -42,10 +42,10 @@ listview {
 element {
     orientation:      vertical;
     cursor:           pointer;
-    padding:          3px;
+    padding:          0px;
     border-radius:    10px;
     background-color: transparent;
-    border:           2px;
+    border:           0px;
     border-color:     transparent;
 }
 
@@ -55,21 +55,21 @@ element alternate.normal {
     border-color:     transparent;
 }
 
-/* Selection = glowing border around the tile, not bg fill */
+/* Modern: dim overlay on selected instead of chunky border */
 element selected,
 element selected.normal,
 element selected.urgent,
 element selected.active {
-    background-color: transparent;
-    border:           2px;
-    border-color:     #5f8fdb;   /* overridden by script with theme color */
+    background-color: #ffffff18;
+    border:           0px;
+    border-color:     transparent;
 }
 
 element-icon {
-    size:             160px;
+    size:             162px;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    border-radius:    8px;
+    border-radius:    10px;
 }
 
 element-text {
