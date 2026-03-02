@@ -1,61 +1,83 @@
 configuration {
-    show-icons:     true;
-    icon-theme:     "Papirus";
-    font:           "JetBrainsMono Nerd Font 11";
+    show-icons:      true;
+    icon-theme:      "Papirus";
 }
 
 * {
-    background:     #1e1e2e80;
-    foreground:     #cdd6f4;
-    selected:       #89b4fa;
-    border:         #45475a;
+    /* Set all background colors to transparent by default */
+    background-color: transparent;
+    background:       #1e1e2e80;
+    foreground:       #cdd6f4;
+    selected:         #89b4fa;
+    border:           #45475a;
 }
 
 window {
-    width:          50%;
-    transparency:   "real";
+    width:            850px;
+    transparency:     "real";
     background-color: @background;
-    border:         2px;
-    border-color:   @border;
-    border-radius:  16px;
-    location:       center;
-    anchor:         center;
+    border:           2px;
+    border-color:     @border;
+    border-radius:    20px;
+    location:         center;
+    anchor:           center;
 }
 
 mainbox {
-    background-color: transparent;
-    padding: 10px;
+    children:         [ listview ];
 }
 
 inputbar { enabled: false; }
 
 listview {
-    columns:        2;       /* 2 columns makes horizontal layout look better */
-    lines:          3;       /* This reduces the HEIGHT significantly */
-    spacing:        10px;
-    fixed-columns:  true;
-    background-color: transparent;
+    enabled:         true;
+    columns:         3;
+    lines:           2;
+    spacing:         20px;
+    padding:         30px;
+    cycle:           true;
+    dynamic:         true;
+    layout:          vertical;
+    fixed-height:    true;
+    fixed-columns:   true;
+    
+    /* REMOVE SCROLLBAR */
+    scrollbar:       false;
 }
 
 element {
-    orientation:    horizontal;
-    spacing:        15px;
-    padding:        8px;
-    border-radius:  10px;
+    orientation:      vertical;
+    cursor:           pointer;
+    padding:          20px;
+    border-radius:    15px;
+    
+    /* FIX: Force background to transparent for all elements */
+    background-color: transparent;
+}
+
+/* FIX: This kills the white/off-white alternating row color */
+element alternate.normal {
     background-color: transparent;
 }
 
 element-icon {
-    size:           4em;     /* Slightly smaller to save height */
-    border-radius:  8px;
+    size:             180px;
+    cursor:           inherit;
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
 }
 
 element-text {
-    vertical-align: 0.5;    /* Centers text with the icon */
-    text-color:     @foreground;
+    enabled: false;
 }
 
 element selected {
+    background-color: @selected;
+    text-color:       #11111b;
+}
+
+/* FIX: Ensures the selection doesn't flicker when moving between rows */
+element selected.normal, element selected.urgent, element selected.active {
     background-color: @selected;
     text-color:       #11111b;
 }
