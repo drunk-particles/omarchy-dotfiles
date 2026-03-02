@@ -65,11 +65,9 @@ selected=$(echo -en "$entries" | rofi -dmenu \
     -i -show-icons -no-custom \
     -theme "$ROFI_THEME" \
     -theme-str "
-        window { background-color: ${C_BASE}99; border-color: ${C_BORDER}; }
-        element selected        { border-color: ${C_SEL}; }
-        element selected.normal { border-color: ${C_SEL}; }
-        element selected.urgent { border-color: ${C_SEL}; }
-        element selected.active { border-color: ${C_SEL}; }
+        window { background-color: ${C_BASE}55; border-color: ${C_BORDER}; }
+        element selected { background-color: #ffffff18; }
+        element selected.normal { background-color: #ffffff18; }
     ")
 
 [[ -z "$selected" ]] && exit 0

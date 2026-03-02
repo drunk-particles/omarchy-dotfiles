@@ -1,6 +1,9 @@
 configuration {
-    show-icons: true;
-    icon-theme: "Papirus";
+    show-icons:        true;
+    icon-theme:        "Papirus";
+    hover-select:      true;
+    me-select-entry:   "";
+    me-accept-entry:   "MousePrimary";
 }
 
 * {
@@ -9,7 +12,7 @@ configuration {
 }
 
 window {
-    width:            960px;
+    width:            820px;
     background-color: #1e1e2e55;
     border:           2px;
     border-color:     #45475a;
@@ -43,7 +46,7 @@ element {
     orientation:      vertical;
     cursor:           pointer;
     padding:          0px;
-    border-radius:    10px;
+    border-radius:    8px;
     background-color: transparent;
     border:           0px;
     border-color:     transparent;
@@ -55,7 +58,6 @@ element alternate.normal {
     border-color:     transparent;
 }
 
-/* Modern: dim overlay on selected instead of chunky border */
 element selected,
 element selected.normal,
 element selected.urgent,
@@ -66,10 +68,10 @@ element selected.active {
 }
 
 element-icon {
-    size:             162px;
+    size:             130px;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    border-radius:    10px;
+    border-radius:    8px;
 }
 
 element-text {
