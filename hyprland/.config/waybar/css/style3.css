@@ -22,10 +22,10 @@ window#waybar{background-color:transparent;}
   border-radius:11px;margin:5px 4px;padding:0 4px;
 }
 
-/* STANDALONE */
-#custom-omarchy,#mpris,#custom-cpucat,#custom-cava,#custom-exit{
+/* STANDALONE #custom-omarchy,#mpris,#custom-cpucat,#custom-cava,#custom-exit */
+#custom-cava,#mpris,#custom-exit,#custom-omarchy{
   background-color:@island-bg;border:1px solid @island-border;
-  border-radius:11px;margin:5px 4px;padding:1px 12px;
+  border-radius:6px;margin:5px 4px;padding:1px 12px;
 }
 
 /* CAVA OVERRIDE */
