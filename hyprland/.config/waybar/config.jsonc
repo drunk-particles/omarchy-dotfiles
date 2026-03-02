@@ -69,7 +69,7 @@
     "max-length": 35,
     "player-icons": {
       "default": "",
-      "chrome": "",
+      "chromium": "",
       "spotify": "",
       "firefox": "",
       "mpv": ""
