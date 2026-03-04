@@ -9,6 +9,8 @@ alias ff='sudo fd -HI -a --exclude .snapshots'
 alias is='fzf --preview="bat --style=numbers --color=always {}"'
 alias nis='nvim $(fzf --preview="bat --color=always {}")'
 alias hyprclock='~/.config/hypr/scripts/hyprclock'
+alias batt='sudo ~/.cargo/bin/batty --tui'
+alias ridle='killall hypridle && hypridle &'
 
 # Navigation
 alias ..='cd ..'

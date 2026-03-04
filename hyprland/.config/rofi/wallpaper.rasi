@@ -4,40 +4,39 @@ configuration {
     hover-select:      true;
     me-select-entry:   "";
     me-accept-entry:   "MousePrimary";
-    me-close-entry:    "MouseSecondary";
 }
 
 * {
     background-color: transparent;
     text-color:       #cdd6f4;
+    font:             "JetBrainsMono Nerd Font 10";
 }
 
 window {
-    width:            820px;
-    background-color: #1e1e2e55;
-    border:           2px;
-    border-color:     #45475a;
-    border-radius:    14px;
-    location:         center;
-    anchor:           center;
+    width:            100%;
+    location:         south;
+    anchor:           south;
+    background-color: #0d0d0dcc;
+    border:           0px;
+    border-radius:    0px;
 }
 
 mainbox {
-    children: [ listview ];
-    padding:  0;
-    spacing:  0;
+    children:  [ listview ];
+    padding:   16px 24px;
+    spacing:   0;
 }
 
 inputbar  { enabled: false; }
 scrollbar { enabled: false; }
 
 listview {
-    columns:       5;
-    lines:         3;
-    spacing:       5px;
-    padding:       8px;
+    columns:       9;
+    lines:         1;
+    spacing:       12px;
+    padding:       0px;
     fixed-columns: false;
-    fixed-height:  false;
+    fixed-height:  true;
     dynamic:       false;
     cycle:         true;
     scrollbar:     false;
@@ -46,9 +45,8 @@ listview {
 element {
     orientation:      vertical;
     cursor:           pointer;
-    padding:          -25px;
-    margin:           2px;
-    border-radius:    8px;
+    padding:          8px 8px 6px 8px;
+    border-radius:    12px;
     background-color: transparent;
     border:           0px;
     border-color:     transparent;
@@ -64,19 +62,23 @@ element selected,
 element selected.normal,
 element selected.urgent,
 element selected.active {
-    background-color: #ffffff18;
+    background-color: #ffffff1a;
     border:           0px;
     border-color:     transparent;
 }
 
 element-icon {
-    size:             169px;
+    size:             160px;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    border-radius:    8px;
+    border-radius:    10px;
 }
 
 element-text {
-    enabled: false;
+    enabled:          true;
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    padding:          5px 0px 0px 0px;
+    text-color:       #cdd6f480;
+    font:             "JetBrainsMono Nerd Font 8";
 }
-

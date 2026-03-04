@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-#  wallpaper-pick.sh — Rofi wallpaper gallery (5×3)
+#  wallpaper-pick.sh — HyDE-style horizontal bar picker
 # ============================================================
 
 THEME_NAME=$(cat "$HOME/.config/omarchy/current/theme.name" 2>/dev/null || echo "default")
@@ -9,21 +9,30 @@ USER_BG_DIR="$HOME/.config/omarchy/backgrounds/$THEME_NAME"
 CURRENT_BG_LINK="$HOME/.config/omarchy/current/background"
 ROFI_THEME="$HOME/.config/rofi/wallpaper.rasi"
 CACHE_DIR="$HOME/.cache/wallpaper-thumbs/$THEME_NAME"
-THUMB_SIZE="400"
+THUMB_W="225"
+THUMB_H="400"
 
-# --- COLOR EXTRACTION ----------------------------------------
+# --- COLOR EXTRACTION (from walker.css) ----------------------
 CSS_FILE="$HOME/.config/omarchy/current/theme/walker.css"
 get_color() {
     grep -m1 "@define-color $1 " "$CSS_FILE" 2>/dev/null \
         | awk '{print $3}' | tr -d ';'
 }
+C_BASE=$(   get_color "base"   ); C_BASE="${C_BASE:-#0d0d0d}"
+C_BORDER=$( get_color "border" ); C_BORDER="${C_BORDER:-#45475a}"
 
-C_BASE=$(   get_color "base"         ); C_BASE="${C_BASE:-#1e1e2e}"
-C_BORDER=$( get_color "border"       ); C_BORDER="${C_BORDER:-#45475a}"
-C_SEL=$(    get_color "selected-box" ); C_SEL="${C_SEL:-#5f8fdb}"
+# --- HYPRLAND BORDER RADIUS (like HyDE does it) --------------
+hypr_border=$(hyprctl -j getoption decoration:rounding 2>/dev/null \
+    | grep -o '"int": [0-9]*' | awk '{print $2}')
+hypr_border="${hypr_border:-8}"
+hypr_width=$(hyprctl -j getoption general:border_size 2>/dev/null \
+    | grep -o '"int": [0-9]*' | awk '{print $2}')
+hypr_width="${hypr_width:-2}"
+elem_border=$(( hypr_border == 0 ? 5 : hypr_border ))
 
 mkdir -p "$CACHE_DIR"
-# If rofi is already running, kill it and exit (toggle behavior)
+
+# Toggle: kill if already running
 if pgrep -x rofi >/dev/null 2>&1; then
     pkill -x rofi
     exit 0
@@ -56,28 +65,29 @@ for wp in "${WALLPAPERS[@]}"; do
     base=$(basename "$wp")
     thumb="$CACHE_DIR/${base}.png"
     if [[ ! -f "$thumb" ]]; then
-        # Scale to square (ensures enough pixels), then crop to 16:9
+        # Portrait crop: scale to fill, then crop to 9:16
         ffmpeg -y -i "$wp" \
-            -vf "scale=${THUMB_SIZE}:${THUMB_SIZE},crop=${THUMB_SIZE}:$((THUMB_SIZE*9/16))" \
+            -vf "scale=${THUMB_W}:${THUMB_H}:force_original_aspect_ratio=increase,crop=${THUMB_W}:${THUMB_H}" \
             -frames:v 1 "$thumb" >/dev/null 2>&1 || continue
     fi
-    wp_map["$base"]="$wp"
-    entries+="${base}\0icon\x1f${thumb}\n"
+    label="${base%.*}"
+    wp_map["$label"]="$wp"
+    entries+="${label}\0icon\x1f${thumb}\n"
 done
 
-# --- LAUNCH ROFI ---------------------------------------------
+# --- LAUNCH ROFI (HyDE-style dynamic overrides) --------------
 selected=$(echo -en "$entries" | rofi -dmenu \
     -i -show-icons -no-custom \
     -theme "$ROFI_THEME" \
     -theme-str "
-        window { background-color: ${C_BASE}55; border-color: ${C_BORDER}; }
-        element selected { background-color: #ffffff18; }
-        element selected.normal { background-color: #ffffff18; }
+        window { background-color: ${C_BASE}cc; }
+        element { border-radius: ${elem_border}px; }
+        element-icon { border-radius: ${elem_border}px; }
     ")
 
 [[ -z "$selected" ]] && exit 0
 NEW_WP="${wp_map[$selected]}"
-[[ ! -f "$NEW_WP" ]] && exit 1
+[[ -z "$NEW_WP" || ! -f "$NEW_WP" ]] && exit 1
 
 # --- APPLY WALLPAPER -----------------------------------------
 ln -nsf "$NEW_WP" "$CURRENT_BG_LINK"

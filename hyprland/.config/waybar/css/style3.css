@@ -1,57 +1,47 @@
 /* =========================================================
    Cyber Pills - Waybar Style
    Designed by: Omarchy (Modified by Sami)
-   GitHub: https://github.com/drunk-particles/omarchy-dots.git
+   GitHub: https://github.com
    ========================================================= */
 
-   @import "colors.css";
+@import "colors.css";
 
 /* BASE */
-*{color:@foreground;border:none;border-radius:8px;font-family:'CaskaydiaMono Nerd Font','JetBrainsMono Nerd Font';font-size:12px;font-weight:600;transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
+*{color:@foreground;border:none;border-radius:8px;font-family:'CaskaydiaMono Nerd Font','JetBrainsMono Nerd Font';font-size:12px;font-weight:600;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
 window#waybar{background-color:transparent;}
 
 /* RESET MERGED MODULES */
-#cpu,#memory,#custom-cava,#custom-weather,#clock,#custom-updatespacman,
-#network,#bluetooth,#pulseaudio,#battery{
-  background:none;border:none;box-shadow:none;margin:0;padding:1px 10px;
-}
+#cpu,#memory,#custom-cava,#custom-weather,#clock,#custom-updatespacman,#network,#bluetooth,#pulseaudio,#battery{background:none;border:none;box-shadow:none;margin:0;padding:1px 10px;}
 
 /* MERGED PILLS */
-.modules-left,.modules-center,.modules-right{
-  background-color:@island-bg;border:1px solid @island-border;
-  border-radius:11px;margin:5px 4px;padding:0 4px;
+.modules-left,.modules-center,.modules-right{background-color:@island-bg;border:1px solid @island-border;border-radius:11px;margin:5px 4px;padding:0 4px;}
+
+/* STANDALONE PILLS */
+#custom-cava,#mpris,#custom-exit,#custom-omarchy,#tray,#backlight,#temperature{background-color:@island-bg;border:1px solid @island-border;border-radius:6px;margin:5px 4px;padding:1px 12px;}
+
+/* IDLE INDICATOR (FIXED) */
+#custom-idle-indicator {
+    color: @mauve;
+    background-color: @island-bg;
+    border: 1px solid @island-border;
+    border-radius: 6px;
+    margin: 5px 4px;
+    padding: 1px 12px;
 }
 
-/* STANDALONE #custom-omarchy,#mpris,#custom-cpucat,#custom-cava,#custom-exit */
-#custom-cava,#mpris,#custom-exit,#custom-omarchy{
-  background-color:@island-bg;border:1px solid @island-border;
-  border-radius:6px;margin:5px 4px;padding:1px 12px;
-}
+/* TRAY FIX */
+#tray{padding:1px 10px;}
+#tray menu{background-color:@mantle;border:1px solid @island-border;padding:5px;}
+#tray>.passive{-gtk-icon-effect:dim;}
+#tray>.needs-attention{-gtk-icon-effect:highlight;background-color:@red;}
 
 /* CAVA OVERRIDE */
-#custom-cava{
-  padding:8px 8px 0 8px;border:1px solid;border-style:hidden;
-  border-radius:8px;font-size:13px;
-}
+#custom-cava{padding:8px 8px 0 8px;border:1px solid;border-style:hidden;border-radius:8px;font-size:13px;}
 
 /* SCREEN RECORDING */
-#custom-screenrecording-indicator{
-  background-color:@island-bg;border:1px solid @island-border;
-  border-radius:5px;margin:5px 4px;padding:1px 14px;
-  color:alpha(@foreground,0.5);transition:all .6s ease;
-}
-#custom-screenrecording-indicator.recording,
-#custom-screenrecording-indicator.active{
-  color:#fff;background-color:rgba(40,10,10,.8);
-  
-  box-shadow:0 0 10px alpha(@mauve,.3),inset 0 0 8px alpha(@mauve,.2);
-  animation:liquid-pulse 3s infinite ease-in-out;
-}
-@keyframes liquid-pulse{
-  0%{border-color:alpha(@mauve,.3);box-shadow:0 0 5px alpha(@mauve,.2);}
-  50%{border-color:alpha(@mauve,.8);box-shadow:0 0 15px alpha(@mauve,.5);}
-  100%{border-color:alpha(@mauve,.3);box-shadow:0 0 5px alpha(@mauve,.2);}
-}
+#custom-screenrecording-indicator{background-color:@island-bg;border:1px solid @island-border;border-radius:5px;margin:5px 4px;padding:1px 14px;color:alpha(@foreground,0.5);transition:all .6s ease;}
+#custom-screenrecording-indicator.recording,#custom-screenrecording-indicator.active{color:#fff;background-color:rgba(40,10,10,.8);box-shadow:0 0 10px alpha(@mauve,.3),inset 0 0 8px alpha(@mauve,.2);animation:liquid-pulse 3s infinite ease-in-out;}
+@keyframes liquid-pulse{0%{border-color:alpha(@mauve,.3);box-shadow:0 0 5px alpha(@mauve,.2);}50%{border-color:alpha(@mauve,.8);box-shadow:0 0 15px alpha(@mauve,.5);}100%{border-color:alpha(@mauve,.3);box-shadow:0 0 5px alpha(@mauve,.2);}}
 
 /* COLORS */
 #clock{color:@mauve;}
@@ -63,29 +53,8 @@ window#waybar{background-color:transparent;}
 #mpris{color:@pink;font-style:italic;}
 
 /* WAYCAT */
-#custom-cpucat{
-  font-family:"Waycat";color:@teal;font-size:22px;
-  margin:5px -1px;background:@island-bg;
-  border:1px solid @island-border;border-radius:11px;
-  padding:1px 9px;animation:cat-breath 4s ease-in-out infinite;
-}
-@keyframes cat-breath{
-  0%{opacity:.7;}
-  50%{opacity:1;text-shadow:0 0 10px rgba(148,226,213,.5);}
-  100%{opacity:.7;}
-}
-
-/* TRAY */
-#tray-expander{
-  background-color:transparent;border:none;box-shadow:none;
-  opacity:0;transition:opacity .3s ease-in-out,background-color .3s ease;
-  margin:5px -10px 5px 4px;padding:1px 0;
-}
-window#waybar:hover #tray-expander,
-#tray-expander:hover{
-  opacity:.8;background-color:@island-bg;
-  border:1px solid @island-border;
-}
+#custom-cpucat{font-family:"Waycat";color:@teal;font-size:22px;margin:5px -1px;background:@island-bg;border:1px solid @island-border;border-radius:11px;padding:1px 9px;animation:cat-breath 4s ease-in-out infinite;}
+@keyframes cat-breath{0%{opacity:.7;}50%{opacity:1;text-shadow:0 0 10px rgba(148,226,213,.5);}100%{opacity:.7;}}
 
 /* WORKSPACES */
 #workspaces button{color:alpha(@lavender,.3);padding:0 6px;}
@@ -93,9 +62,7 @@ window#waybar:hover #tray-expander,
 
 /* WARNINGS */
 #cpu.warning,#memory.warning,#network.wifi.low,#battery.warning{color:@yellow;}
-#cpu.critical,#memory.critical,#battery.critical,#network.disconnected{
-  color:@red;background:rgba(237,135,150,.15);
-}
+#cpu.critical,#memory.critical,#battery.critical,#network.disconnected{color:@red;background:rgba(237,135,150,.15);}
 
 /* TOOLTIP */
 tooltip{background:@mantle;border:1px solid @island-border;border-radius:8px;}
