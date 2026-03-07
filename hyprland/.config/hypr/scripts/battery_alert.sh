@@ -17,7 +17,7 @@ trap "rm -f $FLAG_FILE" EXIT
 
 play_alert() {
     local sound_file="$1"
-    local target_vol="80%"
+    local target_vol="${2:-80%}"  # Default 80%, but allow override
     
     # Save current volume and mute state
     local original_vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk -F '/' '{print $2}' | head -n 1 | sed 's/[% ]//g')
@@ -47,7 +47,13 @@ process_event() {
             rm -f "$FLAG_FILE"
             CRITICAL_TRIGGERED=false
             LAST_NAG_CAPACITY=0
-            play_alert "$SOUND_DIR/power-charge.mp3" &
+            # Play plug-in sound quietly after midnight, normal volume during the day
+            current_hour=$(date +%H)
+            if [[ "$current_hour" -eq 0 ]]; then
+                play_alert "$SOUND_DIR/power-charge.mp3" "50%" &  # Quiet after midnight
+            else
+                play_alert "$SOUND_DIR/power-charge.mp3" "70%" &  # Normal volume during the day
+            fi
         elif [[ "$status" == "discharging" ]]; then
             notify-send -u normal "On Battery" "Power-saver active" -i battery-caution
             powerprofilesctl set power-saver 2>/dev/null

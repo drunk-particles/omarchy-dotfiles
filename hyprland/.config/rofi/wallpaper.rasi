@@ -1,84 +1,117 @@
 configuration {
-    show-icons:        true;
-    icon-theme:        "Papirus";
-    hover-select:      true;
-    me-select-entry:   "";
-    me-accept-entry:   "MousePrimary";
+    show-icons:                  true;
+    hover-select:                true;
+    me-select-entry:             "";
+    me-accept-entry:             "MousePrimary";
+    font:                        "JetBrainsMono Nerd Font 10";
 }
 
 * {
+    main-bg:          #1e1e2e55;
+    main-fg:          #cdd6f4ff;
+    select-bg:        #58586bff;
+    select-fg:        #cdd6f4ff;
     background-color: transparent;
-    text-color:       #cdd6f4;
-    font:             "JetBrainsMono Nerd Font 10";
+    text-color:       @main-fg;
 }
 
 window {
+    enabled:          true;
+    fullscreen:       false;
+    transparency:     "real";
+    cursor:           "default";
+    spacing:          0em;
+    padding:          0em;
+    border:           0em;
+    border-radius:    0em;
+    border-color:     transparent;
+    background-color: @main-bg;
     width:            100%;
-    location:         south;
-    anchor:           south;
-    background-color: #0d0d0dcc;
-    border:           0px;
-    border-radius:    0px;
+    location:         center;
+    anchor:           center;
+    x-offset:         0px;
+    y-offset:         200px;
 }
 
 mainbox {
-    children:  [ listview ];
-    padding:   16px 24px;
-    spacing:   0;
+    enabled:          true;
+    orientation:      horizontal;
+    children:         [ "dummy", "frame", "dummy" ];
+    padding:          30px 0px;
+    background-color: transparent;
+}
+
+frame {
+    children:         [ "listview" ];
+    background-color: transparent;
+}
+
+dummy {
+    width:            2em;
+    expand:           false;
+    background-color: transparent;
 }
 
 inputbar  { enabled: false; }
 scrollbar { enabled: false; }
 
 listview {
-    columns:       9;
-    lines:         1;
-    spacing:       12px;
-    padding:       0px;
-    fixed-columns: false;
-    fixed-height:  true;
-    dynamic:       false;
-    cycle:         true;
-    scrollbar:     false;
+    enabled:          true;
+    spacing:          5em;
+    padding:          2em 4em;
+    columns:          5;
+    lines:            1;
+    dynamic:          false;
+    fixed-height:     false;
+    fixed-columns:    false;
+    reverse:          false;
+    cursor:           "default";
+    background-color: transparent;
+    text-color:       @main-fg;
+    scrollbar:        false;
+    cycle:            true;
 }
 
 element {
-    orientation:      vertical;
+    enabled:          true;
+    spacing:          0em;
+    padding:          0em;
     cursor:           pointer;
-    padding:          8px 8px 6px 8px;
-    border-radius:    12px;
+    orientation:      vertical;
+    border-radius:    1em;
     background-color: transparent;
-    border:           0px;
-    border-color:     transparent;
+    text-color:       @main-fg;
 }
 
 element normal.normal,
 element alternate.normal {
     background-color: transparent;
-    border-color:     transparent;
 }
 
-element selected,
 element selected.normal,
 element selected.urgent,
 element selected.active {
-    background-color: #ffffff1a;
-    border:           0px;
-    border-color:     transparent;
+    background-color: @select-bg;
+    text-color:       @select-fg;
 }
 
 element-icon {
-    size:             160px;
+    cursor:           inherit;
+    size:             22em;
+    border-radius:    0em;
+    background-color: transparent;
+    text-color:       inherit;
+    expand:           false;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    border-radius:    10px;
 }
 
 element-text {
-    enabled:          true;
-    horizontal-align: 0.5;
     vertical-align:   0.5;
-    padding:          5px 0px 0px 0px;
-    text-color:       #cdd6f480;
+    horizontal-align: 0.5;
+    padding:          1em 0em 0em 0em;
+    cursor:           inherit;
+    background-color: transparent;
+    text-color:       @main-fg;
     font:             "JetBrainsMono Nerd Font 8";
 }

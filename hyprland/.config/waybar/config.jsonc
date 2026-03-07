@@ -123,7 +123,7 @@
 
   "custom/updatespacman": {
     "format": "{} {icon}",
-    "format-icons": { "has-updates": "🤓", "updated": " " },
+    "format-icons": { "has-updates": "👹", "updated": " " },
     "return-type": "json",
     "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300",
     "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update"
