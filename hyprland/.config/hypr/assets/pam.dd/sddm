@@ -1,0 +1,23 @@
+#%PAM-1.0
+#
+# SDDM PAM: Face (Howdy) first → Fingerprint (optional) → Password fallback
+# Includes system-login for full login handling (faillock, securetty, etc.)
+
+auth       sufficient   /lib/security/pam_howdy.so                # Face first (native module from howdy-git)
+auth     sufficient   pam_fprintd.so                           # Uncomment if adding fingerprint after face
+auth       sufficient   pam_unix.so try_first_pass likeauth nullok  # Password fallback
+
+# If all above fail, let system-login handle (or add pam_deny.so for strict deny)
+auth       include      system-login
+
+# Keyring unlock on success (for KDE Wallet / GNOME keyring)
+-auth      optional     pam_kwallet5.so
+
+account    include      system-login
+
+password   include      system-login
+
+session    optional     pam_keyinit.so          force revoke
+session    include      system-login
+-session   optional     pam_gnome_keyring.so    auto_start
+-session   optional     pam_kwallet5.so         auto_start
