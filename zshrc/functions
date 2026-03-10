@@ -11,15 +11,6 @@ zd() {
   fi
 }
 
-dots() {
-    local msg="${1:-sync: $(date)}"
-    cd ~/dots && \
-    git add . && \
-    git commit -m "$msg" && \
-    git push && \
-    cd -
-}
-
 open() { xdg-open "$@" >/dev/null 2>&1 & }
 cp2c() { [[ -z "$1" ]] && return 1; wl-copy < "$1"; }
 c2f() { [[ -z "$1" ]] && return 1; wl-paste > "$1"; }
