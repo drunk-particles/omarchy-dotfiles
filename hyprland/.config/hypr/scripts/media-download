@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$HOME/.config/hypr/scripts/lib/helpers.sh"
+source "$HOME/.config/hypr/assets/lib/helpers.sh"
 clear
 log_header "Media Downloader"
 

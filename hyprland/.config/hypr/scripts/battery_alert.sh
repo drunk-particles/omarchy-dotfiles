@@ -1,94 +1,109 @@
 #!/bin/bash
+# battery-monitor — UPower-based battery event daemon
+# Requires: upower, pactl, pw-play, notify-send, brightnessctl, powerprofilesctl
 
-# --- Configuration ---
-CRITICAL_LEVEL=5
-HIBERNATE_LEVEL=2
-SOUND_DIR="$HOME/Music/system"
-FLAG_FILE="/run/user/$UID/battery_alert_notified"
-BAT_DEV=$(upower -e | grep 'BAT' | head -n 1)
+# ── Configuration ────────────────────────────────────────────────────────────
+readonly CRITICAL_LEVEL=5        # % — begin nagging + dim screen
+readonly SOUND_DIR="$HOME/.config/hypr/assets/sounds"
+readonly FLAG_FILE="/run/user/$UID/battery_alert_notified"
+readonly BAT_DEV=$(upower -e | grep 'BAT' | head -n 1)
 
-# Persistent state variables
+# ── Runtime State ─────────────────────────────────────────────────────────────
 LAST_STATUS=""
 CRITICAL_TRIGGERED=false
-LAST_NAG_CAPACITY=0
+LAST_NAG_CAPACITY=100            # Start high so first drop triggers correctly
 
-# Cleanup flag on script exit
-trap "rm -f $FLAG_FILE" EXIT
+# ── Cleanup ───────────────────────────────────────────────────────────────────
+trap 'rm -f "$FLAG_FILE"' EXIT
 
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+# play_alert <sound_file> [volume%]
+# Temporarily unmutes + sets volume, plays sound, then restores prior state.
 play_alert() {
     local sound_file="$1"
-    local target_vol="${2:-80%}"  # Default 80%, but allow override
-    
-    # Save current volume and mute state
-    local original_vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk -F '/' '{print $2}' | head -n 1 | sed 's/[% ]//g')
-    local original_mute=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+    local target_vol="${2:-80%}"
 
-    # Alert state: Unmute and set to 80%
-    pactl set-sink-mute @DEFAULT_SINK@ 0
+    local original_vol original_mute
+    original_vol=$(pactl get-sink-volume @DEFAULT_SINK@ \
+        | awk -F '/' '{print $2}' | head -n 1 | tr -d '% ')
+    original_mute=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+
+    pactl set-sink-mute   @DEFAULT_SINK@ 0
     pactl set-sink-volume @DEFAULT_SINK@ "$target_vol"
-    
-    pw-play "$sound_file"
-    
-    # Restore original state
+
+    pw-play "$sound_file"   # blocking — restore happens only after it finishes
+
     pactl set-sink-volume @DEFAULT_SINK@ "${original_vol}%"
     [[ "$original_mute" == "yes" ]] && pactl set-sink-mute @DEFAULT_SINK@ 1
 }
 
-process_event() {
-    local battery_info=$(upower -i "$BAT_DEV")
-    local status=$(echo "$battery_info" | awk '/state/ {print $2}')
-    local capacity=$(echo "$battery_info" | awk '/percentage/ {print $2}' | tr -d '%')
+# quiet_vol — returns 50% between midnight–6 AM, 70% otherwise
+quiet_vol() {
+    local hour
+    hour=$(date +%H)
+    (( hour >= 0 && hour < 6 )) && echo "50%" || echo "70%"
+}
 
-    # 1. Plug/Unplug Instant Response
+# ── Core Event Handler ────────────────────────────────────────────────────────
+process_event() {
+    local battery_info status capacity
+    battery_info=$(upower -i "$BAT_DEV") || return
+    status=$(echo   "$battery_info" | awk '/state/      {print $2}')
+    capacity=$(echo "$battery_info" | awk '/percentage/ {print $2}' | tr -d '%')
+
+    # Guard: skip if data is missing or non-numeric
+    [[ -z "$status" || -z "$capacity" || ! "$capacity" =~ ^[0-9]+$ ]] && return
+
+    # ── 1. Plug / Unplug transition ──────────────────────────────────────────
     if [[ "$status" != "$LAST_STATUS" ]]; then
-        if [[ "$status" == "charging" ]]; then
-            notify-send -u normal "Power Connected" "Charging ($capacity%)" -i battery-charging
-            powerprofilesctl set balanced 2>/dev/null
-            rm -f "$FLAG_FILE"
-            CRITICAL_TRIGGERED=false
-            LAST_NAG_CAPACITY=0
-            # Play plug-in sound quietly after midnight, normal volume during the day
-            current_hour=$(date +%H)
-            if [[ "$current_hour" -eq 0 ]]; then
-                play_alert "$SOUND_DIR/power-charge.mp3" "50%" &  # Quiet after midnight
-            else
-                play_alert "$SOUND_DIR/power-charge.mp3" "70%" &  # Normal volume during the day
-            fi
-        elif [[ "$status" == "discharging" ]]; then
-            notify-send -u normal "On Battery" "Power-saver active" -i battery-caution
-            powerprofilesctl set power-saver 2>/dev/null
-        fi
+        case "$status" in
+            charging)
+                notify-send -u normal "Power Connected" "Charging (${capacity}%)" \
+                    -i battery-charging
+                powerprofilesctl set balanced 2>/dev/null
+                rm -f "$FLAG_FILE"
+                CRITICAL_TRIGGERED=false
+                LAST_NAG_CAPACITY=100
+                play_alert "$SOUND_DIR/charging.mp3" "$(quiet_vol)"
+                ;;
+            discharging)
+                notify-send -u normal "On Battery" "Power-saver active" \
+                    -i battery-caution
+                powerprofilesctl set power-saver 2>/dev/null
+                ;;
+        esac
         LAST_STATUS="$status"
     fi
 
-    # 2. Critical Nag Logic (Fires on every 1% drop)
-    if [[ "$status" == "discharging" ]]; then
-        if [[ "$capacity" -le "$CRITICAL_LEVEL" ]]; then
-            if [[ "$CRITICAL_TRIGGERED" == false ]] || [[ "$capacity" -lt "$LAST_NAG_CAPACITY" ]]; then
-                notify-send -u critical "CRITICAL: ${capacity}%" "Plug in now!" -i battery-empty
-                
-                # Only dim the screen the very first time it hits critical
-                if [[ "$CRITICAL_TRIGGERED" == false ]]; then
-                    brightnessctl set 10%
-                fi
-                
-                play_alert "$SOUND_DIR/low-battery.mp3" &
-                
-                CRITICAL_TRIGGERED=true
-                LAST_NAG_CAPACITY="$capacity"
-                touch "$FLAG_FILE"
-            fi
-        # 3. Hibernate Safety
-        elif [[ "$capacity" -le "$HIBERNATE_LEVEL" ]]; then
-            systemctl hibernate
+    # ── 2. Critical nag (discharging only) ───────────────────────────────────
+    [[ "$status" != "discharging" ]] && return
+
+    if (( capacity <= CRITICAL_LEVEL )); then
+        if [[ "$CRITICAL_TRIGGERED" == false ]] || (( capacity < LAST_NAG_CAPACITY )); then
+            notify-send -u critical "CRITICAL: ${capacity}%" "Plug in now!" \
+                -i battery-empty
+
+            # Dim screen only on the very first critical trigger
+            [[ "$CRITICAL_TRIGGERED" == false ]] && brightnessctl set 10%
+
+            play_alert "$SOUND_DIR/low-battery.mp3"
+
+            CRITICAL_TRIGGERED=true
+            LAST_NAG_CAPACITY=$capacity
+            touch "$FLAG_FILE"
         fi
     fi
 }
 
-# Run once at boot
-process_event
+# ── Entry Point ───────────────────────────────────────────────────────────────
+if [[ -z "$BAT_DEV" ]]; then
+    echo "battery-monitor: no battery device found via upower" >&2
+    exit 1
+fi
 
-# Monitor hardware events with zero-lag loop
-upower --monitor | while read -r line; do
+process_event   # Immediate check at startup
+
+upower --monitor | while read -r _line; do
     process_event
 done
