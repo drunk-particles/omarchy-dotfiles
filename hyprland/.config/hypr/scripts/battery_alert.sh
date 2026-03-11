@@ -65,7 +65,7 @@ process_event() {
                 rm -f "$FLAG_FILE"
                 CRITICAL_TRIGGERED=false
                 LAST_NAG_CAPACITY=100
-                play_alert "$SOUND_DIR/charging.mp3" "$(quiet_vol)"
+                play_alert "$SOUND_DIR/charging.wav" "$(quiet_vol)"
                 ;;
             discharging)
                 notify-send -u normal "On Battery" "Power-saver active" \
@@ -87,7 +87,7 @@ process_event() {
             # Dim screen only on the very first critical trigger
             [[ "$CRITICAL_TRIGGERED" == false ]] && brightnessctl set 10%
 
-            play_alert "$SOUND_DIR/low-battery.mp3"
+            play_alert "$SOUND_DIR/low-battery.wav"
 
             CRITICAL_TRIGGERED=true
             LAST_NAG_CAPACITY=$capacity

@@ -38,7 +38,7 @@ font_scale=10
 elm_width=$(( (22 + 8 + 5) * font_scale ))
 max_avail=$(( mon_x_res - (4 * font_scale) ))
 col_count=$(( max_avail / elm_width ))
-col_count=5
+col_count=3
 
 mkdir -p "$CACHE_DIR"
 
