@@ -29,4 +29,4 @@ omarchy-restart-waybar
 # 5. Notify via MAKO
 # Strips the .css extension for a cleaner notification title
 THEME_DISPLAY="${SELECTED_STYLE%.css}"
-notify-send -a "Waybar" "Waybar Theme 🌸" "Switched to: <b>$THEME_DISPLAY</b>" -t 2500 -i preferences-desktop-theme
+notify-send -a "Waybar" "Waybar Theme" "<i>$THEME_DISPLAY</i>" -t 2500 -i preferences-desktop-theme
