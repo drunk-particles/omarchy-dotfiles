@@ -68,12 +68,14 @@ selected=$(echo -en "$entries" | rofi -dmenu -i -show-icons -no-custom -theme "$
 NEW_WP="${wp_map[$selected]}"
 [[ ! -f "$NEW_WP" ]] && exit 1
 
-# --- MP4 CONVERSION ------------------------------------------
+# --- REFINED MP4 CONVERSION ----------------------------------
 if [[ "$NEW_WP" == *.mp4 || "$NEW_WP" == *.MP4 ]]; then
     CONVERTED_GIF="$CACHE_DIR/$(basename "$NEW_WP").gif"
     if [[ ! -f "$CONVERTED_GIF" ]]; then
-        notify-send "Wallpaper Picker" "Converting MP4..."
-        ffmpeg -i "$NEW_WP" -vf "fps=24,scale=1920:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" "$CONVERTED_GIF" >/dev/null 2>&1
+        notify-send "Wallpaper Picker" "Optimizing Live Wallpaper..."
+        
+        # This filters for quality, sets 24fps, and crops to 16:9 center automatically
+        ffmpeg -i "$NEW_WP" -vf "fps=24,scale=1920:-1:flags=lanczos,crop=1920:1080,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=sierra2_4a" "$CONVERTED_GIF" >/dev/null 2>&1
     fi
     TARGET_WP="$CONVERTED_GIF"
 else

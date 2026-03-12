@@ -12,9 +12,9 @@ configuration {
 }
 
 window {
-    width:            820px;
+    width:            810px;
     background-color: #1e1e2e55;
-    border:           3px;
+    border:           4px;
     border-color:     #45475a;
     border-radius:    14px;
     location:         center;
