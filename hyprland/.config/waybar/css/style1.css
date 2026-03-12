@@ -166,6 +166,15 @@ window#waybar {
   color: @teal;
 }
 
+#custom-voxtype {
+    font-size: 17px;
+    padding: 0 10px;
+}
+
+#bluetooth {
+    font-size: 15px;
+}
+
 /* Recording pulse */
 #custom-screenrecording-indicator.recording {
   background: rgba(237, 135, 150, 0.2);
