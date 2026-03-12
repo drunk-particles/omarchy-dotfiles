@@ -17,6 +17,7 @@
 
   "modules-center": [
     //"custom/idle-indicator",
+    "custom/voxtype",
     "custom/weather",
     "custom/cava",
     "clock",
@@ -37,7 +38,7 @@
   ],
 
   // ────────────────────────────────────────────────
-  // Left modules
+  // LEFT MODULES
   // ────────────────────────────────────────────────
 
   "custom/omarchy": {
@@ -49,7 +50,7 @@
 
   "cpu": {
     "interval": 5,
-    "format": "{usage}% 󰍛",
+    "format": "{usage}%   ",
     "on-click": "timeout 20s omarchy-launch-floating-terminal-with-presentation btop",
     "states": { "warning": 70, "critical": 90 },
     "tooltip": false
@@ -86,16 +87,30 @@
     "tooltip": false
   },
 
-  "custom/cava": {
-    "format": "{}",
-    "exec": "~/.config/waybar/scripts/cava.py",
+  "custom/screenrecording-indicator": {
+    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
+    "signal": 8,
     "return-type": "json",
-    "hide-empty-text": true
+    "on-click": "omarchy-cmd-screenrecord"
   },
 
   // ────────────────────────────────────────────────
-  // Center modules
+  // CENTER MODULES
   // ────────────────────────────────────────────────
+
+  "custom/voxtype": {
+    "exec": "omarchy-voxtype-status",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "idle": "",
+      "recording": "",
+      "transcribing": "  "
+    },
+    "tooltip": true,
+    "on-click-right": "omarchy-voxtype-config",
+    "on-click": "omarchy-voxtype-model"
+  },
 
   "custom/weather": {
     "format": "{}°",
@@ -103,6 +118,13 @@
     "return-type": "json",
     "interval": 60,
     "tooltip": false
+  },
+
+  "custom/cava": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/cava.py",
+    "return-type": "json",
+    "hide-empty-text": true
   },
 
   "clock": {
@@ -130,13 +152,8 @@
   },
 
   // ────────────────────────────────────────────────
-  // Right modules + group
+  // RIGHT MODULES & GROUPS
   // ────────────────────────────────────────────────
-    
-  "custom/cpucat": {
-    "format": "{}",
-    "exec": "~/.config/waybar/scripts/catloop.sh"
-},
 
   "group/tray-expander": {
     "orientation": "inherit",
@@ -144,30 +161,37 @@
       "transition-duration": 600,
       "children-class": "tray-group-item"
     },
-    "modules": ["custom/expand-icon", "backlight", "custom/idle-indicator", "temperature", "custom/notification-silencing-indicator", "tray"]
+    "modules": [
+      "custom/expand-icon",
+      "backlight",
+      "custom/idle-indicator",
+      "temperature",
+      "custom/notification-silencing-indicator",
+      "tray"
+    ]
   },
+
   "custom/expand-icon": {
     "format": "•",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
+    "tooltip": false
   },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent} {icon}",
+    "format-icons": ["🌑", "🌒", "🌓", "🌔", "🌕"],
+    "min-length": 5,
+    "tooltip": false
+  },
+
   "custom/idle-indicator": {
     "on-click": "omarchy-toggle-idle",
     "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
     "signal": 9,
     "return-type": "json"
   },
-    "backlight": {
-    "device": "intel_backlight",
-    "format": "{percent} {icon}",
-    "format-icons": ["🌑", "🌒", "🌓", "🌔", "🌕"],   
-    "min-length": 5,
-    "tooltip": false
-  },
-    "temperature": {
+
+  "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon6/temp1_input",
     "format": "{temperatureC}°C",
     "format-critical": " {temperatureC}°C",
@@ -175,45 +199,24 @@
     "interval": 5,
     "tooltip": false
   },
+
   "custom/notification-silencing-indicator": {
     "on-click": "omarchy-toggle-notification-silencing",
     "exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
     "signal": 10,
     "return-type": "json"
   },
-  "custom/voxtype": {
-    "exec": "omarchy-voxtype-status",
-    "return-type": "json",
-    "format": "{icon}",
-    "format-icons": {
-      "idle": "",
-      "recording": "󰍬",
-      "transcribing": "󰔟"
-    },
-    "tooltip": true,
-    "on-click-right": "omarchy-voxtype-config",
-    "on-click": "omarchy-voxtype-model"
-  },
+
   "tray": {
     "icon-size": 12,
     "spacing": 17
   },
 
-"custom/mako-history": {
-    "format": "   {}", 
-    "exec": "~/.config/waybar/scripts/mako-history.sh",
-    "return-type": "json",
-    "interval": 2,
-    "on-click": "makoctl restore",
-    "on-click-right": "makoctl dismiss -a",
-    "tooltip": true
-},
-
   "network": {
     "format": "{icon}",
-    "format-wifi": "  {frequency}", //|  {bandwidthDownBits}  {bandwidthUpBits}",
-    "format-ethernet": "{ifname} 󰀂",
-    "format-disconnected": "󰖪",
+    "format-wifi": "  {frequency}",
+    "format-ethernet": "{ifname}   ",
+    "format-disconnected": "  ",
     "tooltip-format-wifi": "{essid} {signalStrength}% |  {bandwidthDownBits}  {bandwidthUpBits}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "interval": 3,
@@ -221,14 +224,25 @@
   },
 
   "bluetooth": {
-    "format": "",
-    "format-connected": "󰂱",
-    "format-disabled": "󰂲",
+    "format": "  ",
+    "format-connected": "  ",
+    "format-disabled": "  ",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected-battery": "{device_alias} {device_battery_percentage}%",
     "tooltip-format-enumerate-connected": "{device_alias}",
     "on-click": "rfkill toggle bluetooth",
     "on-click-right": "timeout 15s omarchy-launch-floating-terminal-with-presentation bluetui"
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": " Muted",
+    "on-click": "pamixer --default-source -t",
+    "on-scroll-up": "pamixer --default-source --increase 5",
+    "on-scroll-down": "pamixer --default-source --decrease 5",
+    "scroll-step": 5,
+    "tooltip": false
   },
 
   "pulseaudio": {
@@ -242,26 +256,15 @@
     "tooltip": false
   },
 
-"pulseaudio#microphone": {
-    "format": "{format_source}",
-    "format-source": " {volume}%",
-    "format-source-muted": " Muted",
-    "on-click": "pamixer --default-source -t",
-    "on-scroll-up": "pamixer --default-source --increase 5",
-    "on-scroll-down": "pamixer --default-source --decrease 5",
-    "scroll-step": 5,
-    "tooltip": false
-},
-
   "battery": {
     "format": "{capacity}% {icon}",
     "format-charging": "{icon} {capacity}%",
     "format-plugged": " {capacity}",
     "format-icons": {
       "charging": ["⚡"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+      "default": ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "]
     },
-    "format-full": "󰂅",
+    "format-full": "  ",
     "states": { "warning": 20, "critical": 10 },
     "interval": 5,
     "on-click": "omarchy-menu power"
@@ -273,10 +276,22 @@
     "tooltip": false
   },
 
-  "custom/screenrecording-indicator": {
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
-    "signal": 8,
+  // ────────────────────────────────────────────────
+  // UNUSED / EXTRA MODULES
+  // ────────────────────────────────────────────────
+
+  "custom/cpucat": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/catloop.sh"
+  },
+
+  "custom/mako-history": {
+    "format": "   {}", 
+    "exec": "~/.config/waybar/scripts/mako-history.sh",
     "return-type": "json",
-    "on-click": "omarchy-cmd-screenrecord"
+    "interval": 2,
+    "on-click": "makoctl restore",
+    "on-click-right": "makoctl dismiss -a",
+    "tooltip": true
   }
 }

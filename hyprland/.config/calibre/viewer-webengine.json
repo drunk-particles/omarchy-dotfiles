@@ -2,15 +2,15 @@
   "auto_update_lookup": true,
   "geometry-of-main_window_geometry": {
     "frame_geometry": {
-      "height": 720,
-      "width": 1280,
+      "height": 642,
+      "width": 695,
       "x": 0,
       "y": 0
     },
-    "full_screened": true,
+    "full_screened": false,
     "geometry": {
-      "height": 720,
-      "width": 1280,
+      "height": 642,
+      "width": 695,
       "x": 0,
       "y": 0
     },
@@ -23,7 +23,7 @@
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAK2AAACgQAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAArYAAAKBAAAAAAAAAAAAAAK2AAACgQAAAAACAAAABQAAAAAAAAAAAAAAArYAAAKB"
     },
     "screen": {
       "depth": 32,
@@ -62,7 +62,7 @@
   "lookup_location": "Google search",
   "main_window_state": {
     "__class__": "bytearray",
-    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAEOAAAC0PwCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAAAAAC0AAAAIUA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAAAAAALQAAAAkQD///8AAAABAAABDgAAAtD8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsCAAAAAAAAAAAAAAUAAAAC0PsAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAAAAAC0AAAAOIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAAAAALQAAAAEQD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAAAAAC0AAAAMwA////AAAFAAAAAtAAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAAAAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHICAAAAAP////8AAAAAAAAAAA=="
+    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAEOAAAC0PwCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAAAAAC0AAAAIUA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAAAAAALQAAAAkQD///8AAAABAAABDgAAAtD8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsCAAAAAAAAAAAAAAUAAAAC0PsAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAAAAAC0AAAAOIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAAAAALQAAAAEQD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAAAAAC0AAAAMwA////AAACtwAAAoIAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAAAAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHICAAAAAP////8AAAAAAAAAAA=="
   },
   "old_prefs_migrated": true,
   "saved-search-settings": {
@@ -130,7 +130,7 @@
         ],
         "key": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
         "pathtoebook": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
-        "timestamp": "2026-03-12T05:57:25.477Z",
+        "timestamp": "2026-03-12T11:54:00.798Z",
         "title": "I Shall Seal the Heavens"
       },
       {
