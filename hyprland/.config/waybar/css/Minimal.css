@@ -175,6 +175,10 @@ window#waybar {
     font-size: 15px;
 }
 
+#cpu {
+    font-size: 14px;
+}
+
 /* Recording pulse */
 #custom-screenrecording-indicator.recording {
   background: rgba(237, 135, 150, 0.2);
