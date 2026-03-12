@@ -1,24 +1,32 @@
 #!/bin/bash
 
-# Updated path to point to your new subfolder
-STYLE_DIR="$HOME/.config/waybar/css"
-# The main directory where waybar looks for style.css
+# Config paths for Omarchy
 WAYBAR_DIR="$HOME/.config/waybar"
-
-STYLES=("style1.css" "style2.css" "style3.css")
+STYLE_DIR="$WAYBAR_DIR/css"
 STATE_FILE="/tmp/waybar_style_state"
 
-# Read current state (index), default to 0
-CUR_INDEX=$(cat "$STATE_FILE" 2>/dev/null || echo 0)
+# 1. Detect all styles in your css subfolder
+STYLES=($(ls "$STYLE_DIR"/*.css 2>/dev/null | xargs -n 1 basename))
 
-# Calculate next index (0, 1, 2)
-NEXT_INDEX=$(( (CUR_INDEX + 1) % 3 ))
+if [ ${#STYLES[@]} -eq 0 ]; then
+    notify-send -a "System" "Waybar Error" "No CSS files found in $STYLE_DIR" -u critical
+    exit 1
+fi
 
-# Link the selected style from the /css folder to the main waybar folder
-ln -sf "$STYLE_DIR/${STYLES[$NEXT_INDEX]}" "$WAYBAR_DIR/style.css"
+# 2. Get current state and cycle to the next style
+CUR_INDEX=$(cat "$STATE_FILE" 2>/dev/null)
+[[ "$CUR_INDEX" =~ ^[0-9]+$ ]] || CUR_INDEX=0
+NEXT_INDEX=$(( (CUR_INDEX + 1) % ${#STYLES[@]} ))
+SELECTED_STYLE="${STYLES[$NEXT_INDEX]}"
 
-# Save new state
+# 3. Apply the new style via symlink
+ln -sf "$STYLE_DIR/$SELECTED_STYLE" "$WAYBAR_DIR/style.css"
 echo "$NEXT_INDEX" > "$STATE_FILE"
 
-# Restart Waybar
+# 4. Restart Waybar (The Omarchy way)
 omarchy-restart-waybar
+
+# 5. Notify via MAKO
+# Strips the .css extension for a cleaner notification title
+THEME_DISPLAY="${SELECTED_STYLE%.css}"
+notify-send -a "Waybar" "Waybar Theme 🌸" "Switched to: <b>$THEME_DISPLAY</b>" -t 2500 -i preferences-desktop-theme

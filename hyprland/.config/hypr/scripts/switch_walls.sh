@@ -100,3 +100,8 @@ setsid uwsm-app -- swww img "$CURRENT_BG_LINK" \
 disown
 
 command -v wallust >/dev/null 2>&1 && wallust run "$NEW_WP" || true
+
+# --- NOTIFY --------------------------------------------------
+WP_NAME=$(basename "${NEW_WP%.*}")
+THUMB_NOTIFY="$CACHE_DIR/$(basename "$NEW_WP").sqre.png"
+notify-send -i "$THUMB_NOTIFY" "$THEME_NAME" "$WP_NAME"
