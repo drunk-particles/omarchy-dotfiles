@@ -50,7 +50,7 @@
 
   "cpu": {
     "interval": 5,
-    "format": "{usage}%   ",
+    "format": "{usage}% 󰍛",
     "on-click": "timeout 20s omarchy-launch-floating-terminal-with-presentation btop",
     "states": { "warning": 70, "critical": 90 },
     "tooltip": false
@@ -105,7 +105,7 @@
     "format-icons": {
       "idle": "",
       "recording": "",
-      "transcribing": "  "
+      "transcribing": "󰔟"
     },
     "tooltip": true,
     "on-click-right": "omarchy-voxtype-config",
@@ -224,9 +224,9 @@
   },
 
   "bluetooth": {
-    "format": "  ",
-    "format-connected": "  ",
-    "format-disabled": "  ",
+    "format": "󰂯",
+    "format-connected": "󰂱",
+    "format-disabled": "󰂲",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected-battery": "{device_alias} {device_battery_percentage}%",
     "tooltip-format-enumerate-connected": "{device_alias}",
