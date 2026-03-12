@@ -262,9 +262,9 @@
     "format-plugged": " {capacity}",
     "format-icons": {
       "charging": ["⚡"],
-      "default": ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "]
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
-    "format-full": "  ",
+    "format-full": "󰂅",
     "states": { "warning": 20, "critical": 10 },
     "interval": 5,
     "on-click": "omarchy-menu power"
