@@ -214,9 +214,9 @@
 
   "network": {
     "format": "{icon}",
-    "format-wifi": "  {frequency}",
-    "format-ethernet": "{ifname}   ",
-    "format-disconnected": "  ",
+    "format-wifi": "  {frequency}", //|  {bandwidthDownBits}  {bandwidthUpBits}",
+    "format-ethernet": "{ifname} 󰀂",
+    "format-disconnected": "󰖪",
     "tooltip-format-wifi": "{essid} {signalStrength}% |  {bandwidthDownBits}  {bandwidthUpBits}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "interval": 3,

@@ -2,6 +2,7 @@
   "notified-version-updates": {
     "__class__": "set",
     "__value__": [
+      "9.5",
       "9.4",
       "9.3"
     ]
