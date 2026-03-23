@@ -176,7 +176,11 @@ window#waybar {
 }
 
 #network {
-    font-size: 14px;
+    font-size: 12px;
+}
+
+#custom-omarchy {
+  font-size: 13px;
 }
 
 /* Recording pulse */
