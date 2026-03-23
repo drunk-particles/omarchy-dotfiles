@@ -118,28 +118,28 @@
   ],
   "geometry-of-calibre_main_window_geometry": {
     "frame_geometry": {
-      "height": 642,
+      "height": 671,
       "width": 567,
       "x": 0,
       "y": 0
     },
     "full_screened": false,
     "geometry": {
-      "height": 642,
+      "height": 671,
       "width": 567,
       "x": 0,
       "y": 0
     },
     "maximized": true,
     "normal_geometry": {
-      "height": 642,
-      "width": 695,
+      "height": 671,
+      "width": 1272,
       "x": 0,
       "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAAAjYAAAKBAAAAAAAAAAAAAAK2AAACgQAAAAACAAAABQAAAAAAAAAAAAAAAjYAAAKB"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAAjYAAAKeAAAAAAAAAAAAAAT3AAACngAAAAACAAAABQAAAAAAAAAAAAAAAjYAAAKe"
     },
     "screen": {
       "depth": 32,
@@ -191,6 +191,57 @@
     "qt": {
       "__class__": "bytearray",
       "__value__": "AdnQywADAAAAAAAAAAAAAAAAAhMAAAF5AAAAAAAAAAAAAAITAAABeQAAAAACAAAABQAAAAAAAAAAAAAAAhMAAAF5"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 720,
+        "width": 1280,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "AU Optronics",
+      "model": "0x323D",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 720,
+        "width": 1280
+      },
+      "virtual_geometry": {
+        "height": 720,
+        "width": 1280,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-quickview_dialog_geometry": {
+    "frame_geometry": {
+      "height": 671,
+      "width": 695,
+      "x": 92,
+      "y": 188
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 671,
+      "width": 695,
+      "x": 92,
+      "y": 188
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 671,
+      "width": 695,
+      "x": 92,
+      "y": 188
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAABcAAAAvAAAAxIAAANaAAAAXAAAALwAAAMSAAADWgAAAAACAAAABQAAAABcAAAAvAAAAxIAAANa"
     },
     "screen": {
       "depth": 32,
@@ -322,7 +373,7 @@
   },
   "grid view visible": false,
   "library_usage_stats": {
-    "/home/pseudo/Calibre Library": 212
+    "/home/pseudo/Calibre Library": 226
   },
   "main_window_central_widget_state": {
     "layout": "wide",
@@ -354,6 +405,11 @@
     }
   },
   "quick_start_guide_added": true,
+  "quickview_dialog_books_table_widths": [
+    267,
+    267,
+    267
+  ],
   "qv_open_at_shutdown": false,
   "search bar visible": true,
   "tag browser search box visible": false

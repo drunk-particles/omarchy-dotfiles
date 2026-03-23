@@ -16,14 +16,14 @@
     },
     "maximized": true,
     "normal_geometry": {
-      "height": 640,
-      "width": 693,
+      "height": 665,
+      "width": 695,
       "x": 0,
       "y": 0
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAK0AAACfwAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAABP8AAALPAAAAAAAAAAAAAAK2AAACmAAAAAACBAAABQAAAAAAAAAAAAAABP8AAALP"
     },
     "screen": {
       "depth": 32,
@@ -72,14 +72,27 @@
     }
   },
   "session_data": {
-    "background_image": "clbr://internal.invalid/reader-background-63616c696272652e6a7067",
-    "base_font_size": 31,
+    "base_font_size": 29,
     "columns_per_screen": {
       "landscape": 2,
       "portrait": 0
     },
     "controls_help_shown_count": 2,
-    "current_color_scheme": "*Creamy",
+    "current_color_scheme": "*adnan",
+    "gesture_overrides": {
+      "common": {
+        "pinch_in": "none",
+        "pinch_out": "none"
+      },
+      "paged_mode": {
+        "flick_block_backward": "none",
+        "flick_block_forward": "none",
+        "flick_inline_backward": "none",
+        "flick_inline_forward": "none",
+        "swipe_inline_backward_hold": "none",
+        "swipe_inline_forward_hold": "none"
+      }
+    },
     "keyboard_shortcuts": {
       "show_profiles": [
         {
@@ -130,7 +143,7 @@
         ],
         "key": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
         "pathtoebook": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
-        "timestamp": "2026-03-18T13:04:26.229Z",
+        "timestamp": "2026-03-23T05:12:25.506Z",
         "title": "I Shall Seal the Heavens"
       },
       {
@@ -144,12 +157,6 @@
       }
     ],
     "user_color_schemes": {
-      "*Creamy": {
-        "background": "#f4ecd8",
-        "foreground": "#333333",
-        "is_dark_theme": false,
-        "name": "Creamy"
-      },
       "*adnan": {
         "background": "#000000",
         "foreground": "#878787",
