@@ -132,13 +132,13 @@ window#waybar {
   color: @foreground;
 }
 
-#mpris            { color: @pink; }
+#mpris            { color: @foreground; }
 #mpris.spotify    { color: @teal; }
 #mpris.chromium,
 #mpris.chrome,
 #mpris.brave,
 #mpris.brave-browser,
-#mpris.default    { color: @red; }
+#mpris.default    { color: @foreground; }
 
 #custom-cpucat {
   font-family: "Waycat";

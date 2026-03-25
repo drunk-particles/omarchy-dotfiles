@@ -79,7 +79,7 @@
       "portrait": 0
     },
     "controls_help_shown_count": 2,
-    "current_color_scheme": "*Creamy",
+    "current_color_scheme": "sepia-light",
     "keyboard_shortcuts": {
       "show_profiles": [
         {
@@ -130,7 +130,7 @@
         ],
         "key": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
         "pathtoebook": "/home/pseudo/Calibre Library/Er Gen/I Shall Seal the Heavens (6)/I Shall Seal the Heavens - Er Gen.epub",
-        "timestamp": "2026-03-23T10:51:31.201Z",
+        "timestamp": "2026-03-24T00:15:13.673Z",
         "title": "I Shall Seal the Heavens"
       },
       {
@@ -144,12 +144,6 @@
       }
     ],
     "user_color_schemes": {
-      "*Creamy": {
-        "background": "#f4ecd8",
-        "foreground": "#333333",
-        "is_dark_theme": false,
-        "name": "Creamy"
-      },
       "*adnan": {
         "background": "#000000",
         "foreground": "#878787",

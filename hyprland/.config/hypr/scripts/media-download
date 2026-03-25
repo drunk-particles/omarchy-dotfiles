@@ -44,7 +44,7 @@ while true; do
   fi
 
   # Set dirs
-  video_dir="$HOME/Videos/Downloaded Videos"
+  video_dir="$HOME/Videos/Downloaded Videos/Youtube Videos"
   audio_dir="$HOME/Music"
   mkdir -p "$video_dir" "$audio_dir"
 
