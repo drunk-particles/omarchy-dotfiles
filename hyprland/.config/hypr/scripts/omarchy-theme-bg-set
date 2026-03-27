@@ -13,8 +13,8 @@ CURRENT_BACKGROUND_LINK="$HOME/.config/omarchy/current/background"
 # Create symlink to the new background
 ln -nsf "$BACKGROUND" "$CURRENT_BACKGROUND_LINK"
 
-# Kill existing swww and start new one
-pkill -x swww
-setsid uwsm-app -- swww img "$CURRENT_BACKGROUND_LINK" \
+# Kill existing awww and start new one
+pkill -x awww
+setsid uwsm-app -- awww img "$CURRENT_BACKGROUND_LINK" \
     --transition-type grow --transition-pos "$(hyprctl cursorpos)" \
     --transition-fps 120 --transition-duration 1.2 --resize crop &

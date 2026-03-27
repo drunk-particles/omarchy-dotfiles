@@ -85,13 +85,13 @@ fi
 # --- APPLY ---------------------------------------------------
 ln -nsf "$TARGET_WP" "$CURRENT_BG_LINK"
 
-if ! pgrep -x swww-daemon >/dev/null 2>&1; then
-    uwsm-app -- swww-daemon &
+if ! pgrep -x awww-daemon >/dev/null 2>&1; then
+    uwsm-app -- awww-daemon &
     sleep 0.3
 fi
 
 # Transition duration set to 1.2s for a snappier feel
-setsid uwsm-app -- swww img "$CURRENT_BG_LINK" \
+setsid uwsm-app -- awww img "$CURRENT_BG_LINK" \
     --transition-type grow \
     --transition-pos "$(hyprctl cursorpos | grep -E '^[0-9]' || echo '0,0')" \
     --transition-fps 120 \
